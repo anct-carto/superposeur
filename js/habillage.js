@@ -1,6 +1,6 @@
 // cercles DROM
 const cercles_drom = 'data/cercles_drom.geojson';
-fetch(cercles_drom, {method: 'post'})
+fetch(cercles_drom, {method: 'get'})
 .then(response => response.json())
 .then(data => {
   L.geoJSON(data, {
@@ -12,3 +12,4 @@ fetch(cercles_drom, {method: 'post'})
     }
   }).addTo(mymap)
 });
+ 
