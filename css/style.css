@@ -1,15 +1,62 @@
 body {
 	padding: 0;
 	margin:0;
-	}
+}
 
 html, body, #mapid {
+	display: block;
   height: 100%;
 	font-family: 'Asap', sans-serif;
 	color: #c8c8d2;
 }
 
-#cat-zonages {
+.sidebar-bottom {
+	display: inline-block;
+	bottom: 0px
+}
+
+button {
+	padding: 15px;
+	background-color: #005DA3;
+	border: none;
+	width: auto;
+	display: inline-block;
+	text-align: center;
+}
+
+button:hover {
+	background-color: grey;
+	transition-duration: 0.4s;
+}
+
+#sidebar {
+	position: absolute;
+	justify-content: space-between;
+	background-color: #005DA3;
+	width: 70px;
+	height: 100%;
+	z-index: 500
+}
+
+.sidebar-top {
+	top: 50px
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-bottom {
+	position: absolute;
+}
+
+#search-window {
+	height: 100px;
+	width: 200px;
+	display: none
+}
+/* #cat-zonages {
 	width: 200px;
 	padding: 10px;
 	z-index: 1000;
@@ -18,8 +65,4 @@ html, body, #mapid {
 	top: 0;
 	left: 0;
 	background: #fff
-}
-
-.leaflet-tooltip {
-	background-color: 'black'
-}
+} */

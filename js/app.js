@@ -9,11 +9,12 @@ var zrrPath = 'data/zrr.geojson';
 var zrrBox = document.getElementsByName("zrr");
 
 var communes, id = 0
+// ajax sur les communes
 communes = fetch(communesPath) // appel au fichier ...
   .then(res => res.json()) // ... écoute de la réponse ...
   .then(res => {
-    var data = res;
-    console.log(res); // objet json récupéré  ..
+    var data = res; // objet json récupéré  ..
+    console.log(res);
 
     // ... qu'on met comme argument dans la création des tuiles vectorielles
     var gridCom = L.vectorGrid.slicer(res, {
@@ -45,7 +46,7 @@ communes = fetch(communesPath) // appel au fichier ...
       });
       mymap.flyTo(e.latlng,10,{
         animate:true,
-        duration:0.5
+        duration:2.5
       })
     }).addTo(mymap);
 
@@ -73,6 +74,7 @@ communes = fetch(communesPath) // appel au fichier ...
         animate:true,
         duration:1
       });
+
       // on récupère le nom de la commune sur laquelle passe la souris ...
       label = e.layer.properties.libgeo; // donne moi le nom de la commune
       // fout le dans un tooltip qui va s'afficher aux coordonnées de la commune
@@ -122,13 +124,19 @@ var qpvStyle = { weight: 0.8,
           fillOpacity: 0.5,
           fillColor:"#8c0000"};
 
-// ... pour le mettre dans une div
-// var tooltipWrap = document.createElement("div"); //creates div
-// tooltipWrap.className = 'tooltip'; //adds class
-// tooltipWrap.appendChild(document.createTextNode('<p>'+label+'</p>')); //add the text node to the newly created div.
-// // coordonnées du curseur de souris
-// var x = event.clientX;
-// var y = event.clientY;
-// console.log('coords',x,y);
-// tooltipWrap.setAttribute('style','left:'+x+'px;'+'top:'+y+'px');
-// console.log(tooltipWrap);
+///////////////// sidebar interaction //////////////////////////
+var search = document.getElementById('search')
+var searchWindow = document.getElementById('search-window')
+
+show(button,windows) => {
+  windows.style.display = 'block'
+}
+
+hide(button,windows) => {
+  windows.style.display = 'none'
+}
+
+search.addEventListener('click', function() {
+  console.log('bouton pressé');
+
+})
