@@ -1,0 +1,25 @@
+body {
+	padding: 0;
+	margin:0;
+	}
+
+html, body, #mapid {
+  height: 100%;
+	font-family: 'Asap', sans-serif;
+	color: #c8c8d2;
+}
+
+#cat-zonages {
+	width: 200px;
+	padding: 10px;
+	z-index: 1000;
+	color: "white";
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff
+}
+
+.leaflet-tooltip {
+	background-color: 'black'
+}
