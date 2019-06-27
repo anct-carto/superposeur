@@ -10,36 +10,34 @@ html, body, #mapid {
 	color: #c8c8d2;
 }
 
-.sidebar-bottom {
-	display: inline-block;
-	bottom: 0px
+#sideBar,#content {
+	position: absolute;
+	background-color: black;
+	width: 50px;
+	height: 100%;
+	z-index: 500;
+	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
+}
+
+#content {
+	background-color: #005DA3;
+}
+
+#searchBar {
+	display: none;
 }
 
 button {
+	width: 50px;
 	padding: 15px;
-	background-color: #005DA3;
 	border: none;
-	width: auto;
-	display: inline-block;
 	text-align: center;
+	cursor: pointer;
 }
 
 button:hover {
-	background-color: grey;
+	/* background-color: grey; */
 	transition-duration: 0.4s;
-}
-
-#sidebar {
-	position: absolute;
-	justify-content: space-between;
-	background-color: #005DA3;
-	width: 70px;
-	height: 100%;
-	z-index: 500
-}
-
-.sidebar-top {
-	top: 50px
 }
 
 ul {
@@ -47,15 +45,18 @@ ul {
   padding: 0;
 }
 
-.sidebar-bottom {
+.sideBar-bottom {
+	bottom: 0;
 	position: absolute;
 }
 
-#search-window {
-	height: 100px;
-	width: 200px;
-	display: none
-}
+/* #search-window, #layer-window {
+	position: absolute;
+	display: none;
+	background-color: red;
+	z-index: 600
+} */
+
 /* #cat-zonages {
 	width: 200px;
 	padding: 10px;

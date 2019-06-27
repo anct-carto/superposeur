@@ -50,6 +50,27 @@ communes = fetch(communesPath) // appel au fichier ...
       })
     }).addTo(mymap);
 
+    // bind tooltip
+    var label;
+    var tooltip;
+
+    function showTooltip() {
+      gridCom.on('mouseover', e => {
+        label = e.layer.properties.libgeo; // donne moi le nom de la commune
+        // fout le dans un tooltip qui va s'afficher aux coordonnées de la commune
+        tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
+                    .setContent(label)
+                    .setLatLng(e.latlng)
+                    .addTo(mymap);
+      });
+      gridCom.on('mouseout', e=> {
+        tooltip.remove();
+        clearHighlight();
+
+      })
+    };
+    showTooltip();
+
     // surligner les entités sur lesquelles passe la souris
     var highlight;
     var clearHighlight = function() {
@@ -59,9 +80,6 @@ communes = fetch(communesPath) // appel au fichier ...
         highlight = null;
       };
 
-    // bind tooltip
-    var label;
-    var tooltip;
 
     gridCom.addEventListener('mouseover', e => {
       clearHighlight();
@@ -76,16 +94,10 @@ communes = fetch(communesPath) // appel au fichier ...
       });
 
       // on récupère le nom de la commune sur laquelle passe la souris ...
-      label = e.layer.properties.libgeo; // donne moi le nom de la commune
-      // fout le dans un tooltip qui va s'afficher aux coordonnées de la commune
-      tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
-                  .setContent(label)
-                  .setLatLng(e.latlng)
-                  .addTo(mymap);
+
     });
 
     gridCom.addEventListener('mouseout', function() {
-      clearHighlight();
       // vire moi les tooltips bordel de merde
       tooltip.remove();
     });
@@ -125,18 +137,32 @@ var qpvStyle = { weight: 0.8,
           fillColor:"#8c0000"};
 
 ///////////////// sidebar interaction //////////////////////////
-var search = document.getElementById('search')
-var searchWindow = document.getElementById('search-window')
+// sidebar buttons
+var search = document.getElementById('search');
+var couches = document.getElementById('layer')
+var donwload = document.getElementById('download');
+var searchBar = document.getElementById('searchBar');
+var searchButton = document.getElementById('searchButton');
 
-show(button,windows) => {
-  windows.style.display = 'block'
-}
+// windows to toggle
+var content =  document.getElementById('content');
 
-hide(button,windows) => {
-  windows.style.display = 'none'
-}
+function show(button,windows) {
+  if (windows.style.width == '50px') {
+    windows.style.width = '450px';
+    windows.style.transition = "0.2s";
+    windows.style.opacity = '0.95'
 
-search.addEventListener('click', function() {
-  console.log('bouton pressé');
+  } else {
+    windows.style.width = '50px'
+  }};
 
-})
+// toggle on click
+search.addEventListener('mouseover', function() {
+  show(search,content);
+  searchBar.style.display = 'block'
+  searchBar.style.position = 'relative'
+});
+couches.addEventListener('click', function() {
+  show(couches,layerWindow);
+});

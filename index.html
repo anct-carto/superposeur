@@ -14,17 +14,25 @@
     <script type="text/javascript" src="lib/Leaflet.VectorGrid.min.js"></script>
   </head>
   <body>
-    <div id="sidebar">
-        <ul class="sidebar-top">
-          <li><button type="button" name="recherche" id = "search">Recherche</button></a></li>
-          <div id="search-window"></div>
-          <li><button type="button" name="couches" id="layer">couches</button></a></li>
-          <li><button type="button" name="download" id="download">téléchar</button></a></li>
+    <div id="sideBar">
+      <div id="content">
+        <ul class="sideBar-top">
+          <li><button class = "bouton" type="button" name="recherche" id = "search">R</button></a></li>
+          <div id="searchBar">
+            <form class="" method="get">
+              <input type="text" placeholder="Chercher une commune" id = "searchField"><input type="submit" name="" value="chercher" id = "searchButton">
+            </form>
+          </div>
+          <li><button class = "bouton" type="button" name="couches" id="layer">C</button></a></li>
+          <li><button class = "bouton" type="button" name="download" id="download">T</button></a></li>
         </ul>
-        <ul class="sidebar-bottom">
-          <li><button type="button" name="a propos">À propos</button></a></li>
-          <li><button type="button" name="download">GitHub</button></a></li>
+        <ul class="sideBar-bottom">
+          <li><button type="button" name="a propos">A</button></a></li>
+          <li><a href="https://github.com/cget-carto/superposeur" target="_blank"><button type="button" name="download">G</button></a></li>
         </ul>
+        <div id="search-window"></div>
+        <div id="layer-window"></div>
+      </div>
     </div>
     <div id="mapid"></div>
     <div id="cat-zonages">
