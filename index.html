@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Superposeur v0</title>
     <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/leaflet-search.min.css">
     <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -12,28 +13,28 @@
     <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script> -->
     <script type="text/javascript" src="lib/leaflet.js"></script>
     <script type="text/javascript" src="lib/Leaflet.VectorGrid.min.js"></script>
+    <script type="text/javascript" src="lib/leaflet-search.js"></script>
   </head>
   <body>
-    <div id="sideBar">
-      <div id="content">
-        <ul class="sideBar-top">
-          <li><button class = "bouton" type="button" name="recherche" id = "search">R</button></a></li>
-          <div id="searchBar">
-            <form class="" method="get">
-              <input type="text" placeholder="Chercher une commune" id = "searchField"><input type="submit" name="" value="chercher" id = "searchButton">
-            </form>
-          </div>
-          <li><button class = "bouton" type="button" name="couches" id="layer">C</button></a></li>
-          <li><button class = "bouton" type="button" name="download" id="download">T</button></a></li>
-        </ul>
-        <ul class="sideBar-bottom">
-          <li><button type="button" name="a propos">A</button></a></li>
-          <li><a href="https://github.com/cget-carto/superposeur" target="_blank"><button type="button" name="download">G</button></a></li>
-        </ul>
-        <div id="search-window"></div>
-        <div id="layer-window"></div>
-      </div>
+    <div id="searchBar">
+      <form id="searchBar" method="get">
+        <input type="text" placeholder="Rechercher une commune" id = "searchField"><input type="submit" name="" value="chercher" id = "searchButton">
+      </form>
     </div>
+    <div id="content">
+    </div>
+    <div id="sideBar">
+      <ul class="sideBar-top">
+        <li><button class = "bouton" type="button" name="recherche" id = "search">R</button></a></li>
+        <li><button class = "bouton" type="button" name="couches" id="layer">C</button></a></li>
+        <li><button class = "bouton" type="button" name="download" id="download">T</button></a></li>
+      </ul>
+      <ul class="sideBar-bottom">
+        <li><button type="button" name="a propos">A</button></a></li>
+        <li><a href="https://github.com/cget-carto/superposeur" target="_blank"><button type="button" name="download">G</button></a></li>
+      </ul>
+    </ul>
+  </div>
     <div id="mapid"></div>
     <div id="cat-zonages">
       <label for="">Zonages</label><br>

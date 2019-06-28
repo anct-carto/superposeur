@@ -9,15 +9,27 @@ var zrrPath = 'data/zrr.geojson';
 var zrrBox = document.getElementsByName("zrr");
 
 var communes, id = 0
+var gridCom;
+var libCom;
+
 // ajax sur les communes
 communes = fetch(communesPath) // appel au fichier ...
   .then(res => res.json()) // ... écoute de la réponse ...
   .then(res => {
     var data = res; // objet json récupéré  ..
-    console.log(res);
-
+    var libCom;
+    for (var i = 0; i < res.length; i++) {
+      libCom = [res.features[i].properties.libgeo];
+    }
+    console.log(libCom);
+    // mymap.addControl(new L.Control.Search({
+    //   layer: L.geoJSON(res,{style:{opacity:0}}),
+    //   propertyName: 'libgeo',
+    //   marker: false,
+    // })
+  // );
     // ... qu'on met comme argument dans la création des tuiles vectorielles
-    var gridCom = L.vectorGrid.slicer(res, {
+    gridCom = L.vectorGrid.slicer(res, {
       rendererFactory: L.canvas.tile,
       vectorTileLayerStyles: {
         sliced: comStyle
@@ -50,6 +62,8 @@ communes = fetch(communesPath) // appel au fichier ...
       })
     }).addTo(mymap);
 
+
+
     // bind tooltip
     var label;
     var tooltip;
@@ -66,7 +80,6 @@ communes = fetch(communesPath) // appel au fichier ...
       gridCom.on('mouseout', e=> {
         tooltip.remove();
         clearHighlight();
-
       })
     };
     showTooltip();
@@ -101,6 +114,16 @@ communes = fetch(communesPath) // appel au fichier ...
       // vire moi les tooltips bordel de merde
       tooltip.remove();
     });
+
+    gridCom.on('mouseover', function(e) {
+      var layerCom = e.layer;
+      mymap.addControl(new L.Control.Search(
+        {layer:layerCom,
+        initial: false,
+  			propertyName: "libgeo",
+  			marker: false}
+      ));
+    })
   });
 
 //////////////////// FONCTIONS //////////////////////////////////
@@ -141,8 +164,6 @@ var qpvStyle = { weight: 0.8,
 var search = document.getElementById('search');
 var couches = document.getElementById('layer')
 var donwload = document.getElementById('download');
-var searchBar = document.getElementById('searchBar');
-var searchButton = document.getElementById('searchButton');
 
 // windows to toggle
 var content =  document.getElementById('content');
@@ -152,17 +173,14 @@ function show(button,windows) {
     windows.style.width = '450px';
     windows.style.transition = "0.2s";
     windows.style.opacity = '0.95'
-
   } else {
     windows.style.width = '50px'
   }};
 
 // toggle on click
-search.addEventListener('mouseover', function() {
+search.addEventListener('click', function() {
   show(search,content);
-  searchBar.style.display = 'block'
-  searchBar.style.position = 'relative'
 });
 couches.addEventListener('click', function() {
-  show(couches,layerWindow);
+  show(couches,content);
 });

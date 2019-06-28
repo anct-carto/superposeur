@@ -9,11 +9,18 @@ var mymap = L.map('mapid', {
 }).setView([46.5, -1.8], 6);
 mymap.zoomControl.setPosition('topright');
 
-
-// chargement fond esri
-
+// FOND
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
 }).addTo(mymap);
 
 mymap.createPane('parcelPane');
+
+// ECHELLE
+L.control.scale({position: 'bottomright'}).addTo(mymap);
+// setInterval(function(){
+//     mymap.setView([0, 0]);
+//     setTimeout(function(){
+//         mymap.setView([60, 0]);
+//     }, 2000);
+// }, 4000);
