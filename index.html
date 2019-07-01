@@ -5,7 +5,9 @@
     <title>Superposeur v0</title>
     <link rel="stylesheet" href="css/leaflet.css">
     <link rel="stylesheet" href="css/leaflet-search.min.css">
+    <link rel="stylesheet" href="css/awesomplete.css">
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="lib/turf.min.js"></script>
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
@@ -14,11 +16,13 @@
     <script type="text/javascript" src="lib/leaflet.js"></script>
     <script type="text/javascript" src="lib/Leaflet.VectorGrid.min.js"></script>
     <script type="text/javascript" src="lib/leaflet-search.js"></script>
+    <script type="text/javascript" src="lib/awesomplete.min.js"></script>
   </head>
   <body>
     <div id="searchBar">
       <form id="searchBar" method="get">
-        <input type="text" placeholder="Rechercher une commune" id = "searchField"><input type="submit" name="" value="chercher" id = "searchButton">
+        <input type="text" placeholder="Rechercher une commune" id = "searchField">
+        <input type="submit" name="" value="chercher" id = "searchButton">
       </form>
     </div>
     <div id="content">
@@ -43,8 +47,10 @@
       <input type="checkbox" id = "qpv"> QPV<br>
     </div>
     <!-- scripts -->
+    <script type="text/javascript" src= "js/ui.js"></script>
     <script type="text/javascript" src= "js/leaflet_settings.js"></script>
     <script type="text/javascript" src= "js/habillage.js"></script>
     <script type="text/javascript" src= "js/app.js"></script>
+    <script type="text/javascript" src= "js/recherche.js"></script>
   </body>
 </html>

@@ -20,6 +20,7 @@ html, body, #mapid {
 }
 
 #content {
+	width: 0px;
 	background-color: #005DA3;
 }
 
@@ -32,13 +33,35 @@ html, body, #mapid {
 	z-index: 1000;
 }
 
-#searchButton {
+#searchField {
 	border: none;
+	width: 160px;
+	height: 25px;
+	padding: 5px;
+	border-color: transparent;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5);
+	transition: width 0.3s ease-in-out;
+}
+
+#searchField:focus {
+	width: 230px
+}
+
+#searchButton {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background-color: orange;
+	border-color: transparent;
+	border: none;
+	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
 }
 
 #searchButton:hover {
 	transition-duration: 0.4s;
 	cursor: pointer;
+	background-color: red;
 }
 
 button {

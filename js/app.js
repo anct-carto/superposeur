@@ -1,6 +1,11 @@
-// communes
+/* Ce fichier fait partie du code source du superposeur de zonages
+Auteur : Hassen Chougar, Service Cartographie du CGET
+Données : Observatoire du Territoire, Service Cartographie */
+
+
+// url communes
 var communesPath = 'data/communes.geojson';
-// chargement fichiers de zonage
+// url fichiers de zonage
 var zruPath = 'data/zru.geojson';
 var zruBox = document.getElementById("zru");
 var qpvPath = 'data/qpv.geojson';
@@ -10,25 +15,14 @@ var zrrBox = document.getElementsByName("zrr");
 
 var communes, id = 0
 var gridCom;
-var libCom;
 
 // ajax sur les communes
 communes = fetch(communesPath) // appel au fichier ...
   .then(res => res.json()) // ... écoute de la réponse ...
   .then(res => {
     var data = res; // objet json récupéré  ..
-    var libCom;
-    for (var i = 0; i < res.length; i++) {
-      libCom = [res.features[i].properties.libgeo];
-    }
-    console.log(libCom);
-    // mymap.addControl(new L.Control.Search({
-    //   layer: L.geoJSON(res,{style:{opacity:0}}),
-    //   propertyName: 'libgeo',
-    //   marker: false,
-    // })
-  // );
-    // ... qu'on met comme argument dans la création des tuiles vectorielles
+    // console.log(data);
+
     gridCom = L.vectorGrid.slicer(res, {
       rendererFactory: L.canvas.tile,
       vectorTileLayerStyles: {
@@ -44,9 +38,10 @@ communes = fetch(communesPath) // appel au fichier ...
       getFeatureId: function(f) {
 				return f.properties.libgeo;
 			}
-    }).on('click', e=> {
-      event.preventDefault();
+    }).on('click', e => {
+      showContent(search,content,highlight);
       highlight = e.layer.properties.libgeo;
+      console.log(highlight);
       gridCom.setFeatureStyle(highlight,{
         weight: 2,
         color: 'red',
@@ -56,20 +51,17 @@ communes = fetch(communesPath) // appel au fichier ...
         radius: 6,
         fillOpacity: 1
       });
-      mymap.flyTo(e.latlng,10,{
+      mymap.flyTo([e.latlng.lat,e.latlng.lng-0.25],10,{
         animate:true,
-        duration:2.5
-      })
+        duration:1.5
+      });
     }).addTo(mymap);
-
-
 
     // bind tooltip
     var label;
     var tooltip;
-
     function showTooltip() {
-      gridCom.on('mouseover', e => {
+      gridCom.on('click', e => {
         label = e.layer.properties.libgeo; // donne moi le nom de la commune
         // fout le dans un tooltip qui va s'afficher aux coordonnées de la commune
         tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
@@ -77,25 +69,17 @@ communes = fetch(communesPath) // appel au fichier ...
                     .setLatLng(e.latlng)
                     .addTo(mymap);
       });
-      gridCom.on('mouseout', e=> {
-        tooltip.remove();
-        clearHighlight();
-      })
+      // gridCom.on('click', e=> {
+       //   tooltip.remove();
+      //   clearHighlight();
+      // })
     };
+
     showTooltip();
 
-    // surligner les entités sur lesquelles passe la souris
-    var highlight;
-    var clearHighlight = function() {
-        if (highlight) {
-          gridCom.resetFeatureStyle(highlight);
-        }
-        highlight = null;
-      };
-
-
+    // on récupère le nom de la commune sur laquelle passe la souris ...
     gridCom.addEventListener('mouseover', e => {
-      clearHighlight();
+      clearHighlight(gridCom);
       highlight = e.layer.properties.libgeo;
       gridCom.setFeatureStyle(highlight, {
         color: 'red',
@@ -103,29 +87,22 @@ communes = fetch(communesPath) // appel au fichier ...
         fill:true,
         opacity:1,
         animate:true,
-        duration:1
+        duration:5
       });
-
-      // on récupère le nom de la commune sur laquelle passe la souris ...
-
     });
-
+    // gridCom.on('click', e => {
+    //   tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
+    //               .setContent(label)
+    //               .setLatLng(e.latlng)
+    //               .addTo(mymap)
+    // })
+    //
     gridCom.addEventListener('mouseout', function() {
+      clearHighlight(gridCom);
       // vire moi les tooltips bordel de merde
-      tooltip.remove();
+      // tooltip.remove();
     });
-
-    gridCom.on('mouseover', function(e) {
-      var layerCom = e.layer;
-      mymap.addControl(new L.Control.Search(
-        {layer:layerCom,
-        initial: false,
-  			propertyName: "libgeo",
-  			marker: false}
-      ));
-    })
-  });
-
+});
 //////////////////// FONCTIONS //////////////////////////////////
 
 // fonction import des fichiers de zonage
@@ -138,6 +115,15 @@ function fetchZonage(zonage,style) {
       })
     })
 };
+
+// surligner les entités sur lesquelles passe la souris
+var highlight;
+var clearHighlight = function(layer) {
+    if (highlight) {
+      layer.resetFeatureStyle(highlight);
+    }
+    highlight = null;
+  };
 
 //////////////////// STYLES COUCHES //////////////////////////////
 var comStyle = {
@@ -158,29 +144,3 @@ var qpvStyle = { weight: 0.8,
           opacity: 1,
           fillOpacity: 0.5,
           fillColor:"#8c0000"};
-
-///////////////// sidebar interaction //////////////////////////
-// sidebar buttons
-var search = document.getElementById('search');
-var couches = document.getElementById('layer')
-var donwload = document.getElementById('download');
-
-// windows to toggle
-var content =  document.getElementById('content');
-
-function show(button,windows) {
-  if (windows.style.width == '50px') {
-    windows.style.width = '450px';
-    windows.style.transition = "0.2s";
-    windows.style.opacity = '0.95'
-  } else {
-    windows.style.width = '50px'
-  }};
-
-// toggle on click
-search.addEventListener('click', function() {
-  show(search,content);
-});
-couches.addEventListener('click', function() {
-  show(couches,content);
-});
