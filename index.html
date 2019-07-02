@@ -26,26 +26,64 @@
       </form>
     </div>
     <div id="content">
+      <!-- <div id="zonagesCat">
+        <input type="checkbox" name="" value="QPV">
+      </div> -->
+    </div>
+    <div id="cat-zonages">
+      <h3>Zonages</h3>
+      <!-- checkbox périmètres -->
+      <table>
+        <tr>
+          <td>
+            <input id = 'ber' type="checkbox"><label for="ber" class = "zonage">Bassin d'emploi à redynamiser (BER)</label><img src="css/img/info_layer.svg" alt="">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id = 'bud' type="checkbox"><label for="bud">Bassin urbain à dynamiser (BUD)</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id = "qpv" type="checkbox"><label for="qpv">Quartier Politique de la Ville (QPV)</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id = 'zfu' type="checkbox"><label for="zfu">Zone Franche Urbaine (ZFU)</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id = 'zrd' type="checkbox"><label for="zrd">Zone de restructuration de la Défense (ZRD)</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id = "zrr" type="checkbox"><label for="zrr">Zone de Revitalisation rurale (ZRR)</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input id = "zru" type="checkbox"><label for="zru">Zone de Revitalisation urbaine (ZRU)</label>
+          </td>
+        </tr>
+      </table>
     </div>
     <div id="sideBar">
       <ul class="sideBar-top">
         <li><button class = "bouton" type="button" name="recherche" id = "search">R</button></a></li>
-        <li><button class = "bouton" type="button" name="couches" id="layer">C</button></a></li>
+        <!-- <li><button class = "bouton" type="button" name="couches" id="layer">C</button></a></li> -->
         <li><button class = "bouton" type="button" name="download" id="download">T</button></a></li>
       </ul>
       <ul class="sideBar-bottom">
-        <li><button type="button" name="a propos">A</button></a></li>
+        <li><button type="button" name="a propos" id = "apropos">A</button></a></li>
         <li><a href="https://github.com/cget-carto/superposeur" target="_blank"><button type="button" name="download">G</button></a></li>
       </ul>
     </ul>
   </div>
     <div id="mapid"></div>
-    <div id="cat-zonages">
-      <label for="">Zonages</label><br>
-      <input type="checkbox" id = "zrr" > ZRR<br>
-      <input type="checkbox" id = "zru" > ZRU<br>
-      <input type="checkbox" id = "qpv"> QPV<br>
-    </div>
     <!-- scripts -->
     <script type="text/javascript" src= "js/ui.js"></script>
     <script type="text/javascript" src= "js/leaflet_settings.js"></script>

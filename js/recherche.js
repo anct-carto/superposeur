@@ -1,3 +1,7 @@
+/* Ce fichier fait partie du code source du superposeur de zonages
+Auteur : Hassen Chougar, Service Cartographie du CGET
+Données : Observatoire du Territoire, Service Cartographie */
+
 var searchField = document.getElementById('searchField');
 var searchButton = document.getElementById('searchButton');
 
@@ -8,14 +12,15 @@ searchButton.addEventListener('click', function(event){
 
 // supprimer la géométrie de la commune à chaque nouvelle recherche
 let comFound = L.geoJSON().addTo(mymap);
+// requête ajax sur les communes
 fetch(communesPath)
   .then(res => res.json())
   .then(data => {
     comFound.remove();
-    let listCom = data.features.map((e) => {
+    let listCom = data.features.map((e) => { // récupère les communes ...
       return e.properties.libgeo;
-    });
-    new Awesomplete(searchField,{
+    }); // et stocke les dans un tableau
+    new Awesomplete(searchField,{ //
       minChars: 2,
       list: listCom});
     searchField.addEventListener('awesomplete-selectcomplete', e => {

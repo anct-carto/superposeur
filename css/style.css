@@ -6,24 +6,58 @@ body {
 html, body, #mapid {
 	display: block;
   height: 100%;
-	font-family: 'Asap', sans-serif;
-	color: #c8c8d2;
+	font-family: 'Roboto light';
 }
 
+/* bar et contenu */
 #sideBar,#content {
+	display: block;
 	position: absolute;
-	background-color: black;
+	background-color: #02487d;
 	width: 50px;
 	height: 100%;
 	z-index: 500;
 	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
 }
 
+/* contenu bar latérale */
 #content {
 	width: 0px;
+	transition: width 0.4s ease-in-out ;
+	opacity: 0.95;
+	font-family: 'Roboto light';
+	color: white;
 	background-color: #005DA3;
 }
 
+button {
+	width: 50px;
+	background-color: #02487d;
+	padding: 15px;
+	border: none;
+	outline: 0px;
+	text-align: center;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #005DA3;
+	transition-duration: 0.6s;
+}
+
+button:focus {
+	background-color: #005DA3;
+	transition-duration: 0.6s;
+	outline: none
+}
+
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+/* ensemble champ recherche + bouton*/
 #searchBar {
 	border: none;
 	display: flex;
@@ -32,7 +66,9 @@ html, body, #mapid {
 	right: 30px;
 	z-index: 1000;
 }
+/* boutons bar latérale */
 
+/* champ de recherche*/
 #searchField {
 	border: none;
 	width: 160px;
@@ -42,13 +78,16 @@ html, body, #mapid {
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5);
-	transition: width 0.3s ease-in-out;
+	transition: width 0.4s ease-in-out;
 }
 
+/* champ de recherche*/
 #searchField:focus {
-	width: 230px
+	width: 230px;
+	outline: none
 }
 
+/* bouton de recherche*/
 #searchButton {
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
@@ -64,47 +103,52 @@ html, body, #mapid {
 	background-color: red;
 }
 
-button {
-	width: 50px;
-	padding: 15px;
-	border: none;
-	text-align: center;
-	cursor: pointer;
-}
-
-button:hover {
-	/* background-color: grey; */
-	transition-duration: 0.4s;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-}
-
+/* bouton du bas "a propos" et "github" */
 .sideBar-bottom {
 	bottom: 0;
 	position: absolute;
 }
 
-.leaflet-interactive {
-  transition-duration: 0.2s
+#cat-zonages {
+	font-size:13px;
+	display: none;
+	top: 100px;
+	padding: 70px;
+	position: absolute;
+	z-index: 10000;
+	color: white;
 }
 
-/* #search-window, #layer-window {
-	position: absolute;
-	display: none;
-	background-color: red;
-	z-index: 600
+/* efface par défaut le style des checkbox actuelles */
+/* input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
 } */
 
-/* #cat-zonages {
-	width: 200px;
-	padding: 10px;
-	z-index: 1000;
-	color: "white";
-	position: absolute;
-	top: 0;
-	left: 0;
-	background: #fff
+/* nouveau style */
+/* input[type=checkbox] {
+    border-radius: 4px;
+    height: 15px;
+    width: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+input[type="checkbox"]:checked {
+  background: yellow;
+  margin:0px;
+  position: relative;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f00c';
+    display: block;
+    color: grey;
+    font-size: 13px;
+    position: absolute;
+  }
+} */
+
+/* #cat-zonages [type="checkbox"] {
+	color: red
 } */
