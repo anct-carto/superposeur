@@ -38,12 +38,12 @@ fetch(communesPath)
           var lng = centroid.geometry.coordinates[0]-0.25;
           comFound = L.geoJSON(geom, {
             style: {
-              fillColor: 'red',
+              fillColor: '#d6741e',
               fillOpacity: 1,
               weight:0
             }
           })
-          .bindTooltip(geom.properties.libgeo,{ permanent: true, interactive: true })
+          .bindTooltip(geom.properties.libgeo,{ permanent: true, interactive: false })
           .addEventListener('load', showContent(search,content,libCom))
           .addTo(mymap);
 

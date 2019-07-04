@@ -5,14 +5,6 @@ Données : Observatoire du Territoire, Service Cartographie */
 
 // url communes
 var communesPath = 'data/communes.geojson';
-// url fichiers de zonage
-var zruPath = 'data/zru.geojson';
-var zruBox = document.getElementById("zru");
-var qpvPath = 'data/qpv.geojson';
-var qpvBox = document.getElementById("qpv");
-var zrrPath = 'data/zrr.geojson';
-var zrrBox = document.getElementById("zrr");
-
 var communes, id = 0
 // calque des communes, vide pour l'instant
 var gridCom;
@@ -50,9 +42,9 @@ communes = fetch(communesPath) // appel au fichier ...
       console.log(highlight);
       gridCom.setFeatureStyle(highlight,{
         weight: 2,
-        color: 'red',
+        color: '#d6741e',
         opacity: 1,
-        fillColor: 'red',
+        fillColor: '#d6741e',
         fill: true,
         radius: 6,
         fillOpacity: 1
@@ -84,9 +76,9 @@ communes = fetch(communesPath) // appel au fichier ...
       clearHighlight(gridCom);
       highlight = e.layer.properties.libgeo;
       gridCom.setFeatureStyle(highlight, {
-        color: 'red',
+        color: '#d6741e',
         fillColor: 'red',
-        fill:true,
+        fill:false,
         opacity:1,
         animate:true,
         duration:5
@@ -106,69 +98,78 @@ communes = fetch(communesPath) // appel au fichier ...
     });
 });
 
-
 //////////////////// STYLES COUCHES //////////////////////////////
 var comStyle = {
         weight: 0.8,
         color: "#3e62a4",
         opacity: 1,
         fillOpacity: 0.5,
-        fillColor:"white"};
+        fillColor:"white",
+      };
 
-var zruStyle = { weight: 0.8,
+var zrrStyle = { weight: 0.8,
+                color: 'yellow',
+                opacity: 1,
+                fillOpacity: 0.5,
+                fillColor:'yellow',
+                animate:true,
+                interactive:false,
+              };
+
+var zruStyle = {
+                weight: 0.8,
                 color: 'purple',
                 opacity: 1,
                 fillOpacity: 0.5,
-                fillColor:'purple' };
+                fillColor:'purple',
+                interactive:false,
+              };
 
-var qpvStyle = { weight: 0.8,
-          color: "#8c0000",
-          opacity: 1,
-          fillOpacity: 0.5,
-          fillColor:"#8c0000"};
+var qpvStyle = {
+                weight: 0.8,
+                color: "#8c0000",
+                opacity: 1,
+                fillOpacity: 0.5,
+                fillColor:"#8c0000",
+                interactive:false,
 
-////////////////// afficher les périmètres ///////////////////////
+              };
 
-// function displayZonage(perimetre,checkbox,path,style) {
-//   checkbox.addEventListener('change', function() {
-//     if (checkbox.checked) {
-//       console.log('checked');
-//       var perimetre = fetchZonage(path,style);
-//       console.log(perimetre);
-//     }
-//     else {
-//       console.log('unchecked');
-//     }
-//   });
-// };
+////////////////// PERIMETRES ///////////////////////
+// création
+let zonageArray = [
+                    {
+                      zonage:'zru',
+                      style:zruStyle
+                    },
+                    {
+                      zonage:'qpv',
+                      style:qpvStyle
+                    },
+                    {
+                      zonage:'zrr',
+                      style:zrrStyle
+                    }
+                  ];
 
-let zonageArray = [{'zru':zruStyle,'qpv':qpvStyle}];
+console.log(zonageArray);
+
 for (var i in zonageArray) {
-  console.log(zonageArray[i].zru);
-  showZonage(zonageArray[i])
-}
-
-//showZonage('zru',zruStyle)
-//showZonage('qpv',qpvStyle)
-//showZonage('zrr',comStyle)
+  var zonage = zonageArray[i].zonage; // nom du zonage
+  var style = zonageArray[i].style; // style associé
+  showZonage(zonage,style)
+};
 
 function showZonage(zonage,style) {
-  // var zonage = zonageName[i];
-  console.log(zonage);
-  zonageStyle = zonage+style
-  var zonageBox = zonage + 'Box'; // nom checkbox
-  var zonageBox = document.getElementById(zonage); // la récupérer depuis le html
-  var zonageLayer = zonage+'Layer'; // nom de la couche
-  // console.log(zonageBox);
-  // console.log(zonage+'.geojson'); // chemin
-  zonageBox.addEventListener('change', function() {
-    fetch('data/'+zonage+'.geojson')
+  var zonageBox = document.getElementById(zonage); // la checkbox correspondante récupérer depuis le html
+  var zonageLayer = zonage.concat('Layer'); // donner un nom à la couche
+  zonageBox.addEventListener('click', function() {
+    fetch('data/'.concat(zonage,'.geojson'))
       .then(res => res.json())
       .then(res => {
         if (zonageBox.checked) {
           console.log('checked');
           zonageLayer = L.geoJSON(res,{style:style});
-
           zonageLayer.addTo(mymap);
         } else {
           console.log('unchecked');
@@ -177,13 +178,6 @@ function showZonage(zonage,style) {
       })
     })
 };
-
-var MELOstyle;
-function defineStyle(feature) {
-  MELOstyle = feature.properties.codgeo+"Style";
-  console.log(MELOstyle);
-  return MELOstyle;
-}
 
 //////////////////// FONCTIONS //////////////////////////////////
 // surligner les entités sur lesquelles passe la souris

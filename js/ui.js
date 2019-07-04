@@ -14,7 +14,7 @@ function showContent(button,windows,libCom) {
     windows.style.width = '450px';
     windows.style.paddingLeft = '20px';
     windows.style.paddingRight = '20px';
-   // libCom est récupéré dans recherce.js
+   // libCom est récupéré dans recherche.js
     windows.innerHTML = '<h1 style = {padding-left:50px}>'+libCom+'</h1><br/>' +
                         'Votre commune est sous le régime de '+'undefined'+ 'zonages et contrats de politique publique.'
                         // +"<div id=cat'-zonages'><label for=''>Zonages</label><br><input type='checkbox' id = 'zrr' > ZRR<br><input type='checkbox' id = 'zru' > ZRU<br><input type='checkbox' id = 'qpv'> QPV<br></div>"
@@ -28,20 +28,31 @@ function showContent(button,windows,libCom) {
     zonageLayers.style.display = 'none'
 }};
 
-function showLayers() {
-  // do something
-}
-
 // toggle on click
 searchBtn.addEventListener('click', function() {
   showContent(searchBtn,content,'Recherchez une commune');
 });
-couches.addEventListener('click', function() {
-  showLayers();
-});
+// couches.addEventListener('click', function() {
+//   showLayers();
+// });
 
 /////////// fenetre à propos //////////////////////
-var aPropos = document.getElementById('apropos');
-aPropos.onclick = function() {
-  // do something
+var aProposBtn = document.getElementById('aPropos-btn');
+var aPropos = document.getElementById('aPropos')
+var close = document.getElementsByClassName('close')[0];
+
+// ouvre la popup
+aProposBtn.onclick = function() {
+  aPropos.style.display = 'block';
+}
+
+// ferme la Popup
+close.onclick = function() {
+  aPropos.style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target == aPropos) {
+    aPropos.style.display = "none";
+  }
 }
