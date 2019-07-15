@@ -8,6 +8,26 @@ var zonageLayers = document.getElementById('cat-zonages');
 var content =  document.getElementById('content');
 var contenu = document.getElementById('contenu');
 
+// ouvrir la fenetre latérale au chargement
+var interval = setInterval(function() {
+    if(document.readyState === 'complete') {
+        clearInterval(interval);
+        content.style.left = '50px';
+        content.style.width = '450px';
+        content.style.paddingLeft = '20px';
+        content.style.paddingRight = '20px';
+        // libCom est récupéré dans recherche.js
+        content.innerHTML = '<h1 style = {padding-left:50px}>'+"Recherchez une commune"+'</h1><br/>'
+        zonageLayers.style.display = 'block'
+        console.log("ok");
+      }
+    }, 1000);
+
+// toggle on click
+searchBtn.addEventListener('click', function() {
+  showContent(searchBtn,content,'Recherchez une commune');
+});
+
 function showContent(button,windows,libCom) {
   if (windows.style.width == '0px') {
     windows.style.left = '50px';
@@ -15,11 +35,11 @@ function showContent(button,windows,libCom) {
     windows.style.paddingLeft = '20px';
     windows.style.paddingRight = '20px';
    // libCom est récupéré dans recherche.js
-    windows.innerHTML = '<h1 style = {padding-left:50px}>'+libCom+'</h1><br/>' +
-                        'Votre commune est sous le régime de '+'undefined'+ 'zonages et contrats de politique publique.'
-                        // +"<div id=cat'-zonages'><label for=''>Zonages</label><br><input type='checkbox' id = 'zrr' > ZRR<br><input type='checkbox' id = 'zru' > ZRU<br><input type='checkbox' id = 'qpv'> QPV<br></div>"
-    zonageLayers.style.display = 'block'
-    // zonageLayers.style.display = 'block'
+   windows.innerHTML = '<h1 style = {padding-left:50px}>'+libCom+'</h1><br/>' +
+   'Votre commune est sous le régime de '+'undefined'+ 'zonages et contrats de politique publique.'
+   // +"<div id=cat'-zonages'><label for=''>Zonages</label><br><input type='checkbox' id = 'zrr' > ZRR<br><input type='checkbox' id = 'zru' > ZRU<br><input type='checkbox' id = 'qpv'> QPV<br></div>"
+   zonageLayers.style.display = 'block'
+
   } else {
     windows.style.width = '0px';
     windows.style.paddingLeft = '0px';
@@ -27,14 +47,6 @@ function showContent(button,windows,libCom) {
     windows.innerHTML = ''
     zonageLayers.style.display = 'none'
 }};
-
-// toggle on click
-searchBtn.addEventListener('click', function() {
-  showContent(searchBtn,content,'Recherchez une commune');
-});
-// couches.addEventListener('click', function() {
-//   showLayers();
-// });
 
 /////////// fenetre à propos //////////////////////
 var aProposBtn = document.getElementById('aPropos-btn');

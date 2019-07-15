@@ -30,7 +30,7 @@ communes = fetch(communesPath) // appel au fichier ...
       indexMaxZoom: 5,
       interactive: true, // pour pouvoir afficher des tooltips et clicker sur les communes
       getFeatureId: function(f) {
-				return f.properties.libgeo; // pour l'affichage des tooltips
+				return f.properties.codgeo; // pour l'affichage des tooltips
 			}
     }).on('click', e => { // au click ...
       mymap.flyTo([e.latlng.lat,e.latlng.lng-0.25],10,{ // zoom la carte sur la commune clickée ...
@@ -38,7 +38,7 @@ communes = fetch(communesPath) // appel au fichier ...
         duration:1.5
       });
       showContent(search,content,highlight); // ... et ouvre la fenetre laterale
-      highlight = e.layer.properties.libgeo;
+      highlight = e.layer.properties.codgeo;
       console.log(highlight);
       gridCom.setFeatureStyle(highlight,{
         weight: 2,
@@ -58,7 +58,7 @@ communes = fetch(communesPath) // appel au fichier ...
 
     function showTooltip() {
       gridCom.on('click', e => {
-        label = e.layer.properties.libgeo; // donne moi le nom de la commune
+        label = e.layer.properties.codgeo; // donne moi le nom de la commune
         // fout le dans un tooltip qui va s'afficher aux coordonnées de la commune
         tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
                     .setContent(label)
@@ -74,7 +74,7 @@ communes = fetch(communesPath) // appel au fichier ...
     // on récupère le nom de la commune sur laquelle passe la souris ...
     gridCom.addEventListener('mouseover', e => {
       clearHighlight(gridCom);
-      highlight = e.layer.properties.libgeo;
+      highlight = e.layer.properties.codgeo;
       gridCom.setFeatureStyle(highlight, {
         color: '#d6741e',
         fillColor: 'red',
@@ -136,7 +136,7 @@ var qpvStyle = {
               };
 
 ////////////////// PERIMETRES ///////////////////////
-// création
+// création d'un tableau avec les styles par zonage
 let zonageArray = [
                     {
                       zonage:'zru',
@@ -151,15 +151,18 @@ let zonageArray = [
                       style:zrrStyle
                     }
                   ];
-
 console.log(zonageArray);
 
+d3.json()
+
+// boucle lancant la fonction d'affichage du zonage pour chaque zonage présent dans le tableau
 for (var i in zonageArray) {
   var zonage = zonageArray[i].zonage; // nom du zonage
   var style = zonageArray[i].style; // style associé
   showZonage(zonage,style)
 };
 
+// fonction faisant appel au fichier et affichant le zonage voulu
 function showZonage(zonage,style) {
   var zonageBox = document.getElementById(zonage); // la checkbox correspondante récupérer depuis le html
   var zonageLayer = zonage.concat('Layer'); // donner un nom à la couche
