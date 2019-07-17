@@ -24,7 +24,7 @@ communes = fetch(communesPath) // appel au fichier ...
       },
       hoverStyle: { // ne fonctionne pas
         fillColor: 'black',
-        fillOpacity: 0.5
+        fillOpacity: 0.2
       },
       maxZoom: 22,
       indexMaxZoom: 5,
@@ -100,12 +100,12 @@ communes = fetch(communesPath) // appel au fichier ...
 
 //////////////////// STYLES COUCHES //////////////////////////////
 var comStyle = {
-        weight: 0.35,
+        weight: 0.2,
         color: "#004494",
         // color: "#3e62a4",
         opacity: 1,
         fill:true,
-        fillOpacity: 0.5,
+        fillOpacity: 0.25,
         fillColor:"white",
       };
 
@@ -200,73 +200,98 @@ var clearHighlight = function(layer) {
 
 // /////////////// Textures ///////////////////////////////////
 // ajout d'un calque svg vide à leaflet
-var afr = document.getElementById("afr");
-var qpvTexture = textures.circles().radius(2).background("darkorange");
-var zruTexture = textures.circles().radius(5).background("green")
-var zrrTexture = textures.circles().radius(1).background("yellow")
+var afrTexture = textures.circles()
+                  .lighter()
+                  .fill("black")
+                  .background("blue");
+var qpvTexture = textures.circles()
+                  .lighter()
+                  .fill("white")
+                  .background("darkred");
+var zfuTexture = textures.circles()
+                  .radius(5)
+                  .background("green")
+var zrrTexture = textures.circles()
+                  .radius(1)
+                  .background("yellow")
+
 let textureArray = [
                     {
-                      zonage:'zru',
-                      style:zruTexture
+                      layer:'afr',
+                      style:afrTexture
                     },
                     {
-                      zonage:'qpv',
+                      layer:'qpv',
                       style:qpvTexture
                     },
                     {
-                      zonage:'zrr',
+                      layer:'zfu',
+                      style:zfuTexture
+                    },
+                    {
+                      layer:'zrr',
                       style:zrrTexture
                     }
                   ];
 
-for (var i in textureArray) {
-  var zonage = textureArray[i].zonage; // nom du zonage
-  var style = textureArray[i].style; // style associé
-  showLayer(zonage,style)
+// affichage des différents calques
+for (var i in textureArray) { // pour chaque élément du tableau ...
+  var layer = textureArray[i].layer; // ... récupère le nom du zonage
+  var style = textureArray[i].style; // .. et le style associé ...
+  showLayer(layer,style) // ... auquel tu appliques la fonction
 };
 
-function showLayer(zonage,style) {
-  var zonageBox = document.getElementById(zonage);
-  console.log(zonage);
-  zonageBox.addEventListener("click", function() {
+
+// initialisation : ajout d'un moteur de rendu svg comportant déjà les éléments svg et g
+// voir ==> https://groups.google.com/forum/#!topic/leaflet-js/bzM9ssegitU
+L.svg({clickable:true,interactive:true}).addTo(mymap); // au préalable, création d'un conteneur svg auquel on fait appel ...
+// FONCTION d'AFFICHAGE DES DIFFERENTES COUCHES
+function showLayer(layer,style) { // dans la fonction
+  var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
+  zonageBox.addEventListener("change", function() { // au click ...
+
     if (zonageBox.checked) {
-      L.svg(zonage).addTo(mymap);
-      console.log("checked");
-      // appel au fichier json
-      d3.json('data/'.concat(zonage,'.geojson'))
+      console.log(layer+" checked");
+      var tabZonages = [];
+      d3.json('data/'.concat(layer,'.json')) // lecture du fichier
         .then(function (data) {
-          // sélectionne le calque svg précedemment créé)
-          svg = d3.select(mymap.getPanes().overlayPane).select("svg");
-          g = svg.append("g").attr("class", "leaflet-zoom-hide");
+          console.log(data.objects);
           // adapte l'objet d3 à la projection de leaflet
           var transform = d3.geoTransform({point:projectPoint});
           var path = d3.geoPath().projection(transform);
-          g.call(style);
-          zonageLayer = g.selectAll("path")
-            .attr("class",zonage)
-            .data(data.features)
+          zonages = topojson.feature(data,data.objects.zonage).features;
+          console.log(zonages);
+          svg = d3.select("#mapid").select("svg"); // sélectionne le conteneur svg créé par L.svg()
+          g = svg.append("g").attr("class", "leaflet-zoom-hide").attr("class",layer);
+          g.call(style); // appel au style correspondant au zonage
+          layerChecked = g.selectAll("path")
+            .data(zonages)
+            // .data(data.features)
+            .attr("class",layer)
             .enter()
             .append("path")
-
-            .style("fill",style.url());
-            // .style("fill","red")
-            // .style("fillOpacity","0.5");
+            .style("fill-opacity","0.5")
+            .style("fill",style.url()) // applique le style du zonage
+          // au zoom, remet les couches à la bonne échelle
           mymap.on("moveend", update);
           update();
 
-          // projection
-          function projectPoint(x, y) {
-            var point = mymap.latLngToLayerPoint(new L.LatLng(y, x));
-            this.stream.point(point.x, point.y);
+          console.log(layerChecked);
+
+          function update() { // mettre à jour l'emprise du calque en meme temps que leaflet
+            return layerChecked.attr("d", path);
           };
-          function update() {
-            zonageLayer.attr("d", path);
-          }
+
         })
-    } else {
-      console.log("unchecked");
-      // L.svg(zonage).removeFrom(mymap);
-      zonageLayer.attr("class",zonage).remove()
+    } else { // au décochage de la checkbox correspondante ...
+      // enlève le zonage identifié dans le DOM par la classe du zonage
+      d3.selectAll(".".concat(layer)).remove()
     }
   })
 }
+
+// fonctions utilisées pour l'affichage des objets D3
+function projectPoint(x, y) { // fonction de chgt de projection pour d3.geoTransform
+  var point = mymap.latLngToLayerPoint(new L.LatLng(y, x));
+  this.stream.point(point.x, point.y);
+};
