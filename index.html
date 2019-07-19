@@ -40,7 +40,7 @@
       <table>
         <tr>
           <td>
-            <input id = 'afr' type="checkbox"><label for="afr">Zone d'Aide à Finalité Régionale (AFR)</label><span class = "info">i</span>
+            <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale"><label for="afr">Zone d'Aide à Finalité Régionale (AFR)</label><span class = "info">i</span>
           </td>
         </tr>
         <tr>
@@ -108,12 +108,16 @@
       </ul>
     </ul>
   </div>
-    <div id="mapid"></div>
+  <div id="legend">
+    <svg id = "legend-svg"></svg>
+  </div>
+  <div id="mapid"></div>
+
     <!-- scripts -->
     <script type="text/javascript" src= "js/ui.js"></script>
-    <script type="text/javascript" src= "js/leaflet_settings.js"></script>
-    <script type="text/javascript" src= "js/habillage.js"></script>
+    <script type="text/javascript" src= "js/map_init.js"></script>
     <script type="text/javascript" src= "js/app.js"></script>
+    <script type="text/javascript" src= "js/layer_management.js"></script>
     <script type="text/javascript" src= "js/recherche.js"></script>
   </body>
 </html>

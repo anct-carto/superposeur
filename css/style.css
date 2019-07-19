@@ -18,6 +18,11 @@ html, body, #mapid {
   transition-duration: 10s
 }
 
+.leaflet-overlay-pane svg path{
+    pointer-events: auto;
+}
+
+
 
 /* bar et contenu */
 #sideBar,#content {
@@ -220,4 +225,54 @@ input[type="checkbox"]:checked {
 	color:grey;
 	font-size: 28px;
 	cursor: pointer;
+}
+
+.afr:hover {
+	cursor: pointer;
+	fill:blue;
+}
+
+#legend {
+	width: 0px;
+	border-radius: 10px;
+	background: white;
+	opacity: 0.80;
+	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
+	/* padding: 10px; */
+	position: absolute;
+	top: 10px;
+	left: 550px;
+	z-index: 1000;
+	transition: width 0.25s ease-in-out ;
+}
+
+.legendtitle {
+	font-size: 5px;
+	display: block;
+	z-index: 1000
+}
+
+rect {
+	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
+}
+
+div.d3-tooltip {
+		transition:  width 0.55s ease-in-out ;
+		z-index: 1000;
+    position: absolute;
+    text-align: left;
+		padding: 10px;
+    color: black;
+    width: auto;
+    height: auto;
+    font: 12px sans-serif;
+    background: grey;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+g {
+	cursor: pointer;
+	transition: width 0.55s ease-in-out ;
 }
