@@ -27,7 +27,7 @@ let textureArray = [
                     },
                     {
                       layer:'qpv',
-                      lib:"Quartier prioritaire",
+                      lib:"Contrat de ville/QPV",
                       style:qpvTexture,
                     },
                     {
@@ -60,6 +60,8 @@ L.svg({interactive: true}).addTo(mymap); // au préalable, création d'un conten
 var g, svg;
 // FONCTION d'AFFICHAGE DES DIFFERENTES COUCHES
 var y = 0
+
+// FONCTION PRINCIPALE
 function showLayer(layer,style,lib) { // dans la fonction
 
   var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
@@ -85,7 +87,7 @@ function showLayer(layer,style,lib) { // dans la fonction
         legendWindow.style.padding = "10px"; // fenetre de légende
         legendWindow.style.width = "200px"; // fenetre de légende
       }
-      // objet svg accueillan les couches
+      // objet svg accueillan les couches des zonages
       g = svg.append("g").attr("class", "leaflet-zoom-hide").attr("class",layer);
 
       console.log(layer+" checked");
@@ -119,11 +121,12 @@ function showLayer(layer,style,lib) { // dans la fonction
               div.transition()
                 .duration(200)
                 .style("opacity", 0.9);
-              div.html("Coucou")
-                .style("left", (d3.event.pageX + 10) + "px")
-                .style("top", (d3.event.pageY - 10) + "px");
+              div.html(lib)
+                .style("left", (d3.event.pageX + 20) + "px")
+                .style("top", (d3.event.pageY - 0) + "px");
               d3.select(this)
                 .style("stroke","darkred")
+                .style("stroke-opacity","0.25")
                 .style("fill","yellow")
                 .style("fill-opacity","0.2")
                 .transition()
@@ -135,13 +138,12 @@ function showLayer(layer,style,lib) { // dans la fonction
               div.html("")
                   .style("left", "-500px")
                   .style("top", "-500px");
-              d3.select(this).style("stroke","white")
-              .style("fill",style.url()) // ... applique le style du zonage
-              .style("fill-opacity","0.65") //hightlight du layer
-              .transition()
-              .ease(d3.easeBack)
-              .duration(1000) //surlignage
-
+                d3.select(this).style("stroke","white")
+                .style("fill",style.url()) // ... applique le style du zonage
+                .style("fill-opacity","0.65") //hightlight du layer
+                .transition()
+                .ease(d3.easeBack)
+                .duration(1000) //surlignage
             })
             .on("click", function(d) {
               alert("OK !")
@@ -151,31 +153,36 @@ function showLayer(layer,style,lib) { // dans la fonction
 
           // manipulation de la légende
           legendElement = legend.append("rect")
-                                .attr("class","legend-layer")
-                                .text(lib)
+                                .attr("class","rect-".concat(layer))
                                 .attr("width",40)
                                 .attr("height",22.5)
                                 .attr("y",y)
                                 .style("fill",style.url())
                                 .style("stroke-width","0.5")
                                 .style("stroke","black")
+          console.log(legendElement);
 
           textLegend =  d3.select("#legend").append("text")
                 .text(lib)
                 .attr("class",layer.concat(" legend"))
                 .attr("id","text-legend")
+
           mymap.on("moveend", update); // au zoom, remet les couches à la bonne échelle
           update();
           y += 30
           function update() { // mettre à jour l'emprise du calque en meme temps que leaflet
             return layerChecked.attr("d", path);
-          };
+          }
         })
     } else { // au décochage de la checkbox correspondante ...
       y-=30
-      d3.selectAll(".".concat(layer)).remove() // enlève le zonage coché
       console.log(layer.concat("box unchecked"));
-      d3.select(".".concat(layer+" legend")).remove()
+      d3.selectAll(".".concat(layer)).remove() // enlève le zonage coché
+      d3.select(".rect-".concat(layer)).remove()
+    }
+    if (legendWindow.length ===0) {
+      console.log("ok");
+      legendWindow.style.width = "0px"
     }
   })
 }

@@ -1,17 +1,12 @@
-@font-face {
-	font-family: 'Roboto';
-	src: url('css/font/Roboto.ttf');
-}
-
 body {
 	padding: 0;
 	margin:0;
 }
 
 html, body, #mapid {
+	height: 100%;
 	display: block;
-  height: 100%;
-	font-family: 'Roboto light';
+	font-family: 'Asap light';
 }
 
 .leaflet-interactive {
@@ -23,14 +18,14 @@ html, body, #mapid {
 }
 
 
-
-/* bar et contenu */
+/*/////////////////////////// bar et contenu ////////////////////////////////*/
 #sideBar,#content {
 	display: block;
 	position: absolute;
 	background: linear-gradient(#004494, #096d7f);
+	font-weight: lighter;
 	/* background-color: #02487d; */
-	width: 50px;
+	width: auto;
 	height: 100%;
 	z-index: 500;
 	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
@@ -38,14 +33,18 @@ html, body, #mapid {
 
 /* contenu bar latérale */
 #content {
-	width: 0px;
+	width: auto;
 	transition: width 0.25s ease-in-out ;
 	opacity: 0.95;
-	font-family: 'Roboto light';
 	color: white;
 	background-color: #005DA3;
 	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
+}
 
+/* /////////////////////////////// CONTENU //////////////////////////////// */
+ul {
+	margin: 0;
+	padding: 0;
 }
 
 button {
@@ -54,37 +53,67 @@ button {
 	padding: 15px;
 	border: none;
 	border-bottom: 0.25px solid rgba(255,255,255,0.7);
-	/* outline: 0px; */
+	outline: 0px;
 	text-align: center;
 	cursor: pointer;
 }
 
-#aPropos-btn {
+button:hover {
+	background-color: rgba(255,255,255,0.075);
+	transition-duration: 0.4s;
+}
+
+.aPropos-btn {
 	border-top: 0.25px solid rgba(255,255,255,0.7);
 	background: #096d7f
 }
 
-#github {
+.github-btn {
 	background: #096d7f
 }
 
-button:hover {
-	background-color: #005DA3;
-	transition-duration: 0.6s;
+/* bouton du bas "a propos" et "github" */
+.sideBar-bottom {
+	bottom: 0;
+	position: absolute;
 }
 
-button:focus {
-	/* background-color: #005DA3; */
-	transition-duration: 0.6s;
-	outline: none
+.aPropos-Popup {
+	display: none;
+	position: fixed;
+	z-index: 10000;
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+	transition: 0.5s
 }
 
-ul {
-	margin: 0;
-	padding: 0;
+/* texte à propos */
+.aProposmsg {
+	background-color: #fefefe;
+	opacity: 0.8;
+	margin: 20% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 30%; /* Could be more or less, depending on screen size */
+	height: 20%;
+	text-align: center;
+	border-radius:10px;
+	z-index: 20000
 }
 
-/* ensemble champ recherche + bouton*/
+.close {
+	float: right;
+	font-weight: bold;
+	color:grey;
+	font-size: 28px;
+	cursor: pointer;
+}
+
+/*//////////////////// ensemble champ recherche + bouton /////////////////////*/
 #searchBar {
 	border: none;
 	display: flex;
@@ -93,7 +122,6 @@ ul {
 	right: 30px;
 	z-index: 1000;
 }
-/* boutons bar latérale */
 
 /* champ de recherche*/
 #searchField {
@@ -130,12 +158,7 @@ ul {
 	background-color: red;
 }
 
-/* bouton du bas "a propos" et "github" */
-.sideBar-bottom {
-	bottom: 0;
-	position: absolute;
-}
-
+/* /////////////////////////////// Filtres ////////////////////////////////// */
 #cat-zonages {
 	font-size:13px;
 	display: none;
@@ -192,41 +215,6 @@ input[type="checkbox"]:checked {
   }
 } */
 
-.aPropos-Popup {
-	display: none;
-	position: fixed;
-	z-index: 10000;
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-	transition: 0.5s
-}
-
-/* texte à propos */
-.aProposmsg {
-	background-color: #fefefe;
-	opacity: 0.8;
-	margin: 20% auto; /* 15% from the top and centered */
-	padding: 20px;
-	width: 30%; /* Could be more or less, depending on screen size */
-	height: 20%;
-	text-align: center;
-	border-radius:10px;
-	z-index: 10000
-}
-
-.close {
-	float: right;
-	font-weight: bold;
-	color:grey;
-	font-size: 28px;
-	cursor: pointer;
-}
-
 .afr:hover {
 	cursor: pointer;
 	fill:blue;
@@ -234,11 +222,10 @@ input[type="checkbox"]:checked {
 
 #legend {
 	width: 0px;
-	border-radius: 10px;
+	border-radius: 5px;
 	background: white;
 	opacity: 0.80;
 	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
-	/* padding: 10px; */
 	position: absolute;
 	top: 10px;
 	left: 550px;
@@ -257,19 +244,31 @@ rect {
 }
 
 div.d3-tooltip {
-		transition:  width 0.55s ease-in-out ;
+		transition:  width 0.5s ease-in-out ;
 		z-index: 1000;
     position: absolute;
     text-align: left;
-		padding: 10px;
+		padding: 5px;
     color: black;
     width: auto;
     height: auto;
-    font: 12px sans-serif;
-    background: grey;
+		font-size: 12px;
+    background: white;
     border: 0px;
-    border-radius: 8px;
+    border-radius: 5px;
     pointer-events: none;
+		box-shadow: 1px 0 5px rgba(0,0,0,0.2);
+	}
+
+.d3-tooltip::after {
+	content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent white transparent transparent;
 }
 
 g {

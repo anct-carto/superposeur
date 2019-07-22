@@ -21,7 +21,7 @@ function initMap() {
     minZoom: 6,
     zoomSnap: 0.25,
     layers:[basemap_layer]
-  }).setView([46.5, -1.8], 6,{ animation: true });
+  }).setView([46.5, -1.8], 6.458,{ animation: true });
   mymap.zoomControl.setPosition('topright');
 
   // mymap.createPane('parcelPane');
