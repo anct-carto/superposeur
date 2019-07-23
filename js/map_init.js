@@ -35,6 +35,28 @@ function initMap() {
   //     }, 2000);
   // }, 4000);
 
+  // cget logo
+  L.Control.Watermark = L.Control.extend({
+    onAdd: function(mymap) {
+        var img = L.DomUtil.create('img');
+
+        img.src = 'css/img/cget_logo.svg';
+        img.style.width = '100px';
+        img.style.opacity = '0.70';
+
+        return img;
+    },
+
+    onRemove: function(mymap) {
+        // Nothing to do here
+    }
+});
+
+L.control.watermark = function(opts) {
+    return new L.Control.Watermark(opts);
+}
+
+L.control.watermark({ position: 'bottomright' }).addTo(mymap);
   // cercles DROM
   let gridCercles;
   const cercles_drom = 'data/cercles_drom.geojson';

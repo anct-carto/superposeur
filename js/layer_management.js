@@ -114,7 +114,7 @@ function showLayer(layer,style,lib) { // dans la fonction
             // .duration(500)
             // .ease(d3.easeBack)
             .style("fill",style.url()) // ... applique le style du zonage
-            .style("fill-opacity","0.65")
+            .style("fill-opacity","0.5")
             .style("stroke","white")
             .style("stroke-width","1")
             .on("mouseover", function(d) {

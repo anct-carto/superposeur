@@ -48,7 +48,6 @@ ul {
 }
 
 button {
-	width: 50px;
 	background: #004494;
 	padding: 15px;
 	border: none;
@@ -59,7 +58,7 @@ button {
 }
 
 button:hover {
-	background-color: rgba(255,255,255,0.075);
+	background-color: rgba(0,0,0,0.2);
 	transition-duration: 0.4s;
 }
 
