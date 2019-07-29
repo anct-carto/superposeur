@@ -164,8 +164,9 @@ function showLayer(layer,style,lib) { // dans la fonction
 
           textLegend =  d3.select("#legend").append("text")
                 .text(lib)
-                .attr("class",layer.concat(" legend"))
-                .attr("id","text-legend")
+                .attr("class","text-legend")
+                .attr("id",layer.concat(" legend"))
+
 
           mymap.on("moveend", update); // au zoom, remet les couches à la bonne échelle
           update();
@@ -192,3 +193,5 @@ function projectPoint(x, y) { // fonction de chgt de projection pour d3.geoTrans
   var point = mymap.latLngToLayerPoint(new L.LatLng(y, x));
   this.stream.point(point.x, point.y);
 };
+
+document.getElementById('legend').style.left = "0px;"      

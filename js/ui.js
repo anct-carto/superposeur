@@ -6,7 +6,6 @@ var donwload = document.getElementById('download');
 var zonageLayers = document.getElementById('cat-zonages');
 // windows to toggle
 var content =  document.getElementById('content');
-var contenu = document.getElementById('contenu');
 var appName = document.getElementById("appName");
 
 // ouvrir la fenetre latérale au chargement
@@ -53,11 +52,13 @@ for (i = 0; i<expandBtn.length; i++) { // pour chaque bouton ...
     this.classList.toggle('collapsed'); //
     var content = this.nextElementSibling;
     content.classList.toggle('collapsed');
-    if (content.style.height === '0px') {
-        content.style.height= '100px';
+    if (content.style.maxHeight === '0px') {
+        content.style.padding= '10px';
+        content.style.maxHeight= '200px';
         this.style.transform = 'rotate(270deg)' // animation sur le bouton d'expand
       } else {
-        content.style.height = '0px'
+        content.style.maxHeight = '0px'
+        content.style.padding= '0px';
         this.style.transform = 'rotate(90deg)'
       }
     })
