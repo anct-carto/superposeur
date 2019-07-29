@@ -20,6 +20,7 @@ html, body, #mapid {
 
 /*/////////////////////////// bar et contenu ////////////////////////////////*/
 #sideBar,#content {
+	overflow: auto;
 	display: block;
 	position: absolute;
 	background: linear-gradient(#004494, #096d7f);
@@ -39,6 +40,10 @@ html, body, #mapid {
 	color: white;
 	background-color: #005DA3;
 	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
+}
+
+#appName {
+	display: none
 }
 
 /* /////////////////////////////// CONTENU //////////////////////////////// */
@@ -77,40 +82,6 @@ button:hover {
 	position: absolute;
 }
 
-.aPropos-Popup {
-	display: none;
-	position: fixed;
-	z-index: 10000;
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-	transition: 0.5s
-}
-
-/* texte à propos */
-.aProposmsg {
-	background-color: #fefefe;
-	opacity: 0.8;
-	margin: 20% auto; /* 15% from the top and centered */
-	padding: 20px;
-	width: 30%; /* Could be more or less, depending on screen size */
-	height: 20%;
-	text-align: center;
-	border-radius:10px;
-	z-index: 20000
-}
-
-.close {
-	float: right;
-	font-weight: bold;
-	color:grey;
-	font-size: 28px;
-	cursor: pointer;
-}
 
 /*//////////////////// ensemble champ recherche + bouton /////////////////////*/
 #searchBar {
@@ -164,13 +135,13 @@ button:hover {
 #cat-zonages {
 	font-size:13px;
 	display: none;
-	top: 100px;
-	padding: 70px;
 	position: absolute;
 	z-index: 10000;
 	color: white;
 }
 
+
+/* ///////////////////////// Plus d'infos ////////////////////////////////// */
 /* info zonage */
 .info {
 	font-family: georgia;
@@ -179,12 +150,38 @@ button:hover {
   height: 15px;
 	display: inline-block;
 	margin-left: 5px;
-  /* line-height: 14px; */
   background:rgb(214, 116, 30);
   color: #fff;
   text-align: center;
 	border-radius: 50%;
 	cursor: help;
+}
+
+/* bouton en savoir plus */
+.expandBtn {
+	font-size: 15px;
+	padding-top: 2px;
+	padding-bottom: 5px;
+	background-color: rgba(0,0,0,0);
+	font-weight:600 	;
+	color:rgb(214, 116, 30);
+	border: none;
+	transform: rotate(90deg);
+}
+
+.expandBtn:hover {
+	background-color: rgba(0,0,0,0);
+}
+
+.collapsible {
+	height: 0;
+	padding-top: 1px;
+	margin-top: 5px;
+	border-radius: 5px;
+	font-weight:100;
+	background-color: rgba(0,0,0,0.1);
+	transition: height 0.5s;
+	overflow: auto;
 }
 
 /* efface par défaut le style des checkbox actuelles */
@@ -216,6 +213,8 @@ input[type="checkbox"]:checked {
     position: absolute;
   }
 } */
+
+/* ////////////////////////// Carte, étiquette, légende ///////////////////// */
 
 .afr:hover {
 	cursor: pointer;
@@ -276,4 +275,39 @@ div.d3-tooltip {
 g {
 	cursor: pointer;
 	transition: width 0.55s ease-in-out ;
+}
+
+/* ///////////////////////// Popup A propos ///////////////////////////////// */
+
+.aPropos-Popup {
+	display: none;
+	position: fixed;
+	z-index: 10000;
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgba(0,0,0,0.85); /* Black w/ opacity */
+}
+
+/* texte à propos */
+.aProposmsg {
+	background-color: rgba(255,255,255,1);
+	opacity: 0.8;
+	margin: 20% auto; /* 15% from the top and centered */
+	padding: 20px;
+	width: 30%; /* Could be more or less, depending on screen size */
+	height: auto;
+	text-align: center;
+	border-radius:10px;
+	z-index: 20000
+}
+
+.close {
+	float: right;
+	font-weight: bold;
+	color:grey;
+	font-size: 28px;
+	cursor: pointer;
 }
