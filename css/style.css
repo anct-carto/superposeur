@@ -127,11 +127,11 @@ button:hover {
 	border: none;
 	width: 160px;
 	height: 25px;
-	padding: 5px;
 	border-color: transparent;
+	padding: 5px;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
-	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5);
+	box-shadow: -0.02px 0 5px rgba(0,0,0,0.2);
 	transition: width 0.4s ease-in-out;
 }
 
@@ -143,6 +143,9 @@ button:hover {
 
 /* bouton de recherche*/
 #searchButton {
+	width: 40px;
+	height: 35px;
+	padding: 7px;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	background-color: rgb(214, 116, 30);
@@ -152,9 +155,9 @@ button:hover {
 }
 
 #searchButton:hover {
+	background-color: rgb(180, 90, 30);
 	transition-duration: 0.4s;
 	cursor: pointer;
-	background-color: red;
 }
 
 /* /////////////////////////////// Filtres ////////////////////////////////// */
