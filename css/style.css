@@ -1,7 +1,6 @@
 @font-face {
  font-family: "Roboto";
- src: url("css/fonts/Roboto-Regular.ttf") format("ttf"),
-        url("/fonts/OpenSans-Regular-webfont.ttf") format("woff");
+ src: local("css/fonts/Roboto-Regular.ttf") format("ttf");
 }
 
 
