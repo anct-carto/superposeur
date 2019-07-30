@@ -40,7 +40,7 @@ html, body, #mapid {
 
 /* contenu bar latérale */
 #content {
-	position: fixed;
+	/* position: absolute; */
 	width: auto;
 	transition: width 0.25s ease-in-out ;
 	opacity: 0.95;
@@ -142,14 +142,18 @@ button:hover {
 #cat-zonages {
 	font-size:13px;
 	display: none;
-	position: absolute;
+	/* position: absolute; */
 	z-index: 10000;
 	color: white;
 }
 
+.libZonage:focus {
+  font-style: oblique;
+}
+
 
 /* ///////////////////////// Plus d'infos ////////////////////////////////// */
-/* info zonage */
+/* picto zonage */
 .info {
 	font-family: georgia;
 	font-style: italic;
@@ -167,70 +171,79 @@ button:hover {
 /* bouton en savoir plus */
 .expandBtn {
 	font-size: 15px;
-	padding-top: 2px;
-	padding-bottom: 5px;
+	/* padding-top: 0px; */
+	padding-bottom: 0px;
 	background-color: rgba(0,0,0,0);
-	font-weight:600;
-	color:rgb(214, 116, 30);
+	font-weight:normal;
+  color: rgb(255,255,255);
+	/* color:rgb(214, 116, 30); */
 	border: none;
 	transform: rotate(90deg);
 }
 
 .expandBtn:hover {
 	background-color: rgba(0,0,0,0);
+  color:rgba(255, 255, 255, 0.85)
 }
 
 .collapsible {
 	max-height: 0;
-	margin-top: 5px;
-	border-radius: 5px;
-	font-weight:;
+	/* margin-top: 5px; */
+	border-radius: 2.5px;
 	background-color: rgba(0,0,0,0.2);
 	transition: all 0.5s ease;
 	overflow-y: auto;
+  font-size: 12px;
+  line-height: 20px
 }
 
 /* efface par défaut le style des checkbox actuelles */
-/* input[type=checkbox] {
+input[type=checkbox] {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
-} */
-
-/* nouveau style */
-/* input[type=checkbox] {
-    border-radius: 4px;
-    height: 15px;
-    width: 15px;
-    background: #fff;
-    border: 1px solid #ccc;
 }
 
-input[type="checkbox"]:checked {
-  background: yellow;
-  margin:0px;
-  position: relative;
-  &:before {
-    font-family: FontAwesome;
-    content: '\f00c';
-    display: block;
-    color: grey;
-    font-size: 13px;
-    position: absolute;
-  }
+/* nouveau style */
+input[type=checkbox] {
+  border-radius: 4px;
+  height: 5px;
+  width: 5px;
+  background: #fff;
+  outline: none
+  /* border: 1px solid #ccc; */
+}
+
+/* input[type="checkbox"]:before {
+  color: grey;
+  font-size: 13px;
+  position: absolute;
 } */
+
+input[type="checkbox"]:checked {
+  background:rgb(214, 116, 30);
+  position: relative;
+  outline: none
+}
+
+label {
+  position: relative;
+  top:-7.5px;
+  margin: 10px;
+}
+
+input[type="checkbox"],label:hover {
+  background: rgba(0,0,0,0.5);
+  padding: 10px;
+  transition: 0.2s
+}
 
 /* ////////////////////////// Carte, étiquette, légende ///////////////////// */
 
-.afr:hover {
-	cursor: pointer;
-	fill:blue;
-}
-
 #legend {
-	display: block;
-	position: fixed;
-	width: 0px;
+	position: absolute;
+	width: 0%;
+  max-height: 400px;
 	border-radius: 2.5px;
 	background: white;
 	opacity: 0.90;
@@ -238,27 +251,48 @@ input[type="checkbox"]:checked {
 	top: 10px;
 	left: 550px;
 	z-index: 1000;
-	transition: width 0.25s ease-in-out ;
+	transition: width 0.25s;
 }
 
-.legendtitle {
+#minLegend {
+  display: none;
+  position:absolute;
+  border-radius: 5px;
+  top: 5px;
+  right: 10px;
+  padding: 2px;
+  margin: 0px;
+	font-size: 20px;
+	background-color: rgba(255,255,255,1);
+	font-weight:600;
+	color:rgb(200, 200, 200);
+	border: none;
+	transform: rotate(0deg);
+}
+
+#minLegend:hover {
+	background-color: rgba(0,0,0,0);
+  color:grey
+}
+
+/* .legendtitle {
 	font-size: 5px;
 	position: relative;
 	display: block;
 	z-index: 1000
-}
-
+} */
 
 rect {
-	display:inline-flex;
-	flex:auto;
-	position: fixed;
 	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
 }
 
-/* .text-legend {
-	color:red;
-} */
+.text-legend {
+  color:rgba(0,0,0,0.1);
+  font-size: 11px;
+  font-weight: 300;
+  font-style: italic;
+  cursor: default;
+}
 
 div.d3-tooltip {
 		transition:  width 0.5s ease-in-out ;
@@ -301,10 +335,10 @@ g {
 	z-index: 10000;
 	left: 0;
 	top: 0;
+  background-color: rgba(0,0,0,0.85); /* Black w/ opacity */
 	width: 100%; /* Full width */
 	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgba(0,0,0,0.85); /* Black w/ opacity */
+	/* overflow-y: auto; /* Enable scroll if needed */ */
 }
 
 /* texte à propos */

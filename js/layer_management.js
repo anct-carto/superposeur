@@ -13,6 +13,15 @@ var zfuTexture = textures.circles()
                   .fill("darkorange")
                   .stroke("darkorange")
 
+var acvTexture = textures.circles()
+                  .size(10)
+                  .fill("pink")
+
+var crTexture = textures.lines()
+                        .orientation("vertical")
+                        .strokeWidth(1)
+                        .shapeRendering("crispEdges");
+
 var zrrTexture = textures.lines()
                   .size(8)
                   .strokeWidth(2)
@@ -24,6 +33,11 @@ let textureArray = [
                       layer:'afr',
                       lib:"Zone d'Aide à Finalité Régionale",
                       style:afrTexture,
+                    },
+                    {
+                      layer:'cr',
+                      lib:"Contrat de ruralité",
+                      style:crTexture,
                     },
                     {
                       layer:'qpv',
@@ -39,6 +53,11 @@ let textureArray = [
                       layer:'zrr',
                       lib:"Zone de Revitalisation Rurale",
                       style:zrrTexture
+                    },
+                    {
+                      layer:'acv',
+                      lib:"Action Coeur de ville",
+                      style:acvTexture
                     }
                   ];
 
@@ -58,16 +77,17 @@ for (var i in textureArray) { // pour chaque élément du tableau ...
 // voir ==> https://groups.google.com/forum/#!topic/leaflet-js/bzM9ssegitU
 L.svg({interactive: true}).addTo(mymap); // au préalable, création d'un conteneur svg auquel on fait appel ...
 var g, svg;
-// FONCTION d'AFFICHAGE DES DIFFERENTES COUCHES
 var y = 0
+// FONCTION d'AFFICHAGE DES DIFFERENTES COUCHES
 
 // FONCTION PRINCIPALE
+legendWindow = document.getElementById('legend');
+
 function showLayer(layer,style,lib) { // dans la fonction
 
   var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
 
   zonageBox.addEventListener("change", function() { // au click ...
-
     var layerChecked
 
     svg = d3.select(mymap.getPanes().overlayPane).select("svg"); // sélectionne le conteneur svg créé par L.svg()
@@ -80,12 +100,14 @@ function showLayer(layer,style,lib) { // dans la fonction
 
     if (zonageBox.checked) {
 
-      var legend = d3.select("#legend-svg").append("g").attr("class",layer); // légende dynamique
-      legendWindow = document.getElementById('legend')
+      var legend = d3.select("#legend-svg")
+                    .append("g")
+                    .attr("class",layer); // légende dynamique
 
       if (legendWindow.style.width = "0px") {
+        minLegendBtn.style.display = 'block'
         legendWindow.style.padding = "10px"; // fenetre de légende
-        legendWindow.style.width = "200px"; // fenetre de légende
+        legendWindow.style.width = "250px"; // fenetre de légende
       }
       // objet svg accueillan les couches des zonages
       g = svg.append("g").attr("class", "leaflet-zoom-hide").attr("class",layer);
@@ -101,7 +123,7 @@ function showLayer(layer,style,lib) { // dans la fonction
           var path = d3.geoPath().projection(transform);
 
           zonages = topojson.feature(data,data.objects.zonage).features;
-
+          console.log(zonages[0].properties.codgeo);
           g.call(style); // appel au style correspondant au zonage ...
 
           layerChecked = g.selectAll("path")
@@ -143,30 +165,32 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .style("fill-opacity","0.65") //hightlight du layer
                 .transition()
                 .ease(d3.easeBack)
-                .duration(1000) //surlignage
+                .duration(1000)
             })
             .on("click", function(d) {
               alert("OK !")
             })
 
-          console.log(zonageBox.value);
+          // LEGENDE DYNAMIQUE
+          legend.append("rect")
+                .attr("class","rect-".concat(layer))
+                .attr("width", 40)
+                .attr("height", 22.5)
+                .style("fill",style.url())
+                .style("stroke-width","0.5")
+                .style("stroke","black")
+                .attr("y",y)
+                .transition()
+                .ease(d3.easeBack)
+                .duration(1000)
 
-          // manipulation de la légende
-          legendElement = legend.append("rect")
-                                .attr("class","rect-".concat(layer))
-                                .attr("width",40)
-                                .attr("height",22.5)
-                                .attr("y",y)
-                                .style("fill",style.url())
-                                .style("stroke-width","0.5")
-                                .style("stroke","black")
-          console.log(legendElement);
-
-          textLegend =  d3.select("#legend").append("text")
+          legend.append("text")
                 .text(lib)
                 .attr("class","text-legend")
+                .style("color","red")
+                .attr('x', 50)
+                .attr('y', 15+y)
                 .attr("id",layer.concat(" legend"))
-
 
           mymap.on("moveend", update); // au zoom, remet les couches à la bonne échelle
           update();
@@ -175,16 +199,17 @@ function showLayer(layer,style,lib) { // dans la fonction
             return layerChecked.attr("d", path);
           }
         })
+
     } else { // au décochage de la checkbox correspondante ...
       y-=30
       console.log(layer.concat("box unchecked"));
       d3.selectAll(".".concat(layer)).remove() // enlève le zonage coché
       d3.select(".rect-".concat(layer)).remove()
+      d3.select("#".concat(layer+" legend")).remove()
     }
-    if (legendWindow.length ===0) {
-      console.log("ok");
-      legendWindow.style.width = "0px"
-    }
+    // fonction pour fermer la fenetre de légende si aucun zonage n'a été sélectionné
+    checkCheckbox()
+
   })
 }
 
@@ -194,4 +219,36 @@ function projectPoint(x, y) { // fonction de chgt de projection pour d3.geoTrans
   this.stream.point(point.x, point.y);
 };
 
-document.getElementById('legend').style.left = "0px;"      
+function legendControl() {
+    legendWindow.style.width = "0px"; // fenetre de légende
+    legendWindow.style.padding = "0px"; // fenetre de légende
+    minLegendBtn.style.display = 'none'
+}
+
+// réduire la fenetre de légende
+var minLegendBtn = document.getElementById("minLegend");
+minLegendBtn.addEventListener('click', function() {
+  if (legendWindow.style.width === "250px") {
+    legendControl()
+  }
+});
+
+function checkCheckbox() {
+  var countCheckbox = document.querySelectorAll('input:checked');
+  if (countCheckbox.length === 0) {
+    console.log("all checkboxes unchecked");
+    legendControl()
+  }
+}
+
+function moveLegend() {
+  if (content.style.width === "450px") {
+    console.log("le panneau latéral est déplié");
+    legendWindow.style.left = "550px";
+  } else if (content.style.width === "0px") {
+    console.log("le panneau latéral est replié");
+    legendWindow.style.left = "550px";
+  }
+}
+
+  moveLegend();

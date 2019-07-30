@@ -19,6 +19,7 @@ var comStyle = {
       };
 
 ///////////////////////// REQUETES SUR LES COMMUNES ////////////////////////
+
 // ajax sur les communes
 communes = fetch(communesPath) // appel au fichier ...
   .then(res => res.json()) // ... écoute de la réponse ...
@@ -31,16 +32,16 @@ communes = fetch(communesPath) // appel au fichier ...
       vectorTileLayerStyles: {
         sliced: comStyle
       },
-      hoverStyle: { // ne fonctionne pas
-        fillColor: 'black',
-        fillOpacity: 0.2
-      },
+      // hoverStyle: { // ne fonctionne pas
+      //   fillColor: 'black',
+      //   fillOpacity: 0.2
+      // },
       maxZoom: 22,
       indexMaxZoom: 5,
       interactive: false, // pour pouvoir afficher des tooltips et clicker sur les communes
-      getFeatureId: function(f) {
-				return f.properties.codgeo; // pour l'affichage des tooltips
-			}
+      // getFeatureId: function(f) {
+			// 	return f.properties.codgeo; // pour l'affichage des tooltips
+			// }
     }).on('click', e => { // au click ...
       mymap.flyTo([e.latlng.lat,e.latlng.lng-0.25],10,{ // zoom la carte sur la commune clickée ...
         animate:true,
