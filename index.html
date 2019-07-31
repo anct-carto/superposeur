@@ -11,11 +11,6 @@
     <script type="text/javascript" src="lib/textures.js"></script>
     <script type="text/javascript" src="lib/d3.min.js"></script>
     <script type="text/javascript" src="lib/topojson.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-     integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-    <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script> -->
     <script type="text/javascript" src="lib/leaflet.js"></script>
     <script type="text/javascript" src="lib/Leaflet.VectorGrid.min.js"></script>
     <script type="text/javascript" src="lib/awesomplete.min.js"></script>
@@ -32,161 +27,195 @@
     </div>
     <!-- Panneau latéral -->
     <div id="content">
-      <div id="appName">
-        <h1>ViZonage</h1>
-        <p>Carte interactive de visualisation des zonages et contrats de politiques publiques suivis par le CGET</p>
+      <div id="homeContainer">
+        <button type="button" name="close" id = "closeContent"><</button>
+        <div id="intro">
+          <p id ="appName">Contractualisation et zonages</p>
+          <h2>ViZonage</h2>
+          <p>Carte interactive des contrats et zonages de politiques publiques suivis au CGET</p>
+        </div>
+        <!-- catégories de zonage -->
+        <div id="cat-zonages">
+          <p>Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
+          <!-- checkbox périmètres -->
+          <table>
+            <tr>
+              <td>
+                <input id = 'acv' type="checkbox" text = "Action Cœur de Ville">
+                <label for="acv" class = "libZonage">
+                  Action Cœur de Ville
+                </label>
+                <button type="button" class="expandBtn" name = ""></button>
+                <div class="description"><h4> A propos<span class = "info">i</span></h4>
+                  <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
+
+                    Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
+
+                    Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
+                    <label> </label>
+                    <a href="https://cartotheque.cget.gouv.fr/cartes"><h4>Télécharger la carte ici</h4></a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale">
+                  <label for="afr">
+                    Zone d'Aide à Finalité Régionale (AFR)
+                  </label>
+                  <button type="button" class="expandBtn"></button>
+                  <div class="description">
+                    <span class = "info">i </span><label> En savoir plus</label>
+                    <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
+
+                      Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
+
+                      Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
+
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'ami-cb' type="checkbox" text = "AMI - Centres-bourgs">
+                    <label for="ami-cb">
+                      Appel à manifestation d'intérêt - Centres-bourgs
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'ber' type="checkbox">
+                    <label for="ber">
+                      Bassin d'emploi à redynamiser (BER)
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'bud' type="checkbox"><label for="bud">
+                      Bassin urbain à dynamiser (BUD)
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'cdt' type="checkbox">
+                    <label for="cdt">
+                      Contrat de Développement Territorial
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'cr' type="checkbox">
+                    <label for="cr">
+                      Contrat de Ruralité
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = "qpv" type="checkbox">
+                    <label for="qpv">
+                      Contrat de Ville
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'zfu' type="checkbox">
+                    <label for="zfu">
+                      Zone Franche Urbaine (ZFU)
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'zrd' type="checkbox">
+                    <label for="zrd">
+                      Zone de restructuration de la Défense (ZRD)
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = "zrr" type="checkbox">
+                    <label for="zrr">
+                      Zone de Revitalisation rurale (ZRR)
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Appel à Manifestation d'Intérêt – Centre Bourg
+                Contrat de Développement Territorial
+                Contrat de Plan Inter Régionaux
+                Contrat de Ruralité
+                Contrat de Transition Ecologique
+                Contrat de Ville -->
+
+              </table>
+            </div>
       </div>
-      <!-- catégories de zonage -->
-      <div id="cat-zonages">
-        <p>Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
-        <!-- checkbox périmètres -->
-        <table>
-          <tr>
-            <td>
-              <input id = 'acv' type="checkbox" text = "Action Cœur de Ville">
-              <label for="acv" class = "libZonage">
-                <img src="css/img/acv.png" alt="" style="padding:-5px">
-                Action Cœur de Ville
-              </label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible"><h4> A propos<span class = "info">i</span></h4>
-                <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
+      <div id="layerInfo">
 
-Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
-
-Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
-                <label> </label>
-                <a href="https://cartotheque.cget.gouv.fr/cartes"><h4>Télécharger la carte ici</h4></a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale">
-              <label for="afr">Zone d'Aide à Finalité Régionale (AFR)</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
-
-Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
-
-Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
-
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'ami-cb' type="checkbox" text = "AMI - Centres-bourgs"><label for="ami-cb">Appel à manifestation d'intérêt - Centres-bourgs</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'ber' type="checkbox"><label for="ber">Bassin d'emploi à redynamiser (BER)</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'bud' type="checkbox"><label for="bud">Bassin urbain à dynamiser (BUD)</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'cdt' type="checkbox"><label for="cdt">Contrat de Développement Territorial</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'cr' type="checkbox"><label for="cr">Contrat de Ruralité</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = "qpv" type="checkbox"><label for="qpv">Contrat de Ville</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'zfu' type="checkbox"><label for="zfu">Zone Franche Urbaine (ZFU)</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = 'zrd' type="checkbox"><label for="zrd">Zone de restructuration de la Défense (ZRD)</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input id = "zrr" type="checkbox"><label for="zrr">Zone de Revitalisation rurale (ZRR)</label>
-              <button type="button" class="expandBtn">></button>
-              <div class="collapsible">
-                <span class = "info">i </span><label> En savoir plus</label>
-                <span class = "download">d</span><label> Télécharger la carte</label>
-              </div>
-            </td>
-          </tr>
-          <!-- Appel à Manifestation d'Intérêt – Centre Bourg
-          Contrat de Développement Territorial
-          Contrat de Plan Inter Régionaux
-          Contrat de Ruralité
-          Contrat de Transition Ecologique
-          Contrat de Ville -->
-
-        </table>
       </div>
     </div>
     <!-- barre latérale -->
     <div id="sideBar">
       <ul class="sideBar-top">
         <li>
-          <button class = "bouton" type="button" name="recherche" id = "search">
+          <button class = "sidebarBtn" type="button" name="recherche" id = "homeBtn">
             <img src="css/img/layers.svg" height = "20px" width = "20px">
           </button>
         </li>
         <li>
-          <button class = "bouton" type="button" name="download" id="download">
+          <button class = "sidebarBtn" type="button" name="download" id="download">
             <img src="css/img/download.svg" height = "20px" width = "20px">
           </button>
         </li>
@@ -211,26 +240,26 @@ Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctu
   </div>
   <!-- légende dynamique carte  -->
   <div id="legend">
+    <span id = 'legendTitle'>Catégorie de zonage</span>
     <button type="button" id="minLegend">x</button>
-    <svg id = "legend-svg"></svg>
+    <svg id = "legend-svg">
+    </svg>
   </div>
   <div id="mapid"></div>
   <!-- texte à propos -->
   <div id = "aPropos" class="aPropos-Popup">
-    <div class = "aProposmsg">
-      <span class = 'close'>&times;</span>
+    <div id = "aProposmsg">
+      <span id = 'closePopup'>&times;</span>
       <h2>ViZonage</h2>
       <span>Réalisation : Hassen CHOUGAR, Service Cartographie du CGET</span><br>
       <p>Sources externes : MTES</p>
       <img src="css/img/cget.png" alt="auto">
-
     </div>
   </div>
-
     <!-- scripts -->
   <script type="text/javascript" src= "js/ui.js"></script>
   <script type="text/javascript" src= "js/map_init.js"></script>
-  <script type="text/javascript" src= "js/app.js"></script>
+  <!-- <script type="text/javascript" src= "js/app.js"></script> -->
   <script type="text/javascript" src= "js/layer_management.js"></script>
   <script type="text/javascript" src= "js/recherche.js"></script>
   </body>

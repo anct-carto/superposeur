@@ -10,7 +10,7 @@ function initMap() {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
-  })
+  });
   // bloquer le défilement infini de la carte
   let soutWest = L.latLng(53, -20);
   let northEast =L.latLng(40, 20);
@@ -21,7 +21,7 @@ function initMap() {
     minZoom: 6,
     zoomSnap: 0.25,
     layers:[basemap_layer]
-  }).setView([46.5, -1.8], 6.458,{ animation: true });
+  }).setView([46.5, 6.8], 6.458,{ animation: true });
   mymap.zoomControl.setPosition('topright');
 
   // mymap.createPane('parcelPane');
@@ -46,17 +46,15 @@ function initMap() {
 
         return img;
     },
-
     onRemove: function(mymap) {
         // Nothing to do here
     }
-});
+  });
+  L.control.watermark = function(opts) {
+      return new L.Control.Watermark(opts);
+  };
+  L.control.watermark({ position: 'bottomright' }).addTo(mymap);
 
-L.control.watermark = function(opts) {
-    return new L.Control.Watermark(opts);
-}
-
-L.control.watermark({ position: 'bottomright' }).addTo(mymap);
   // cercles DROM
   let gridCercles;
   const cercles_drom = 'data/cercles_drom.geojson';

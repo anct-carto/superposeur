@@ -1,74 +1,75 @@
 ///////////////// sidebar interaction //////////////////////////
 // sidebar buttons
-var searchBtn = document.getElementById('search');
-var couches = document.getElementById('layer');
+var homeBtn = document.getElementById('homeBtn');
+var closeBtn = document.getElementById('closeContent')
 var donwload = document.getElementById('download');
-var zonageLayers = document.getElementById('cat-zonages');
 // windows to toggle
 var content =  document.getElementById('content');
-var appName = document.getElementById("appName");
+var intro = document.getElementById("intro");
+var zonageLayers = document.getElementById('cat-zonages');
 
 // ouvrir la fenetre latérale au chargement
 var interval = setInterval(function() {
     if(document.readyState === 'complete') {
         clearInterval(interval);
-        content.style.left = '50px';
-        content.style.width = '450px';
-        content.style.paddingLeft = '20px';
-        content.style.paddingRight = '20px';
-        // libCom est récupéré dans recherche.js
-        zonageLayers.style.display = 'block'
-        appName.style.display = 'block'
+        contentDisplay();
       }
-    }, 1000);
+    }, 500);
 
-// toggle on click
-searchBtn.addEventListener('click', function() {
-  showContent(searchBtn,content);
-});
+// sur chaque bouton, appliquer la fonction pour fermer le panneau latéral
+[homeBtn,closeBtn].forEach(function (btn) {
+  btn.addEventListener('click', function() {
+    showContent(content);
+  });
+})
 
-function showContent(button,windows) {
-  if (windows.style.width === '0px') {
-    windows.style.left = '50px';
-    windows.style.width = '450px';
-    windows.style.paddingLeft = '20px';
-    windows.style.paddingRight = '20px';
-    appName.style.display = 'block'
-    zonageLayers.style.display = 'block';
+function showContent() {
+  if (content.style.width === '0px') {
+    contentDisplay()
   } else {
-    windows.style.width = '0px';
-    windows.style.paddingLeft = '0px';
-    windows.style.paddingRight = '0px';
+    content.style.width = '0px';
+    content.style.paddingLeft = '0px';
+    content.style.paddingRight = '0px';
     zonageLayers.style.display = 'none';
-    appName.style.display = 'none'
-}};
-
-/////////////////// éléments checkbox ////////////////////
-var expandBtn = document.getElementsByClassName('expandBtn');
-var i;
-
-for (i = 0; i<expandBtn.length; i++) { // pour chaque bouton ...
-  expandBtn[i].addEventListener('click', function() {
-    this.classList.toggle('collapsed'); //
-    var content = this.nextElementSibling;
-    content.classList.toggle('collapsed');
-    if (content.style.maxHeight === '0px') {
-        content.style.padding= '10px';
-        content.style.maxHeight= '200px';
-        this.style.transform = 'rotate(270deg)' // animation sur le bouton d'expand
-      } else {
-        content.style.maxHeight = '0px'
-        content.style.padding= '0px';
-        this.style.transform = 'rotate(90deg)'
-      }
-    })
+    intro.style.display = 'none'
+  }
 };
 
+function contentDisplay() {
+  content.style.width = '450px';
+  content.style.marginLeft = '50px';
+  content.style.paddingLeft = '40px';
+  content.style.paddingRight = '20px';
+  if (content.style.width === '450px') {
+    var x = setInterval(function () {
+      intro.style.display = 'block';
+      zonageLayers.style.display = 'block';
+      clearInterval(x)
+    }, 175);
+  }
+};
 
-/////////// fenetre à propos //////////////////////
+/////////////////// menu déroulant checkbox ////////////////////
+var expandBtn = document.querySelectorAll('.expandBtn');
+var showDes = 1;
+
+expandBtn.forEach(btn => {
+  btn.addEventListener('click', function() {
+    showDes++;
+    this.classList.toggle('collapsed'); //
+    var description = this.nextElementSibling; // récupère l'élément situé après le bouton dans le html
+    if (showDes % 2 == 0) {
+      description.style.maxHeight = '200px';
+    } else {
+      description.style.maxHeight = '0px'
+    }
+  })
+})
+
+//////////////////// fenetre à propos //////////////////////
 var aProposBtn = document.getElementById('aPropos-btn');
 var aPropos = document.getElementById('aPropos')
-var close = document.getElementsByClassName('close')[0];
+var closePopup = document.getElementById('closePopup');
 
 // ouvre la popup
 aProposBtn.onclick = function() {
