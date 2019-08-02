@@ -16,13 +16,29 @@ let comFound = L.geoJSON().addTo(mymap);
 fetch(communesPath)
   .then(res => res.json())
   .then(data => {
-    comFound.remove();
-    let listCom = data.features.map((e) => { // récupère les communes ...
-      return e.properties.libgeo;
-    }); // et stocke les dans un tableau
+    comFound.remove(); // vide le tableau
+
+    // pour un geojson ...
+    // let listCom = data.features.map((e) => {
+    //   return e.properties.libgeo
+    // });
+    let listCom = data.objects.foo.geometries;
+    console.log(data.objects.foo.geometries[0]);
+    // pour un topojson ...
+    // let listCom = data.objects.foo.geometries.map((e) => { // récupère les communes ...
+    //   return e.properties.libgeo;
+    // }); // et stocke les dans un tableau
+    let list2
+    for (let com in listCom) {
+      list2 = listCom[com].properties.lib_com
+    };
+    console.log(list2);
+
+
     new Awesomplete(searchField,{ //
       minChars: 2,
       list: listCom});
+
     searchField.addEventListener('awesomplete-selectcomplete', e => {
       let comValue = e.text.value;
       let com = searchField.value;

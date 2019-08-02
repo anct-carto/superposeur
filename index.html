@@ -36,7 +36,7 @@
         </div>
         <!-- catégories de zonage -->
         <div id="cat-zonages">
-          <p>Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
+          <p style="font-size:13px">Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
           <!-- checkbox périmètres -->
           <table>
             <tr>
@@ -64,15 +64,16 @@
                     Zone d'Aide à Finalité Régionale (AFR)
                   </label>
                   <button type="button" class="expandBtn"></button>
-                  <div class="description">
+                  <div class="description" id = "">
                     <span class = "info">i </span><label> En savoir plus</label>
+                    <span class = "download">d</span><label> Télécharger la carte</label>
                     <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
 
                       Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
 
                       Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
 
-                      <span class = "download">d</span><label> Télécharger la carte</label>
+
                     </div>
                   </td>
                 </tr>
@@ -142,8 +143,21 @@
                 </tr>
                 <tr>
                   <td>
-                    <input id = "qpv" type="checkbox">
-                    <label for="qpv">
+                    <input id = "cte" type="checkbox">
+                    <label for="cte">
+                      Contrat de Transition Écologique
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = "cv" type="checkbox">
+                    <label for="cv">
                       Contrat de Ville
                     </label>
                     <button type="button" class="expandBtn"></button>
@@ -259,7 +273,7 @@
     <!-- scripts -->
   <script type="text/javascript" src= "js/ui.js"></script>
   <script type="text/javascript" src= "js/map_init.js"></script>
-  <!-- <script type="text/javascript" src= "js/app.js"></script> -->
+  <script type="text/javascript" src= "js/app.js"></script>
   <script type="text/javascript" src= "js/layer_management.js"></script>
   <script type="text/javascript" src= "js/recherche.js"></script>
   </body>

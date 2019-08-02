@@ -77,7 +77,7 @@ aProposBtn.onclick = function() {
 }
 
 // ferme la Popup
-close.onclick = function() {
+closePopup.onclick = function() {
   aPropos.style.display = 'none';
 }
 

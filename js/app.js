@@ -4,7 +4,7 @@ Données : Observatoire des Territoires, Service Cartographie */
 
 
 // url communes
-var communesPath = 'data/communes.geojson';
+var communesPath = 'data/communes.topojson';
 var communes, id = 0
 // calque des communes, vide pour l'instant
 var gridCom;
@@ -30,7 +30,8 @@ communes = fetch(communesPath) // appel au fichier ...
     gridCom = L.vectorGrid.slicer(res, {
       rendererFactory: L.canvas.tile, // affichage par canvas ou svg (svg + lourd)
       vectorTileLayerStyles: {
-        sliced: comStyle
+        sliced: comStyle, // si fichier geojson en entrée
+        foo: comStyle // si fichier topojson en entrée
       },
       // hoverStyle: { // ne fonctionne pas
       //   fillColor: 'black',
@@ -60,6 +61,9 @@ communes = fetch(communesPath) // appel au fichier ...
         fillOpacity: 1
       });
     }).addTo(mymap);
+
+    // récupèrer l'attribut _dataLayerNames pour y appliquer le style(si fichier topojson)
+    console.log(gridCom._dataLayerNames);
 
     // bind tooltip
     var label;

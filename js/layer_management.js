@@ -1,28 +1,30 @@
 /////////////////////////////////// SYMBOLOGIE ///////////////////////////////////
-var afrTexture = textures.circles()
+let afrTexture = textures.circles()
                   .lighter()
                   .size(3)
                   .fill("black")
                   .background("pink");
-var qpvTexture = textures.circles()
+
+let cvTexture = textures.circles()
                   .lighter()
                   .fill("white")
                   .background("darkred");
-var zfuTexture = textures.circles()
+
+let zfuTexture = textures.circles()
                   .size(5)
                   .fill("darkorange")
                   .stroke("darkorange")
 
-var acvTexture = textures.circles()
+let acvTexture = textures.circles()
                   .size(10)
                   .fill("pink")
 
-var crTexture = textures.lines()
+let crTexture = textures.lines()
                         .orientation("vertical")
                         .strokeWidth(1)
                         .shapeRendering("crispEdges");
 
-var zrrTexture = textures.lines()
+let zrrTexture = textures.lines()
                   .size(8)
                   .strokeWidth(2)
                   .stroke('green')
@@ -35,14 +37,19 @@ let textureArray = [
                       style:afrTexture,
                     },
                     {
+                      layer:'ber',
+                      lib:"Bassin d'Emploi à Redynamiser",
+                      style:afrTexture,
+                    },
+                    {
                       layer:'cr',
                       lib:"Contrat de ruralité",
                       style:crTexture,
                     },
                     {
-                      layer:'qpv',
-                      lib:"Contrat de ville/QPV",
-                      style:qpvTexture,
+                      layer:'cv',
+                      lib:"Contrat de ville",
+                      style:cvTexture,
                     },
                     {
                       layer:'zfu',
@@ -82,7 +89,8 @@ var y = 0;
 var l = 25;
 // FONCTION d'AFFICHAGE DES DIFFERENTES COUCHES
 
-// FONCTION PRINCIPALE
+/////////////////////////// FONCTION PRINCIPALE ////////////////////////////////
+
 legendWindow = document.getElementById('legend');
 
 function showLayer(layer,style,lib) { // dans la fonction
@@ -114,13 +122,15 @@ function showLayer(layer,style,lib) { // dans la fonction
         legendWindow.style.padding = "10px"; // fenetre de légende
         legendWindow.style.width = "200px"; // fenetre de légende
       }
+
       // objet svg accueillan les couches des zonages
       g = svg.append("g").attr("class", "leaflet-zoom-hide").attr("class",layer);
 
       console.log(layer+" checked");
 
-      d3.json('data/'.concat(layer,'.json')) // lecture du fichier
+      d3.json('data/'.concat(layer,'.topojson')) // lecture du fichier
         .then(function (data) {
+          console.log(data);
           // adapte l'objet d3 à la projection de leaflet
           var transform = d3.geoTransform({
             point:projectPoint
@@ -128,7 +138,7 @@ function showLayer(layer,style,lib) { // dans la fonction
           var path = d3.geoPath().projection(transform);
 
           zonages = topojson.feature(data,data.objects.zonage).features;
-          console.log(zonages[0].properties.codgeo);
+
           g.call(style); // appel au style correspondant au zonage ...
 
           layerChecked = g.selectAll("path")
@@ -143,9 +153,9 @@ function showLayer(layer,style,lib) { // dans la fonction
             .on("mouseover", function(d) {
               div.transition()
                 .duration(200)
-                .style("opacity", 0.9);
-              div.html(d.properties.codgeo)
-                .style("left", (d3.event.pageX ) + "px")
+                .style("opacity", 0.95);
+              div.html(d.properties.lib)
+                .style("left", (d3.event.pageX - 100) + "px")
                 .style("top", (d3.event.pageY - 40) + "px");
               d3.select(this)
                 .style("stroke","darkred")
@@ -169,14 +179,15 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .duration(1000)
             })
             .on("click", function(d) {
-              libgeo = d.properties.libgeo;
-              codgeo = d.properties.codgeo;
+              console.log(d);
+              libgeo = d.properties.lib;
+              codgeo = d.properties.id;
               d3.select("#layerInfo")
               .html(codgeo+" "+libgeo);
               console.log(codgeo,libgeo);
               console.log("ok");
               libgeo = []
-            })
+            });
 
           // LEGENDE DYNAMIQUE
           legend.append("rect")
@@ -186,14 +197,14 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .style("fill",style.url())
                 .style("stroke-width","0.3")
                 .style("stroke","grey")
-                .attr("y",y)
+                .attr("y",y);
 
           legend.append("text")
                 .text(lib)
                 .attr("class","text-legend")
                 .attr('x', 50)
                 .attr('y', 15+y)
-                .attr("id",layer.concat(" legend"))
+                .attr("id",layer.concat(" legend"));
 
           mymap.on("moveend", update); // au zoom, remet les couches à la bonne échelle
           update();
@@ -207,8 +218,10 @@ function showLayer(layer,style,lib) { // dans la fonction
         })
 
     } else { // au décochage de la checkbox correspondante ...
+
       y-=30
       l-=25
+
       d3.select("#legend-svg")
                       .attr("height",function() {
                         return l;
@@ -218,10 +231,9 @@ function showLayer(layer,style,lib) { // dans la fonction
       d3.select(".rect-".concat(layer)).remove()
       d3.select("#".concat(layer+" legend")).remove()
     }
-    // fonction pour fermer la fenetre de légende si aucun zonage n'a été sélectionné
-    checkCheckbox()
-    // moveLegend();
 
+    // masquer la fenetre de légende si aucun zonage n'est sélectionné
+    checkCheckbox();
   })
 }
 
@@ -231,6 +243,8 @@ function projectPoint(x, y) { // fonction de chgt de projection pour d3.geoTrans
   this.stream.point(point.x, point.y);
 };
 
+
+// masquer la fenetre de légende quand au désaffichage de toutes les cases
 function legendControl() {
     d3.select("#legendTitle").style("display","none");
     legendWindow.style.width = "0px"; // fenetre de légende

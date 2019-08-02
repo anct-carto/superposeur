@@ -157,6 +157,7 @@ button:hover {
 
 /* /////////////////////////////// Filtres ////////////////////////////////// */
 #cat-zonages {
+  margin-left: -5px;
 	font-size:13px;
   z-index: 10000;
 	color: white;
@@ -171,7 +172,7 @@ input[type=checkbox] {
 
 /* checkbox style */
 input[type=checkbox] {
-  left: -4px;
+  /* left: -4px; */
   cursor:pointer;
   border-radius: 4px;
   height: 5px;
@@ -182,7 +183,7 @@ input[type=checkbox] {
 }
 
 input[type="checkbox"]:checked {
-  background:rgb(214, 116, 30);
+  background:rgba(214, 116, 30);
   position: relative;
   outline: none
 }
@@ -194,6 +195,11 @@ label {
   margin: 10px;
   padding: 15px 0px;
   cursor: pointer;
+}
+
+input[type="checkbox"]:hover {
+  background:rgba(214, 116, 30,0.5);
+  /* background: rgba(0,0,0,0.5); */
 }
 
 input[type="checkbox"],label:hover {
@@ -223,6 +229,8 @@ input[type="checkbox"],label:hover {
 
 /* bouton en savoir plus */
 .expandBtn {
+  margin-top: 5px;
+  margin-right: 5px;
   float: right;
   display: block;
 	border: none;
@@ -253,7 +261,7 @@ input[type="checkbox"],label:hover {
 }
 
 td:hover {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.5);
   transition: 0.2s;
   border-radius: 5px;
 }
