@@ -66,6 +66,26 @@ expandBtn.forEach(btn => {
   })
 })
 
+var lb = document.querySelectorAll('.libZonage');
+var labels = document.querySelectorAll('tr');
+let count = 1;
+console.log(labels);
+labels.forEach(label => {
+  label.addEventListener('click', function() {
+    count++;
+    console.log(count % 2);
+    // if (count % 2 == 1) {
+    //   label.style.background = "rgba(0,0,0,0.5)";
+    //   label.style.padding = "10px";
+    //   label.style.borderRadius = "5px";
+    // } else if (count % 2 == 0) {
+    //   label.style.background = "";
+    //   label.style.padding = "";
+    //   label.style.borderRadius = "";
+    // }
+  })
+})
+
 //////////////////// fenetre à propos //////////////////////
 var aProposBtn = document.getElementById('aPropos-btn');
 var aPropos = document.getElementById('aPropos')

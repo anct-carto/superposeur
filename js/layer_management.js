@@ -104,7 +104,7 @@ function showLayer(layer,style,lib) { // dans la fonction
             .attr("pointer-events", "auto");
 
     // tooltip
-    var div = d3.select("body").append("div")
+    var tooltip = d3.select("body").append("div")
                 .attr("class", "d3-tooltip")
                 .style("opacity", 0);
 
@@ -151,11 +151,11 @@ function showLayer(layer,style,lib) { // dans la fonction
             .style("stroke","white")
             .style("stroke-width","1")
             .on("mouseover", function(d) {
-              div.transition()
+              tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.95);
-              div.html(d.properties.lib)
-                .style("left", (d3.event.pageX - 100) + "px")
+              tooltip.html(d.properties.lib)
+                .style("left", (d3.event.pageX - 50) + "px")
                 .style("top", (d3.event.pageY - 40) + "px");
               d3.select(this)
                 .style("stroke","darkred")
@@ -167,8 +167,8 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .duration(1000) //surlignage
             })
             .on("mouseout", function(d) {
-              div.style("opacity", 0);
-              div.html("")
+              tooltip.style("opacity", 0);
+              tooltip.html("")
                   .style("left", "-500px")
                   .style("top", "-500px");
               d3.select(this).style("stroke","white")
@@ -181,11 +181,13 @@ function showLayer(layer,style,lib) { // dans la fonction
             .on("click", function(d) {
               console.log(d);
               libgeo = d.properties.lib;
-              codgeo = d.properties.id;
+              perimetre = d.properties.perimetre
+              nbcom = d.properties.nbcom;
               d3.select("#layerInfo")
-              .html(codgeo+" "+libgeo);
-              console.log(codgeo,libgeo);
-              console.log("ok");
+                .html("<table><tr><td>Libellé : "+ libgeo + "</td></tr>" +
+                      "<tr><td>Périmètre d'application : "+ perimetre.toUpperCase() + "</td></tr>"+
+                      "<tr><td> Nombre de communes couvertes : "+ nbcom+"</td></tr></table>");
+              console.log(libgeo);
               libgeo = []
             });
 

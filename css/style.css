@@ -337,11 +337,12 @@ rect {
 }
 
 div.d3-tooltip {
-		transition:  width 0.5s ease-in-out ;
+		/* transition:  width 0.01s ease-in-out ; */
 		z-index: 1000;
     font-weight: bold;
     position: absolute;
     justify-content:center ;
+    text-align: center;
 		padding: 5px;
     color: black;
     width: auto;
@@ -351,19 +352,13 @@ div.d3-tooltip {
     border: 0px;
     border-radius: 3px;
     pointer-events: none;
-    color: rgb(30,30,30)
+    color: rgb(30,30,30);
 		box-shadow: 1px 0 5px rgba(0,0,0,0.2);
 	}
 
 .d3-tooltip::after {
 	content: "";
   position: sticky;
-  /* top: 50%;
-  right: 100%; */
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent white transparent transparent;
 }
 
 g {

@@ -15,102 +15,113 @@ var comStyle = {
         opacity: 1,
         fill:true,
         fillOpacity: 1,
-        fillColor:"#d1d1d1",
+        fillColor:"rgba(100,40,40,1)",
       };
 
 ///////////////////////// REQUETES SUR LES COMMUNES ////////////////////////
+drawCommunes();
 
-// ajax sur les communes
-communes = fetch(communesPath) // appel au fichier ...
-  .then(res => res.json()) // ... écoute de la réponse ...
-  .then(res => {
-    var data = res; // objet json récupéré  ..
-    // console.log(data);
-    // création des tuiles vectorielles comprenant les communes
-    gridCom = L.vectorGrid.slicer(res, {
-      rendererFactory: L.canvas.tile, // affichage par canvas ou svg (svg + lourd)
-      vectorTileLayerStyles: {
-        sliced: comStyle, // si fichier geojson en entrée
-        foo: comStyle // si fichier topojson en entrée
-      },
-      // hoverStyle: { // ne fonctionne pas
-      //   fillColor: 'black',
-      //   fillOpacity: 0.2
-      // },
-      maxZoom: 22,
-      indexMaxZoom: 5,
-      interactive: false, // pour pouvoir afficher des tooltips et clicker sur les communes
-      // getFeatureId: function(f) {
-			// 	return f.properties.codgeo; // pour l'affichage des tooltips
-			// }
-    }).on('click', e => { // au click ...
-      mymap.flyTo([e.latlng.lat,e.latlng.lng-0.25],10,{ // zoom la carte sur la commune clickée ...
-        animate:true,
-        duration:1.5
+function drawCommunes() {
+  // ajax sur les communes
+  fetch(communesPath) // appel au fichier ...
+    .then(res => res.json()) // ... écoute de la réponse ...
+    .then(res => {
+      // création des tuiles vectorielles comprenant les communes
+      gridCom = L.vectorGrid.slicer(res, {
+        rendererFactory: L.canvas.tile, // affichage par canvas ou svg (svg + lourd)
+        vectorTileLayerStyles: {
+          sliced: comStyle, // argument "sliced" si fichier geojson en entrée
+          foo: comStyle // argument "foo" si fichier topojson en entrée
+        },
+        // hoverStyle: { // ne fonctionne pas
+        //   fillColor: 'black',
+        //   fillOpacity: 0.2
+        // },
+        maxZoom: 22,
+        indexMaxZoom: 5,
+        interactive: false, // pour pouvoir afficher des tooltips et clicker sur les communes
+        getFeatureId: function(f) {
+  				return f.properties.insee_com; // pour l'affichage des tooltips
+  			}
+      }).on('click', e => { // au click ...
+        mymap.flyTo([e.latlng.lat,e.latlng.lng-0.25],10,{ // zoom la carte sur la commune clickée ...
+          animate:true,
+          duration:1.5
+        });
+        showContent(search,content,highlight); // ... et ouvre la fenetre laterale
+        highlight = e.layer.properties.insee_com;
+        console.log(highlight);
+        gridCom.setFeatureStyle(highlight,{
+          weight: 2,
+          color: '#d6741e',
+          opacity: 1,
+          fillColor: '#d6741e',
+          fill: true,
+          radius: 6,
+          fillOpacity: 1
+        });
+      }).addTo(mymap);
+
+      // récupèrer l'attribut _dataLayerNames pour y appliquer le style(si fichier topojson)
+      console.log(gridCom._dataLayerNames);
+
+      // bind tooltip
+      var label;
+      var tooltip;
+      showTooltip();
+
+      function showTooltip() {
+        gridCom.on('mouseover', e => {
+          label = e.layer.properties.insee_com; // donne moi le nom de la commune
+          // fout le dans un tooltip qui va s'afficher aux coordonnées de la commune
+          tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
+                      .setContent(label)
+                      .setLatLng(e.latlng)
+                      .addTo(mymap);
+        });
+        gridCom.on('mouseout', e=> {
+           tooltip.remove();
+          clearHighlight();
+        })
+      };
+
+      // on récupère le nom de la commune sur laquelle passe la souris ...
+      gridCom.addEventListener('mouseover', e => {
+        clearHighlight(gridCom);
+        highlight = e.layer.properties.insee_com;
+        gridCom.setFeatureStyle(highlight, {
+          color: '#d6741e',
+          fillColor: 'red',
+          fillOpacity:0.5,
+          opacity:1,
+          animate:true,
+          duration:5
+        });
       });
-      showContent(search,content,highlight); // ... et ouvre la fenetre laterale
-      highlight = e.layer.properties.codgeo;
-      console.log(highlight);
-      gridCom.setFeatureStyle(highlight,{
-        weight: 2,
-        color: '#d6741e',
-        opacity: 1,
-        fillColor: '#d6741e',
-        fill: true,
-        radius: 6,
-        fillOpacity: 1
-      });
-    }).addTo(mymap);
-
-    // récupèrer l'attribut _dataLayerNames pour y appliquer le style(si fichier topojson)
-    console.log(gridCom._dataLayerNames);
-
-    // bind tooltip
-    var label;
-    var tooltip;
-    showTooltip();
-
-    function showTooltip() {
       gridCom.on('click', e => {
-        label = e.layer.properties.codgeo; // donne moi le nom de la commune
-        // fout le dans un tooltip qui va s'afficher aux coordonnées de la commune
         tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
                     .setContent(label)
                     .setLatLng(e.latlng)
-                    .addTo(mymap);
-      });
-      // gridCom.on('click', e=> {
-       //   tooltip.remove();
-      //   clearHighlight();
-      // })
-    };
+                    .addTo(mymap)
+      })
 
-    // on récupère le nom de la commune sur laquelle passe la souris ...
-    gridCom.addEventListener('mouseover', e => {
-      clearHighlight(gridCom);
-      highlight = e.layer.properties.codgeo;
-      gridCom.setFeatureStyle(highlight, {
-        color: '#d6741e',
-        fillColor: 'red',
-        fillOpacity:0.5,
-        opacity:1,
-        animate:true,
-        duration:5
+      gridCom.addEventListener('mouseout', function() {
+        clearHighlight(gridCom);
+        // vire moi les tooltips bordel de merde
+        tooltip.remove();
       });
-    });
-    // gridCom.on('click', e => {
-    //   tooltip = L.tooltip( {direction: 'right',className:'leaflet-tooltip'})
-    //               .setContent(label)
-    //               .setLatLng(e.latlng)
-    //               .addTo(mymap)
-    // })
-    //
-    gridCom.addEventListener('mouseout', function() {
-      clearHighlight(gridCom);
-      // vire moi les tooltips bordel de merde
-      // tooltip.remove();
-    });
-});
+
+      let limits_adm = ["dep_gen","reg_gen"];
+      for (i in limits_adm) {
+        fetch("data/".concat(limits_adm[i],".topojson"))
+          .then(res => res.json())
+          .then(res => {
+            console.log(res);
+            L.geoJSON(res).addTo(mymap)
+          })
+      }
+  })
+};
 
 //////////////////// STYLES COUCHES //////////////////////////////
 
@@ -157,14 +168,13 @@ communes = fetch(communesPath) // appel au fichier ...
 //                     }
 //                   ];
 
-// boucle lancant la fonction d'affichage du zonage pour chaque zonage présent dans le tableau
 // for (var i in zonageArray) {
 //   var zonage = zonageArray[i].zonage; // nom du zonage
 //   var style = zonageArray[i].style; // style associé
 //   showZonage(zonage,style)
 // };
 //
-// // fonction faisant appel au fichier et affichant le zonage voulu
+// // fonction faisant appel au fichier et affichant le zonage voulu (en L.GeoJSON())
 // function showZonage(zonage,style) {
 //   var zonageBox = document.getElementById(zonage); // la checkbox correspondante récupérer depuis le html
 //   var zonageLayer = zonage.concat('Layer'); // donner un nom à la couche
@@ -190,7 +200,7 @@ communes = fetch(communesPath) // appel au fichier ...
 //     })
 // };
 
-//////////////////// FONCTIONS //////////////////////////////////
+////////////////////////// FONCTIONS //////////////////////////////////
 // surligner les entités sur lesquelles passe la souris
 var highlight;
 var clearHighlight = function(layer) {
