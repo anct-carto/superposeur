@@ -39,7 +39,27 @@
           <p style="font-size:13px">Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
           <!-- checkbox périmètres -->
           <table>
-            <tr for = "acv">
+            <tr>
+              <td>
+                <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale">
+                <label for="afr" class = "libZonage">
+                  Zone d'Aide à Finalité Régionale (AFR)
+                </label>
+                <button type="button" class="expandBtn"></button>
+                <div class="description" id = "">
+                  <span class = "info">i </span><label> En savoir plus</label>
+                  <span class = "download">d</span><label> Télécharger la carte</label>
+                  <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
+
+                    Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
+
+                    Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
+
+
+                  </div>
+                </td>
+              </tr>
+            <tr>
               <td>
                 <input id = 'acv' type="checkbox" text = "Action Cœur de Ville">
                 <label for="acv" class = "libZonage">
@@ -57,30 +77,10 @@
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale">
-                  <label for="afr" class = "libZonage">
-                    Zone d'Aide à Finalité Régionale (AFR)
-                  </label>
-                  <button type="button" class="expandBtn"></button>
-                  <div class="description" id = "">
-                    <span class = "info">i </span><label> En savoir plus</label>
-                    <span class = "download">d</span><label> Télécharger la carte</label>
-                    <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
-
-                      Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
-
-                      Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
-
-
-                    </div>
-                  </td>
-                </tr>
                 <tr>
                   <td>
-                    <input id = 'ami-cb' type="checkbox" text = "AMI - Centres-bourgs">
-                    <label for="ami-cb" class = "libZonage">
+                    <input id = 'amicb' type="checkbox" text = "AMI - Centres-bourgs">
+                    <label for="amicb" class = "libZonage">
                       Appel à manifestation d'intérêt - Centres-bourgs
                     </label>
                     <button type="button" class="expandBtn"></button>
@@ -121,6 +121,19 @@
                     <input id = 'cdt' type="checkbox">
                     <label for="cdt"  class = "libZonage">
                       Contrat de Développement Territorial
+                    </label>
+                    <button type="button" class="expandBtn"></button>
+                    <div class="description">
+                      <span class = "info">i </span><label> En savoir plus</label>
+                      <span class = "download">d</span><label> Télécharger la carte</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id = 'cpier' type="checkbox">
+                    <label for="cpier"  class = "libZonage">
+                      Contrat de Plan Interrégional État-Région
                     </label>
                     <button type="button" class="expandBtn"></button>
                     <div class="description">

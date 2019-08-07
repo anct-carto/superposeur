@@ -15,10 +15,11 @@ var comStyle = {
         opacity: 1,
         fill:true,
         fillOpacity: 1,
-        fillColor:"rgba(100,40,40,1)",
+        fillColor:"#b5b5b5",
       };
 
 ///////////////////////// REQUETES SUR LES COMMUNES ////////////////////////
+var loaded = false;
 drawCommunes();
 
 function drawCommunes() {
@@ -26,6 +27,7 @@ function drawCommunes() {
   fetch(communesPath) // appel au fichier ...
     .then(res => res.json()) // ... écoute de la réponse ...
     .then(res => {
+      loaded = true
       // création des tuiles vectorielles comprenant les communes
       gridCom = L.vectorGrid.slicer(res, {
         rendererFactory: L.canvas.tile, // affichage par canvas ou svg (svg + lourd)
@@ -111,17 +113,121 @@ function drawCommunes() {
         tooltip.remove();
       });
 
-      let limits_adm = ["dep_gen","reg_gen"];
-      for (i in limits_adm) {
-        fetch("data/".concat(limits_adm[i],".topojson"))
-          .then(res => res.json())
-          .then(res => {
-            console.log(res);
-            L.geoJSON(res).addTo(mymap)
-          })
-      }
+      drawBorders();
   })
 };
+
+function drawBorders() {
+  fetch('data/borders.topojson')
+    .then(res => res.json())
+    .then(res => {
+      features = res;
+      console.log(features);
+      depGrid = L.vectorGrid.slicer(res, {
+        rendererFactory: L.canvas.tile,
+        vectorTileLayerStyles: {
+          borders: function(feature) {
+            if (feature.maille === 'dep') {
+              return {
+                color:"white",
+                opacity:1,
+                weight:.75,
+              }
+            } else {
+              return {
+                color:"white",
+                opacity:1,
+                weight:1.5,
+              }
+            }
+          }
+        }
+    }).addTo(mymap)
+  })
+};
+
+
+//Création des labels
+var createLabelIcon = function(labelClass,labelText){
+    return L.divIcon({
+        className: labelClass,
+        html: labelText
+      })
+    };
+
+let labelProperties = [
+  {
+    labelClass:"labelClassReg",
+    field:"région"
+  },
+  {
+    labelClass:"labelClassDep",
+    field:"département"
+  },
+  {
+    labelClass:"labelClassCan",
+    field:"sous-prefecture"
+  }
+];
+
+labelProperties.forEach(e=> {
+  labelClass = e.labelClass;
+  field = e.field;
+  drawLabels(labelClass,field)
+})
+
+function drawLabels(labelClass,field) {
+  fetch('data/labels.geojson')
+    .then(res => res.json())
+    .then(res => {
+      labels = L.geoJSON(res, {
+        pointToLayer: function(feature, latlng) {
+          return L.marker(latlng,{
+            icon:createLabelIcon(labelClass, feature.properties.libgeom),
+            interactive: false})
+        },
+        filter : function(feature, layer) {
+          return feature.properties.STATUT == field;
+        },
+        className:"labels"
+      }).addTo(mymap);
+      L.canvas({pane:labels});
+    });
+};
+
+mymap.on('zoomend', function() {
+  let zoom = mymap.getZoom();
+  console.log(zoom);
+  switch (true) {
+    case zoom < 8 :
+      labels.removeFrom(mymap)
+      console.log(labels);
+      break;
+    case zoom >= 8 && zoom < 9:
+    labels.addTo(mymap)
+    console.log(labels);
+    // labels.eachLayer(function(layer) {
+    //   if (layer.options.className == "région") {
+    //     layer.remove()
+    //   };
+
+      break;
+
+    case zoom >= 9 :
+
+      break;
+    default:
+  }
+});
+
+// surligner les entités sur lesquelles passe la souris
+var highlight;
+var clearHighlight = function(layer) {
+    if (highlight) {
+      layer.resetFeatureStyle(highlight);
+    }
+    highlight = null;
+  };
 
 //////////////////// STYLES COUCHES //////////////////////////////
 
@@ -199,13 +305,3 @@ function drawCommunes() {
 //       })
 //     })
 // };
-
-////////////////////////// FONCTIONS //////////////////////////////////
-// surligner les entités sur lesquelles passe la souris
-var highlight;
-var clearHighlight = function(layer) {
-    if (highlight) {
-      layer.resetFeatureStyle(highlight);
-    }
-    highlight = null;
-  };

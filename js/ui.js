@@ -101,6 +101,7 @@ closePopup.onclick = function() {
   aPropos.style.display = 'none';
 }
 
+// au click n'importe où dans le navigateur
 window.onclick = function(event) {
   if (event.target == aPropos) {
     aPropos.style.display = "none";

@@ -1,9 +1,50 @@
 /////////////////////////////////// SYMBOLOGIE ///////////////////////////////////
+let acvTexture = textures.circles()
+                  .size(10)
+                  .fill("pink");
+
 let afrTexture = textures.circles()
                   .lighter()
                   .size(3)
                   .fill("black")
                   .background("pink");
+
+let amicbTexture = textures.circles()
+                .lighter()
+                .fill("white")
+                .background("darkred");
+
+let berTexture = textures.circles()
+                  .lighter()
+                  .size(3)
+                  .fill("black")
+                  .background("pink");
+
+let budTexture = textures.circles()
+                  .lighter()
+                  .size(3)
+                  .fill("black")
+                  .background("pink");
+
+let cdtTexture = textures.circles()
+                  .lighter()
+                  .fill("white")
+                  .background("darkred");
+
+let cpierTexture = textures.circles()
+                  .lighter()
+                  .fill("white")
+                  .background("darkred");
+
+let crTexture = textures.lines()
+                  .orientation("vertical")
+                  .strokeWidth(1)
+                  .shapeRendering("crispEdges");
+
+let cteTexture = textures.lines()
+                  .orientation("vertical")
+                  .strokeWidth(1)
+                  .shapeRendering("crispEdges");
 
 let cvTexture = textures.circles()
                   .lighter()
@@ -13,22 +54,18 @@ let cvTexture = textures.circles()
 let zfuTexture = textures.circles()
                   .size(5)
                   .fill("darkorange")
-                  .stroke("darkorange")
+                  .stroke("darkorange");
 
-let acvTexture = textures.circles()
-                  .size(10)
-                  .fill("pink")
-
-let crTexture = textures.lines()
-                        .orientation("vertical")
-                        .strokeWidth(1)
-                        .shapeRendering("crispEdges");
+let zrdTexture = textures.lines()
+                  .size(8)
+                  .strokeWidth(2)
+                  .stroke('green')
+                  .background("yellow");
 
 let zrrTexture = textures.lines()
                   .size(8)
                   .strokeWidth(2)
-                  .stroke('green')
-                  // .background("yellow")
+                  .stroke('green');
 
 let textureArray = [
                     {
@@ -37,14 +74,44 @@ let textureArray = [
                       style:afrTexture,
                     },
                     {
+                      layer:'acv',
+                      lib:"Action Coeur de ville",
+                      style:acvTexture
+                    },
+                    {
+                      layer:'amicb',
+                      lib:"Appel à Manifestation d'Intérêt Centre-bourg",
+                      style:amicbTexture,
+                    },
+                    {
                       layer:'ber',
                       lib:"Bassin d'Emploi à Redynamiser",
-                      style:afrTexture,
+                      style:berTexture,
+                    },
+                    {
+                      layer:'bud',
+                      lib:"Bassin Urbain à Dynamiser",
+                      style:budTexture,
+                    },
+                    {
+                      layer:'cdt',
+                      lib:"Contrat de Développement Territorial",
+                      style:cdtTexture,
+                    },
+                    {
+                      layer:'cpier',
+                      lib:"Contrat de Plan Interrégional État-Région",
+                      style:cpierTexture,
                     },
                     {
                       layer:'cr',
                       lib:"Contrat de ruralité",
                       style:crTexture,
+                    },
+                    {
+                      layer:'cte',
+                      lib:"Contrat de Transition Écologique",
+                      style:cvTexture,
                     },
                     {
                       layer:'cv',
@@ -57,14 +124,14 @@ let textureArray = [
                       style:zfuTexture
                     },
                     {
+                      layer:'zrd',
+                      lib:"Zone de Restructuration de la Défense",
+                      style:zrdTexture
+                    },
+                    {
                       layer:'zrr',
                       lib:"Zone de Revitalisation Rurale",
                       style:zrrTexture
-                    },
-                    {
-                      layer:'acv',
-                      lib:"Action Coeur de ville",
-                      style:acvTexture
                     }
                   ];
 
@@ -77,7 +144,6 @@ for (var i in textureArray) { // pour chaque élément du tableau ...
   var lib = textureArray[i].lib; // .. et le style associé ...
   showLayer(layer,style,lib) // ... auquel tu appliques la fonction
 };
-
 // /!\ toutes les variables LAYER fait référence aux ZONAGE /!\
 
 // initialisation : ajout d'un moteur de rendu svg comportant déjà les éléments svg et g
@@ -120,7 +186,7 @@ function showLayer(layer,style,lib) { // dans la fonction
         d3.select("#legendTitle").style("display","block");
         // minLegendBtn.style.display = 'block'
         legendWindow.style.padding = "10px"; // fenetre de légende
-        legendWindow.style.width = "200px"; // fenetre de légende
+        legendWindow.style.width = "250px"; // fenetre de légende
       }
 
       // objet svg accueillan les couches des zonages
@@ -148,7 +214,7 @@ function showLayer(layer,style,lib) { // dans la fonction
             .append("path")
             .style("fill",style.url()) // ... applique le style du zonage
             .style("fill-opacity","0.5")
-            .style("stroke","white")
+            // .style("stroke","white")
             .style("stroke-width","1")
             .on("mouseover", function(d) {
               tooltip.transition()
@@ -158,10 +224,10 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .style("left", (d3.event.pageX - 50) + "px")
                 .style("top", (d3.event.pageY - 40) + "px");
               d3.select(this)
-                .style("stroke","darkred")
-                .style("stroke-opacity","0.25")
-                .style("fill","yellow")
-                .style("fill-opacity","0.05")
+                .style("stroke","rgb(214, 116, 30)")
+                .style("stroke-width","3")
+                // .style("fill","yellow")
+                // .style("fill-opacity","0.05")
                 .transition()
                 .ease(d3.easeBack)
                 .duration(1000) //surlignage
@@ -173,7 +239,8 @@ function showLayer(layer,style,lib) { // dans la fonction
                   .style("top", "-500px");
               d3.select(this).style("stroke","white")
                 .style("fill",style.url()) // ... applique le style du zonage
-                .style("fill-opacity","0.65") //hightlight du layer
+                .style("fill-opacity","0.5") //hightlight du layer
+                .style("stroke","")
                 .transition()
                 .ease(d3.easeBack)
                 .duration(1000)

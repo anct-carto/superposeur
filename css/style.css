@@ -366,6 +366,16 @@ g {
 	transition: width 0.55s ease-in-out ;
 }
 
+.leaflet-marker-pane {
+  font-size: 10px;
+  color:rgb(60,60,60);
+  font-weight: 600;
+  border-color:white;
+  justify-content: center;
+  text-align: center;
+  text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
+}
+
 /* ///////////////////////// Popup A propos ///////////////////////////////// */
 
 #aPropos {
