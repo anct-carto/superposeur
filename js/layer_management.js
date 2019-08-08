@@ -1,7 +1,9 @@
 /////////////////////////////////// SYMBOLOGIE ///////////////////////////////////
-let acvTexture = textures.circles()
+let acvTexture = textures.lines()
+                  .orientation("vertical")
+                  .stroke("rgb(255, 80, 0)")
                   .size(10)
-                  .fill("pink");
+                  .strokeWidth(10);
 
 let afrTexture = textures.circles()
                   .lighter()
@@ -10,57 +12,66 @@ let afrTexture = textures.circles()
                   .background("pink");
 
 let amicbTexture = textures.circles()
-                .lighter()
-                .fill("white")
-                .background("darkred");
+                  .lighter()
+                  .fill("white")
+                  .background("darkred");
 
 let berTexture = textures.circles()
-                  .lighter()
-                  .size(3)
-                  .fill("black")
-                  .background("pink");
+                  .size(7.5)
+                  .radius(2)
+                  .fill("white")
+                  .background("darkblue");
 
 let budTexture = textures.circles()
                   .lighter()
                   .size(3)
-                  .fill("black")
-                  .background("pink");
+                  .fill("grey")
+                  .background("purple");
 
-let cdtTexture = textures.circles()
-                  .lighter()
-                  .fill("white")
-                  .background("darkred");
+// let cdtTexture = textures.lines()
+//                   .orientation("vertical")
+//                   .stroke("lightblue")
+//                   .size(10)
+//                   .strokeWidth(10)
+let cdtTexture = textures.lines()
+                  .shapeRendering("crispEdges")
+                  .stroke("rgb(3, 173, 252)")
+                  .size(5)
+                  .strokeWidth(2.5)
 
 let cpierTexture = textures.circles()
-                  .lighter()
-                  .fill("white")
-                  .background("darkred");
+                  .thicker()
+                  .size(4.5)
+                  .fill("yellow");
 
-let crTexture = textures.lines()
-                  .orientation("vertical")
-                  .strokeWidth(1)
-                  .shapeRendering("crispEdges");
+let crTexture = textures.paths()
+                  .d("woven")
+                  .lighter()
+                  .stroke("rgb(99, 121, 57)")
+                  .background("rgb(188, 189, 34)")
+                  .thicker();
 
 let cteTexture = textures.lines()
-                  .orientation("vertical")
-                  .strokeWidth(1)
-                  .shapeRendering("crispEdges");
+                  .shapeRendering("crispEdges")
+                  .stroke("rgb(3, 252, 152)")
+                  .size(5)
+                  .strokeWidth(2.5);
 
 let cvTexture = textures.circles()
                   .lighter()
                   .fill("white")
-                  .background("darkred");
+                  .background("rgb(153, 0, 153)");
 
-let zfuTexture = textures.circles()
-                  .size(5)
-                  .fill("darkorange")
-                  .stroke("darkorange");
+let zfuTexture = textures.lines()
+                  .orientation("vertical")
+                  .stroke("yellow")
+                  .size(10)
+                  .strokeWidth(10);
 
 let zrdTexture = textures.lines()
                   .size(8)
-                  .strokeWidth(2)
-                  .stroke('green')
-                  .background("yellow");
+                  .strokeWidth(10)
+                  .stroke('rgb(140, 86, 75)');
 
 let zrrTexture = textures.lines()
                   .size(8)
@@ -111,7 +122,7 @@ let textureArray = [
                     {
                       layer:'cte',
                       lib:"Contrat de Transition Écologique",
-                      style:cvTexture,
+                      style:cteTexture,
                     },
                     {
                       layer:'cv',
@@ -196,16 +207,17 @@ function showLayer(layer,style,lib) { // dans la fonction
 
       d3.json('data/'.concat(layer,'.topojson')) // lecture du fichier
         .then(function (data) {
-          console.log(data);
           // adapte l'objet d3 à la projection de leaflet
           var transform = d3.geoTransform({
             point:projectPoint
           });
           var path = d3.geoPath().projection(transform);
 
+          // accès au propriétés du fichier
           zonages = topojson.feature(data,data.objects.zonage).features;
 
-          g.call(style); // appel au style correspondant au zonage ...
+           // appel au style correspondant au zonage ...
+          g.call(style);
 
           layerChecked = g.selectAll("path")
             .data(zonages)
@@ -213,8 +225,7 @@ function showLayer(layer,style,lib) { // dans la fonction
             .enter()
             .append("path")
             .style("fill",style.url()) // ... applique le style du zonage
-            .style("fill-opacity","0.5")
-            // .style("stroke","white")
+            .style("fill-opacity","0.45")
             .style("stroke-width","1")
             .on("mouseover", function(d) {
               tooltip.transition()
@@ -227,36 +238,44 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .style("stroke","rgb(214, 116, 30)")
                 .style("stroke-width","3")
                 // .style("fill","yellow")
-                // .style("fill-opacity","0.05")
+                .style("fill-opacity","0.95")
                 .transition()
                 .ease(d3.easeBack)
                 .duration(1000) //surlignage
+            })
+            .on("click", function(d) {
+              if (content.style.width === "0px") {
+                showContent();
+              }
+              d3.select(".selected").classed("selected", false);
+              d3.select(this).classed("selected", true);
+              zonage = layer;
+              libgeo = d.properties.lib;
+              perimetre = d.properties.perimetre
+              nbcom = d.properties.nbcom;
+
+              d3.select("#layerInfo")
+              .html("<table><tr><td>Libellé : "+ libgeo + "</td></tr>" +
+              "<tr><td>Type de contrat/zonage: "+ lib + "</td></tr>"+
+              "<tr><td>Périmètre d'application : "+ perimetre.toUpperCase() + "</td></tr>"+
+              "<tr><td> Nombre de communes couvertes : "+ nbcom+"</td></tr></table>");
+              console.log(libgeo);
+              libgeo = []
+
             })
             .on("mouseout", function(d) {
               tooltip.style("opacity", 0);
               tooltip.html("")
                   .style("left", "-500px")
                   .style("top", "-500px");
-              d3.select(this).style("stroke","white")
+              d3.select(this)
                 .style("fill",style.url()) // ... applique le style du zonage
-                .style("fill-opacity","0.5") //hightlight du layer
+                .style("fill-opacity","0.45") //hightlight du layer
                 .style("stroke","")
                 .transition()
                 .ease(d3.easeBack)
                 .duration(1000)
             })
-            .on("click", function(d) {
-              console.log(d);
-              libgeo = d.properties.lib;
-              perimetre = d.properties.perimetre
-              nbcom = d.properties.nbcom;
-              d3.select("#layerInfo")
-                .html("<table><tr><td>Libellé : "+ libgeo + "</td></tr>" +
-                      "<tr><td>Périmètre d'application : "+ perimetre.toUpperCase() + "</td></tr>"+
-                      "<tr><td> Nombre de communes couvertes : "+ nbcom+"</td></tr></table>");
-              console.log(libgeo);
-              libgeo = []
-            });
 
           // LEGENDE DYNAMIQUE
           legend.append("rect")

@@ -113,6 +113,7 @@ function drawCommunes() {
         tooltip.remove();
       });
 
+      // affichage des limites administratives
       drawBorders();
   })
 };
@@ -146,79 +147,92 @@ function drawBorders() {
   })
 };
 
-
 //Création des labels
+// conversion des textes en éléments svg
+function svgText(txt) {
+  return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><text x="0" y = "10">'
+  + txt + '</text></svg>';
+}
+
+
 var createLabelIcon = function(labelClass,labelText){
-    return L.divIcon({
-        className: labelClass,
-        html: labelText
-      })
-    };
+  return L.divIcon({
+    className: svgText(labelClass),
+    html: svgText(labelText)
+  })
+};
 
-let labelProperties = [
-  {
-    labelClass:"labelClassReg",
-    field:"région"
-  },
-  {
-    labelClass:"labelClassDep",
-    field:"département"
-  },
-  {
-    labelClass:"labelClassCan",
-    field:"sous-prefecture"
-  }
-];
+let labelReg, labelDep, labelCan;
 
-labelProperties.forEach(e=> {
-  labelClass = e.labelClass;
-  field = e.field;
-  drawLabels(labelClass,field)
-})
+fetchLabel();
 
-function drawLabels(labelClass,field) {
+// affichage des labels selon le zoom
+function fetchLabel() {
   fetch('data/labels.geojson')
-    .then(res => res.json())
-    .then(res => {
-      labels = L.geoJSON(res, {
-        pointToLayer: function(feature, latlng) {
-          return L.marker(latlng,{
-            icon:createLabelIcon(labelClass, feature.properties.libgeom),
-            interactive: false})
-        },
-        filter : function(feature, layer) {
-          return feature.properties.STATUT == field;
-        },
-        className:"labels"
-      }).addTo(mymap);
-      L.canvas({pane:labels});
+      .then(res => res.json())
+      .then(res => {
+        labelReg = new L.geoJSON(res, {
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng,{
+                icon:createLabelIcon("labelClassReg", feature.properties.libgeom),
+                interactive: false
+              })
+            },
+            filter : function (feature, layer) {
+              return feature.properties.STATUT == "région";
+            },
+            className:"labels",
+            rendererFactory: L.canvas()
+          }).addTo(mymap);
+
+        labelDep = new L.geoJSON(res, {
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng,{
+                icon:createLabelIcon("labelClassDep", feature.properties.libgeom),
+                interactive: false
+              })
+            },
+            filter : function (feature, layer) {
+              return feature.properties.STATUT == "département";
+            },
+            className:"labels"
+          });
+
+        labelCan = new L.geoJSON(res, {
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng,{
+                icon:createLabelIcon("labelClassCan", feature.properties.libgeom),
+                interactive: false
+              })
+            },
+            filter : function (feature, layer) {
+              return feature.properties.STATUT == "sous-prefecture";
+            },
+            className:"labels"
+          });
+
+          mymap.on('zoomend', function() {
+            let zoom = mymap.getZoom();
+
+            switch (true) {
+              case zoom < 8 :
+              labelDep.remove()
+              labelCan.remove()
+              break;
+              case zoom >= 8 && zoom < 9:
+              labelCan.remove()
+              labelDep.addTo(mymap);
+              break;
+              case zoom >= 9 :
+              labelCan.addTo(mymap);
+              break;
+            }
+          });
     });
 };
 
-mymap.on('zoomend', function() {
-  let zoom = mymap.getZoom();
-  console.log(zoom);
-  switch (true) {
-    case zoom < 8 :
-      labels.removeFrom(mymap)
-      console.log(labels);
-      break;
-    case zoom >= 8 && zoom < 9:
-    labels.addTo(mymap)
-    console.log(labels);
-    // labels.eachLayer(function(layer) {
-    //   if (layer.options.className == "région") {
-    //     layer.remove()
-    //   };
 
-      break;
 
-    case zoom >= 9 :
-
-      break;
-    default:
-  }
-});
 
 // surligner les entités sur lesquelles passe la souris
 var highlight;

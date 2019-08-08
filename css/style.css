@@ -278,6 +278,16 @@ td:hover {
 }
 
 /* ////////////////////////// Carte, étiquette, légende ///////////////////// */
+.selected {
+  fill: red;
+  fill-opacity: 1;
+  border-width: 50px;
+}
+
+.selected:hover {
+  fill:red;
+}
+
 #legend {
   margin-left: 20px;
   float:right;
@@ -366,10 +376,13 @@ g {
 	transition: width 0.55s ease-in-out ;
 }
 
+/* labels chef lieu */
 .leaflet-marker-pane {
-  font-size: 10px;
-  color:rgb(60,60,60);
-  font-weight: 600;
+  left:-10px;
+  font-size: 11.5px;
+  color:red;
+  /* color:rgb(90,90,90); */
+  font-weight: 400;
   border-color:white;
   justify-content: center;
   text-align: center;
