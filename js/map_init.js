@@ -66,7 +66,7 @@ function initMap() {
       vectorTileLayerStyles: {
         sliced: {
           color: "#ffffff",
-          weight: 1,
+          weight: 2,
           opacity: 1,
           fillOpacity: 0.5,
           fillColor: 'white'

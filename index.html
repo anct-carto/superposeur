@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Superposeur v0</title>
+    <title>ViZonage</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/leaflet.css">
     <link rel="stylesheet" href="css/awesomplete.css">
@@ -28,57 +28,53 @@
     <!-- Panneau latéral -->
     <div id="content">
       <div id="homeContainer">
-        <button type="button" name="close" id = "closeContent"><</button>
+        <button type="button" name="close" id = "closeContent">
+          <img src="css/img/back.svg" height = "40px" width = "40px">
+        </button>
         <div id="intro">
-          <p id ="appName">Contractualisation et zonages</p>
           <h2>ViZonage</h2>
+          <p id ="appName">Contractualisation et zonages</p>
           <p>Carte interactive des contrats et zonages de politiques publiques suivis au CGET</p>
         </div>
         <!-- catégories de zonage -->
         <div id="cat-zonages">
-          <p style="font-size:13px">Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
           <!-- checkbox périmètres -->
-          <table>
-            <tr>
-              <td>
+          <ul>
+            <p style='font-size:13px'>Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
+              <li class = 'zonage'>
                 <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale">
                 <label for="afr" class = "libZonage">
                   Zone d'Aide à Finalité Régionale (AFR)
                 </label>
                 <button type="button" class="expandBtn"></button>
-                <div class="description" id = "">
+                <div class="description" id = "acv-desc">
                   <span class = "info">i </span><label> En savoir plus</label>
                   <span class = "download">d</span><label> Télécharger la carte</label>
-                  <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
-
-                    Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
-
-                    Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
-
-
+                  <p></p>
                   </div>
-                </td>
-              </tr>
-            <tr>
-              <td>
+                </li>
+              <li class = 'zonage'>
                 <input id = 'acv' type="checkbox" text = "Action Cœur de Ville">
                 <label for="acv" class = "libZonage">
                   Action Cœur de Ville
                 </label>
                 <button type="button" class="expandBtn" name = ""></button>
-                <div class="description"><h4> A propos<span class = "info">i</span></h4>
-                  <p>Superatis Tauri montis verticibus qui ad solis ortum sublimius attolluntur, Cilicia spatiis porrigitur late distentis dives bonis omnibus terra, eiusque lateri dextro adnexa Isauria, pari sorte uberi palmite viget et frugibus minutis, quam mediam navigabile flumen Calycadnus interscindit.
+                <div class="description">
+                  <h4>A propos<span class = "info">i</span></h4>
+                  <span><h4>Télécharger la carte</h4></span>
+                    <p>
+                      222 villes moyennes ont été retenues pour être accompagnées dans la redynamsation de leurs centres villes, depuis le conseil en amont jusqu'au suivi des de projet. Cinq milliards d'euros sont mobilisés sur 5 ans.
+                    </p>
+                    <p>
+                      Lancé en décembre 2017, ce plan répond à une double ambition : améliorer les conditions de vie des habitants des villes moyennes et conforter le rôle de moteur de développement du territoire de ces dernières. Il est mis en œuvre avec les collectivités territoriales en fédérant les partenaires (Agence nationale de l’habitat, d’Action Logement, Caisse des dépôts…), au plan national comme au plan local.
 
-                    Post hanc adclinis Libano monti Phoenice, regio plena gratiarum et venustatis, urbibus decorata magnis et pulchris; in quibus amoenitate celebritateque nominum Tyros excellit, Sidon et Berytus isdemque pares Emissa et Damascus saeculis condita priscis.
-
-                    Cumque pertinacius ut legum gnarus accusatorem flagitaret atque sollemnia, doctus id Caesar libertatemque superbiam ratus tamquam obtrectatorem audacem excarnificari praecepit, qui ita evisceratus ut cruciatibus membra deessent, inplorans caelo iustitiam, torvum renidens fundato pectore mansit inmobilis nec se incusare nec quemquam alium passus et tandem nec confessus nec confutatus cum abiecto consorte poenali est morte multatus. et ducebatur intrepidus temporum iniquitati insultans, imitatus Zenonem illum veterem Stoicum qui ut mentiretur quaedam laceratus diutius, avulsam sedibus linguam suam cum cruento sputamine in oculos interrogantis Cyprii regis inpegit.</p>
-                    <label> </label>
+                    </p>
                     <a href="https://cartotheque.cget.gouv.fr/cartes"><h4>Télécharger la carte ici</h4></a>
                   </div>
-                </td>
-              </tr>
-                <tr>
-                  <td>
+                </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'amicb' type="checkbox" text = "AMI - Centres-bourgs">
                     <label for="amicb" class = "libZonage">
                       Appel à manifestation d'intérêt - Centres-bourgs
@@ -88,10 +84,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'ber' type="checkbox">
                     <label for="ber" class = "libZonage">
                       Bassin d'emploi à redynamiser (BER)
@@ -101,10 +97,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'bud' type="checkbox">
                     <label for="bud" class = "libZonage">
                       Bassin urbain à dynamiser (BUD)
@@ -114,10 +110,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'cdt' type="checkbox">
                     <label for="cdt"  class = "libZonage">
                       Contrat de Développement Territorial
@@ -127,10 +123,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'cpier' type="checkbox">
                     <label for="cpier"  class = "libZonage">
                       Contrat de Plan Interrégional État-Région
@@ -140,10 +136,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'cr' type="checkbox">
                     <label for="cr"  class = "libZonage">
                       Contrat de Ruralité
@@ -153,10 +149,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = "cte" type="checkbox">
                     <label for="cte"  class = "libZonage">
                       Contrat de Transition Écologique
@@ -166,10 +162,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = "cv" type="checkbox">
                     <label for="cv" class = "libZonage">
                       Contrat de Ville
@@ -179,10 +175,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'zfu' type="checkbox">
                     <label for="zfu" class = "libZonage">
                       Zone Franche Urbaine (ZFU)
@@ -192,10 +188,10 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+
+
+                  <li class = 'zonage'>
                     <input id = 'zrd' type="checkbox">
                     <label for="zrd" class = "libZonage">
                       Zone de restructuration de la Défense (ZRD)
@@ -205,10 +201,8 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                  </li>
+                  <li class = 'zonage'>
                     <input id = "zrr" type="checkbox">
                     <label for="zrr" class = "libZonage">
                       Zone de Revitalisation rurale (ZRR)
@@ -218,20 +212,12 @@
                       <span class = "info">i </span><label> En savoir plus</label>
                       <span class = "download">d</span><label> Télécharger la carte</label>
                     </div>
-                  </td>
-                </tr>
-                <!-- Appel à Manifestation d'Intérêt – Centre Bourg
-                Contrat de Développement Territorial
-                Contrat de Plan Inter Régionaux
-                Contrat de Ruralité
-                Contrat de Transition Ecologique
-                Contrat de Ville -->
-
-              </table>
+                  </li>
+              </ul>
             </div>
       </div>
       <div id="layerInfo">
-
+        <!-- fiche territoire -->
       </div>
     </div>
     <!-- barre latérale -->

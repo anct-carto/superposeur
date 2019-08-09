@@ -1,4 +1,7 @@
-/////////////////////////////////// SYMBOLOGIE ///////////////////////////////////
+/****************************************************************************************************************/
+/******************************************* SYMBOLOGIE DES FICHIERS ********************************************/
+/****************************************************************************************************************/
+
 let acvTexture = textures.lines()
                   .orientation("vertical")
                   .stroke("rgb(255, 80, 0)")
@@ -28,11 +31,6 @@ let budTexture = textures.circles()
                   .fill("grey")
                   .background("purple");
 
-// let cdtTexture = textures.lines()
-//                   .orientation("vertical")
-//                   .stroke("lightblue")
-//                   .size(10)
-//                   .strokeWidth(10)
 let cdtTexture = textures.lines()
                   .shapeRendering("crispEdges")
                   .stroke("rgb(3, 173, 252)")
@@ -77,6 +75,10 @@ let zrrTexture = textures.lines()
                   .size(8)
                   .strokeWidth(2)
                   .stroke('green');
+
+/****************************************************************************************************************/
+/****************************************** TABLEAU .json DES STYLES ********************************************/
+/****************************************************************************************************************/
 
 let textureArray = [
                     {
@@ -146,16 +148,23 @@ let textureArray = [
                     }
                   ];
 
-/////////////////////////////////// COUCHES ///////////////////////////////////
+/****************************************************************************************************************/
+/******************************************* AFFICHAGE des COUCHES **********************************************/
+/****************************************************************************************************************/
 
 // affichage des différents calques
 for (var i in textureArray) { // pour chaque élément du tableau ...
   var layer = textureArray[i].layer; // ... récupère le nom du zonage
-  var style = textureArray[i].style; // .. et le style associé ...
-  var lib = textureArray[i].lib; // .. et le style associé ...
-  showLayer(layer,style,lib) // ... auquel tu appliques la fonction
+  var style = textureArray[i].style; // ...  le style associé ...
+  var lib = textureArray[i].lib; // ... et le libellé du zonage  ...
+  showLayer(layer,style,lib) // ... auquel tu appliques la fonction (ci-dessous)
 };
 // /!\ toutes les variables LAYER fait référence aux ZONAGE /!\
+
+
+/****************************************************************************************************************/
+/******************************* FONCTION PRINCIPALE : GESTION DES COUCHES **************************************/
+/****************************************************************************************************************/
 
 // initialisation : ajout d'un moteur de rendu svg comportant déjà les éléments svg et g
 // voir ==> https://groups.google.com/forum/#!topic/leaflet-js/bzM9ssegitU
@@ -164,10 +173,7 @@ L.svg({interactive: true}).addTo(mymap); // au préalable, création d'un conten
 var g, svg;
 var y = 0;
 var l = 25;
-// FONCTION d'AFFICHAGE DES DIFFERENTES COUCHES
-
-/////////////////////////// FONCTION PRINCIPALE ////////////////////////////////
-
+var coords;
 legendWindow = document.getElementById('legend');
 
 function showLayer(layer,style,lib) { // dans la fonction
@@ -186,39 +192,45 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .style("opacity", 0);
 
     if (zonageBox.checked) {
+      // légende dynamique
       var legend = d3.select("#legend-svg")
                       .attr("height",function() {
                         return l;
                       })
                      .append("g")
-                     .attr("class",layer) // légende dynamique
-
+                     .attr("class",layer)
       if (legendWindow.style.width = "0px") {
         d3.select("#legendTitle").style("display","block");
-        // minLegendBtn.style.display = 'block'
+        // minLegendBtn.style.display = 'block' // bouton pour fermer la fenêtre de légende
         legendWindow.style.padding = "10px"; // fenetre de légende
         legendWindow.style.width = "250px"; // fenetre de légende
       }
 
-      // objet svg accueillan les couches des zonages
+      // objet svg qui va accueillir les topojson des zonages
       g = svg.append("g").attr("class", "leaflet-zoom-hide").attr("class",layer);
 
       console.log(layer+" checked");
 
-      d3.json('data/'.concat(layer,'.topojson')) // lecture du fichier
+      // lecture du fichier
+      d3.json('data/'.concat(layer,'.topojson'))
         .then(function (data) {
+
+
           // adapte l'objet d3 à la projection de leaflet
           var transform = d3.geoTransform({
             point:projectPoint
           });
+
           var path = d3.geoPath().projection(transform);
 
           // accès au propriétés du fichier
           zonages = topojson.feature(data,data.objects.zonage).features;
+          // /!\ "zonage" correspond au NOM D'OBJET du fichier, généré dans le script R ! ne PAS CHANGER /!\
 
-           // appel au style correspondant au zonage ...
+          // appel au style correspondant au zonage ...
           g.call(style);
 
+          // affichage du zonage sélectionné
           layerChecked = g.selectAll("path")
             .data(zonages)
             .attr("class",layer)
@@ -226,7 +238,8 @@ function showLayer(layer,style,lib) { // dans la fonction
             .append("path")
             .style("fill",style.url()) // ... applique le style du zonage
             .style("fill-opacity","0.45")
-            .style("stroke-width","1")
+            .style("stroke-width","0.25")
+            .style("stroke","white")
             .on("mouseover", function(d) {
               tooltip.transition()
                 .duration(200)
@@ -237,45 +250,73 @@ function showLayer(layer,style,lib) { // dans la fonction
               d3.select(this)
                 .style("stroke","rgb(214, 116, 30)")
                 .style("stroke-width","3")
-                // .style("fill","yellow")
                 .style("fill-opacity","0.95")
-                .transition()
-                .ease(d3.easeBack)
-                .duration(1000) //surlignage
             })
             .on("click", function(d) {
+              // au click, zoom sur l'entité
+              // coords = [d.geometry.coordinates[0][0][0][1],
+              //           d.geometry.coordinates[0][0][0][0]];
+              //
+              // mymap.flyTo(coords,6,{
+              //   animate:true,
+              //   duration:0.56
+              // });
+
+              // ouvre le panneau latéral avec la fiche
               if (content.style.width === "0px") {
                 showContent();
-              }
+              };
+              d3.selectAll("."+layer)
+                .transition()
+                .duration(200);
+
               d3.select(".selected").classed("selected", false);
               d3.select(this).classed("selected", true);
-              zonage = layer;
+
+              // récupération des informations à qui composent la fiche
               libgeo = d.properties.lib;
-              perimetre = d.properties.perimetre
+              perimetre = d.properties.perimetre;
               nbcom = d.properties.nbcom;
-
+              function info1() {
+                if (d.properties.info1 != null) {
+                  return d.properties.info1
+                } else {
+                  return ''
+                }
+              }
+              // Fiche territoire
               d3.select("#layerInfo")
-              .html("<table><tr><td>Libellé : "+ libgeo + "</td></tr>" +
-              "<tr><td>Type de contrat/zonage: "+ lib + "</td></tr>"+
-              "<tr><td>Périmètre d'application : "+ perimetre.toUpperCase() + "</td></tr>"+
-              "<tr><td> Nombre de communes couvertes : "+ nbcom+"</td></tr></table>");
-              console.log(libgeo);
-              libgeo = []
+                .html("<span id = 'featureName'>" + libgeo + "</span>" +
+                      "<table><tr><td>Type de contrat/zonage</td><td>" + lib + "</td></tr>"+
+                      "<tr><td>Périmètre d'application</td><td>" + perimetre.toUpperCase() + "</td></tr>"+
+                      "<tr><td>Nombre de communes couvertes</td><td>" + nbcom + "</td></tr></table>" +
+                      "<p>"+info1()+"</p>")
+                .append("button")
+                .attr("id","backBtn")
+                .html("<img src='css/img/back.svg' height = '30px' width = '30px'>Retour")
+                .on("click", function(){
+                    hideFeatureInfo()
+                  });
 
+              showFeatureInfo();
+
+              // liste vidée
+              libgeo = [];
             })
             .on("mouseout", function(d) {
+              // disparition du tooltip
               tooltip.style("opacity", 0);
               tooltip.html("")
                   .style("left", "-500px")
                   .style("top", "-500px");
               d3.select(this)
-                .style("fill",style.url()) // ... applique le style du zonage
-                .style("fill-opacity","0.45") //hightlight du layer
-                .style("stroke","")
                 .transition()
-                .ease(d3.easeBack)
-                .duration(1000)
-            })
+                .duration(100)
+                .style("fill",style.url())
+                .style("fill-opacity","0.45")
+                .style("stroke","white")
+                .style("stroke-width","0.25")
+            });
 
           // LEGENDE DYNAMIQUE
           legend.append("rect")
@@ -287,12 +328,13 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .style("stroke","grey")
                 .attr("y",y);
 
+          // libellé de légende
           legend.append("text")
                 .text(lib)
                 .attr("class","text-legend")
                 .attr('x', 50)
                 .attr('y', 15+y)
-                .attr("id",layer.concat(" legend"));
+                .attr("id",layer.concat("-legend"));
 
           mymap.on("moveend", update); // au zoom, remet les couches à la bonne échelle
           update();
@@ -313,11 +355,13 @@ function showLayer(layer,style,lib) { // dans la fonction
       d3.select("#legend-svg")
                       .attr("height",function() {
                         return l;
-                      })
+                      });
       console.log(layer.concat("box unchecked"));
-      d3.selectAll(".".concat(layer)).remove() // enlève le zonage coché
+
+      // enlève le zonage coché
+      d3.selectAll(".".concat(layer)).remove()
       d3.select(".rect-".concat(layer)).remove()
-      d3.select("#".concat(layer+" legend")).remove()
+      d3.select("#".concat(layer+"-legend")).remove()
     }
 
     // masquer la fenetre de légende si aucun zonage n'est sélectionné

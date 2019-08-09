@@ -20,6 +20,7 @@ var interval = setInterval(function() {
 [homeBtn,closeBtn].forEach(function (btn) {
   btn.addEventListener('click', function() {
     showContent(content);
+    hideFeatureInfo();
   });
 })
 
@@ -106,4 +107,20 @@ window.onclick = function(event) {
   if (event.target == aPropos) {
     aPropos.style.display = "none";
   }
+}
+
+// fiche territoire
+let featureInfo = document.getElementById("layerInfo");
+
+function showFeatureInfo() {
+  var x = setInterval(function () {
+    featureInfo.style.display = "block";
+    clearInterval(x)
+  }, 250);
+    zonageLayers.style.left = "-500px";
+}
+
+function hideFeatureInfo() {
+  featureInfo.style.display = "none";
+  zonageLayers.style.left = "0px";
 }

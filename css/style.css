@@ -23,15 +23,27 @@ html, body, #mapid {
   pointer-events: auto;
 }
 
+svg path {
+  /* transition-duration: 0.15s; */
+}
 
 /*/////////////////////////// bar et contenu ////////////////////////////////*/
+a {
+  font-weight: 500;
+  text-decoration: none;
+  color:white;
+}
+
+a:visited {
+  color:white;
+}
+
 #sideBar,#content {
 	overflow: auto;
 	display: block;
 	position: absolute;
 	background: linear-gradient(#004494, #096d7f);
-	font-weight: 300;
-	/* width: auto; */
+	font-weight: 250;
 	height: 100%;
 	z-index: 500;
 	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
@@ -48,11 +60,6 @@ html, body, #mapid {
 	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
 }
 
-#layerInfo {
-  right:30px
-  color:red
-}
-
 /* nom appli */
 #intro {
 	display: none;
@@ -62,21 +69,23 @@ html, body, #mapid {
   font-size: 30px
 }
 
+hr {
+  height: 0.1px;
+  border-color: white;
+}
+
 /* bouton fermer le panneau latéral */
 #closeContent {
+  background: none;
   position: absolute;
-  right: 10px;
+  right: 25px;
   color: white;
-  font-size: 30px;
+  /* font-size: 15px; */
   padding: 0px;
+  border-bottom: none;
 }
 
 /* /////////////////////////////// CONTENU //////////////////////////////// */
-ul {
-	margin: 0;
-	padding: 0;
-}
-
 button {
 	background: #004494;
 	padding: 15px;
@@ -157,10 +166,31 @@ button:hover {
 
 /* /////////////////////////////// Filtres ////////////////////////////////// */
 #cat-zonages {
-  margin-left: -5px;
+  left:-0px;
+  padding-top: 20px;
+  transition: hight 0.1s;
+  position: relative;
+  display: block;
 	font-size:13px;
   z-index: 10000;
 	color: white;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+/* checkbox aspect */
+.zonage {
+  padding-top: 10px;
+  list-style-type: none;
+}
+
+.zonage:hover {
+  background: rgba(0,0,0,0.5);
+  transition: 0.2s;
+  border-radius: 5px;
 }
 
 /* efface par défaut le style des checkbox actuelles */
@@ -197,19 +227,20 @@ label {
   cursor: pointer;
 }
 
-input[type="checkbox"]:hover {
-  background:rgba(214, 116, 30,0.5);
-  /* background: rgba(0,0,0,0.5); */
-}
-
 input[type="checkbox"],label:hover {
   font-weight: 500;
-  /* background: rgba(0,0,0,0.5); */
   padding: 10px;
   transition: 0.2s;
   border-radius: 5px;
 }
 
+input[type="checkbox"]:hover {
+  background:rgba(214, 116, 30,0.25);
+}
+
+input[type="checkbox"]::after {
+  background:rgba(214, 116, 30,1);
+}
 
 /* ///////////////////////// Plus d'infos ////////////////////////////////// */
 /* picto info zonage */
@@ -258,12 +289,6 @@ input[type="checkbox"],label:hover {
   background-color: rgba(0,0,0,0);
   color:rgba(0, 0, 0, 0.5);
   font-weight: bold
-}
-
-td:hover {
-  background: rgba(0,0,0,0.5);
-  transition: 0.2s;
-  border-radius: 5px;
 }
 
 .description {
@@ -355,7 +380,8 @@ div.d3-tooltip {
     text-align: center;
 		padding: 5px;
     color: black;
-    width: auto;
+    max-width: 180px;
+    /* width: auto; */
     height: auto;
 		font-size: 12px;
     background: white;
@@ -422,4 +448,56 @@ g {
 	font-size: 28px;
 	cursor: pointer;
   padding-top: : -5px
+}
+
+
+/* *********** Fiche Territoire **************** */
+/* fiche */
+table {
+  padding-top: 10px;
+  font-size: 14.5px;
+  font-weight: 200;
+  left:-2px;
+  position: relative;
+  border-color: white;
+}
+
+tr {
+  background-color: rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+td {
+  border-color: white;
+  padding: 10px;
+}
+
+#layerInfo {
+  padding-top: 10px;
+  border-color:white;
+  border-width: 10px;
+  font-size: 15.5px;
+  padding-right:20px;
+  padding-bottom: 20px;
+  max-width: 440px;
+  line-height: 30px;
+  top: 200px;
+  position:absolute;
+}
+
+/* back to selecting layers */
+#backBtn {
+  color:white;
+  font-weight:500;
+  background:rgba(214, 116, 30);
+  border-bottom: none;
+  margin: none;
+  left:300px;
+  padding: 8px;
+  text-align: right;
+}
+
+#featureName {
+  font-weight: 500;
+  font-size: 20px;
 }
