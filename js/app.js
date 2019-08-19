@@ -33,7 +33,7 @@ function drawCommunes() {
         rendererFactory: L.canvas.tile, // affichage par canvas ou svg (svg + lourd)
         vectorTileLayerStyles: {
           sliced: comStyle, // argument "sliced" si fichier geojson en entrée
-          foo: comStyle // argument "foo" si fichier topojson en entrée
+          communes: comStyle // argument "foo" si fichier topojson en entrée
         },
         // hoverStyle: { // ne fonctionne pas
         //   fillColor: 'black',
@@ -43,7 +43,7 @@ function drawCommunes() {
         indexMaxZoom: 5,
         interactive: false, // pour pouvoir afficher des tooltips et clicker sur les communes
         getFeatureId: function(f) {
-  				return f.properties.insee_com; // pour l'affichage des tooltips
+  				return f.properties.libgeo; // pour l'affichage des tooltips
   			}
       }).on('click', e => { // au click ...
         mymap.flyTo([e.latlng.lat,e.latlng.lng-0.25],10,{ // zoom la carte sur la commune clickée ...
@@ -132,13 +132,13 @@ function drawBorders() {
               return {
                 color:"white",
                 opacity:1,
-                weight:.75,
+                weight:.5,
               }
             } else {
               return {
                 color:"white",
                 opacity:1,
-                weight:1.5,
+                weight:2.5,
               }
             }
           }
@@ -242,80 +242,3 @@ var clearHighlight = function(layer) {
     }
     highlight = null;
   };
-
-//////////////////// STYLES COUCHES //////////////////////////////
-
-// var zrrStyle = { weight: 0.8,
-//                 color: 'yellow',
-//                 opacity: 1,
-//                 fillOpacity: 0.5,
-//                 fillColor:'yellow',
-//                 animate:true,
-//                 interactive:false,
-//               };
-// var zruStyle = {
-//                 weight: 0.8,
-//                 color: 'purple',
-//                 opacity: 1,
-//                 fillOpacity: 0.5,
-//                 fillColor:'purple',
-//                 interactive:false,
-//               };
-// var qpvStyle = {
-//                 weight: 0.8,
-//                 color: "#8c0000",
-//                 opacity: 1,
-//                 fillOpacity: 0.5,
-//                 fillColor:"#8c0000",
-//                 interactive:false,
-//
-//               };
-
-////////////////// PERIMETRES ///////////////////////
-// création d'un tableau avec les styles par zonage
-// let zonageArray = [
-//                     {
-//                       zonage:'zru',
-//                       style:zruStyle
-//                     },
-//                     {
-//                       zonage:'qpv',
-//                       style:qpvStyle
-//                     },
-//                     {
-//                       zonage:'zrr',
-//                       style:zrrStyle
-//                     }
-//                   ];
-
-// for (var i in zonageArray) {
-//   var zonage = zonageArray[i].zonage; // nom du zonage
-//   var style = zonageArray[i].style; // style associé
-//   showZonage(zonage,style)
-// };
-//
-// // fonction faisant appel au fichier et affichant le zonage voulu (en L.GeoJSON())
-// function showZonage(zonage,style) {
-//   var zonageBox = document.getElementById(zonage); // la checkbox correspondante récupérer depuis le html
-//   var zonageLayer = zonage.concat('Layer'); // donner un nom à la couche
-//   zonageBox.addEventListener('click', function() {
-//     fetch('data/'.concat(zonage,'.geojson'))
-//       .then(res => res.json())
-//       .then(res => {
-//         console.log(res);
-//         if (zonageBox.checked) {
-//           console.log('checked');
-//           zonageLayer = L.geoJSON(res,{
-//             style:style,
-//             onEachFeature:function(feature,layer) {
-//               layer.bindTooltip(feature.properties.libgeo,{className:'Tooltips'})
-//             }
-//           });
-//           zonageLayer.addTo(mymap);
-//         } else {
-//           console.log('unchecked');
-//           mymap.removeLayer(zonageLayer)
-//         }
-//       })
-//     })
-// };

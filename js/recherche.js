@@ -2,8 +2,9 @@
 Auteur : Hassen Chougar, Service Cartographie du CGET
 Données : Observatoire du Territoire, Service Cartographie */
 
-var searchField = document.getElementById('searchField');
-var searchButton = document.getElementById('searchButton');
+
+let searchField = document.getElementById('searchField');
+let searchButton = document.getElementById('searchButton');
 
 // prevent refresh
 searchButton.addEventListener('click', function(event){
@@ -11,29 +12,23 @@ searchButton.addEventListener('click', function(event){
 });
 
 // supprimer la géométrie de la commune à chaque nouvelle recherche
-let comFound = L.geoJSON().addTo(mymap);
+let comFound = L.vectorGrid.slicer().addTo(mymap);
+
 // requête ajax sur les communes
 fetch(communesPath)
   .then(res => res.json())
   .then(data => {
-    comFound.remove(); // vide le tableau
-
+    comFound.remove(); // enlève le contour de la commune précédente
     // pour un geojson ...
     // let listCom = data.features.map((e) => {
     //   return e.properties.libgeo
     // });
-    let listCom = data.objects.foo.geometries;
-    console.log(data.objects.foo.geometries[0]);
     // pour un topojson ...
-    // let listCom = data.objects.foo.geometries.map((e) => { // récupère les communes ...
-    //   return e.properties.libgeo;
-    // }); // et stocke les dans un tableau
-    let list2
-    for (let com in listCom) {
-      list2 = listCom[com].properties.lib_com
-    };
-    console.log(list2);
-
+    let features = data.objects.communes.geometries;
+    let listCom = [];
+    for (i in features) {
+      listCom.push(features[i].properties.libgeo);
+    }
 
     new Awesomplete(searchField,{ //
       minChars: 2,
@@ -42,40 +37,58 @@ fetch(communesPath)
     searchField.addEventListener('awesomplete-selectcomplete', e => {
       let comValue = e.text.value;
       let com = searchField.value;
-      for (var i in data.features) {
-        if (data.features[i].properties.libgeo.toLowerCase() == com.toLowerCase()) {
+      for (let i in features) {
+        if (features[i].properties.libgeo.toLowerCase() == com.toLowerCase()) {
+          // enlève la géométrie de la commune précédemment recherchée
           comFound.remove();
           let libCom = com.toString();
-          // console.log(libCom);
           console.log('trouvé'); // vérifier que la commune se trouve dans la liste
-          var geom = data.features[i]; // récupère la géométrie de la commune
-          var centroid = turf.centroid(data.features[i]); // récupère le centroide
-          var lat = centroid.geometry.coordinates[1];
-          var lng = centroid.geometry.coordinates[0]-0.25;
-          comFound = L.geoJSON(geom, {
-            style: {
-              fillColor: '#d6741e',
-              fillOpacity: 1,
-              weight:0
+          let geomCom = features[i];
+          let lat = geomCom.properties.lat;
+          let lng = geomCom.properties.long;
+          // ajout de la géométrie de la commune à la carte
+          comFound = new L.vectorGrid.slicer(data, {
+            rendererFactory: L.canvas.tile,
+            vectorTileLayerStyles: {
+              communes: function(feature) {
+                let name = feature.libgeo;
+                if (name === com) {
+                  console.log("géométrie trouvée");
+                  return {
+                    weight:4,
+                    color: '#004494',
+                    fillOpacity: 1,
+                  }
+                } else {
+                  return {
+                    fillOpacity: 0,
+                    stroke: false,
+                    fill: false,
+                    opacity: 0,
+                    weight: 0
+                  }
+                }
+              }
             }
+          }).addTo(mymap);
+          // nom COMMUNE
+          comFound.on("load", function() {
+            tooltip = L.tooltip()
+                       .setContent(com)
+                       .setLatLng([lat,lng])
+                       .addTo(mymap)
           })
-          .bindTooltip(geom.properties.libgeo,{ permanent: true, interactive: false })
-          .addEventListener('load', showContent(search,content,libCom))
-          .addTo(mymap);
-
           // mouvement de la carte sur la commune trouvée
-          mymap.flyTo([lat,lng],
-                      10,{
-                          animate:true,
-                          duration:2.5
-                        });
-          showContent(search,content,libCom);
+          mymap.flyTo([lat,lng+0.15], 11.12, { animate:true, duration:1.5});
+
+          // enlever le contour de la commune recherchée au click n'importe où
+          mymap.on("click", function() {
+            comFound.remove()
+          })
         }
       }
     })
-    })
-  // });
-
+  });
 
 // prevent refresh
 // searchButton.addEventListener('click', function(event){

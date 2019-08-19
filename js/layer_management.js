@@ -169,13 +169,13 @@ for (var i in textureArray) { // pour chaque élément du tableau ...
 // initialisation : ajout d'un moteur de rendu svg comportant déjà les éléments svg et g
 // voir ==> https://groups.google.com/forum/#!topic/leaflet-js/bzM9ssegitU
 
-L.svg({interactive: true}).addTo(mymap); // au préalable, création d'un conteneur svg auquel on fait appel ...
+L.svg({interactive: true,animate:true}).addTo(mymap); // au préalable, création d'un conteneur svg auquel on fait appel ...
 var g, svg;
 var y = 0;
 var l = 25;
 var coords;
 legendWindow = document.getElementById('legend');
-
+var clickCnt = false;
 function showLayer(layer,style,lib) { // dans la fonction
 
   var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
@@ -213,9 +213,7 @@ function showLayer(layer,style,lib) { // dans la fonction
 
       // lecture du fichier
       d3.json('data/'.concat(layer,'.topojson'))
-        .then(function (data) {
-
-
+        .then(data => {
           // adapte l'objet d3 à la projection de leaflet
           var transform = d3.geoTransform({
             point:projectPoint
@@ -236,54 +234,48 @@ function showLayer(layer,style,lib) { // dans la fonction
             .attr("class",layer)
             .enter()
             .append("path")
+            .attr("transform", "scale(1)")
             .style("fill",style.url()) // ... applique le style du zonage
             .style("fill-opacity","0.45")
             .style("stroke-width","0.25")
             .style("stroke","white")
             .on("mouseover", function(d) {
               tooltip.transition()
-                .duration(200)
+                .duration(400)
                 .style("opacity", 0.95);
               tooltip.html(d.properties.lib)
                 .style("left", (d3.event.pageX - 50) + "px")
                 .style("top", (d3.event.pageY - 40) + "px");
               d3.select(this)
                 .style("stroke","rgb(214, 116, 30)")
-                .style("stroke-width","3")
-                .style("fill-opacity","0.95")
-            })
-            .on("click", function(d) {
-              // au click, zoom sur l'entité
-              // coords = [d.geometry.coordinates[0][0][0][1],
-              //           d.geometry.coordinates[0][0][0][0]];
-              //
-              // mymap.flyTo(coords,6,{
-              //   animate:true,
-              //   duration:0.56
-              // });
+                .style("stroke-width","1.5")
+                .style("fill-opacity","1")
 
+            })
+            .on("mousemove",mousemove)
+            .on("click", function(d) {
               // ouvre le panneau latéral avec la fiche
               if (content.style.width === "0px") {
                 showContent();
               };
+
               d3.selectAll("."+layer)
                 .transition()
                 .duration(200);
-
-              d3.select(".selected").classed("selected", false);
-              d3.select(this).classed("selected", true);
-
-              // récupération des informations à qui composent la fiche
+              // d3.select(".selected").classed("selected", false);
+              // d3.select(this).classed("selected", true);
+              // récupération des informations composant la fiche
               libgeo = d.properties.lib;
               perimetre = d.properties.perimetre;
               nbcom = d.properties.nbcom;
+              // affichage du champ "info1" si présence de donnée
               function info1() {
                 if (d.properties.info1 != null) {
                   return d.properties.info1
                 } else {
                   return ''
                 }
-              }
+              };
               // Fiche territoire
               d3.select("#layerInfo")
                 .html("<span id = 'featureName'>" + libgeo + "</span>" +
@@ -294,29 +286,62 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .append("button")
                 .attr("id","backBtn")
                 .html("<img src='css/img/back.svg' height = '30px' width = '30px'>Retour")
-                .on("click", function(){
+                .on("click", function() {
                     hideFeatureInfo()
-                  });
+                });
 
               showFeatureInfo();
 
-              // liste vidée
-              libgeo = [];
+              clickCnt = true;
+              if (clickCnt === true) {
+                d3.select(this)
+                  .style("stroke","red")
+                  .style("stroke-width","2");
+              } else {
+                d3.select(this)
+                .style("stroke","white")
+                .style("stroke-width","0.25")
+              }
             })
             .on("mouseout", function(d) {
               // disparition du tooltip
               tooltip.style("opacity", 0);
               tooltip.html("")
-                  .style("left", "-500px")
-                  .style("top", "-500px");
-              d3.select(this)
-                .transition()
-                .duration(100)
-                .style("fill",style.url())
-                .style("fill-opacity","0.45")
-                .style("stroke","white")
-                .style("stroke-width","0.25")
+                     .style("left", "-500px")
+                     .style("top", "-500px");
+
+              switch (clickCnt) {
+                case true:
+                  clickCnt = false
+                  console.log("OUI");
+                  d3.select(this)
+                    .style("stroke","red")
+                    .style("stroke-width","2");
+                  if (clickCnt == true) {
+                    d3.selectAll(d)
+                    .style("stroke","white")
+                    .style("stroke-width","0.25")
+                  }
+                    break;
+                case false:
+                  console.log("NON");
+                  d3.select(this)
+                    .transition()
+                    .duration(100)
+                    .attr("transform", "scale(1)")
+                    .style("fill",style.url())
+                    .style("fill-opacity","0.45")
+                    .style("stroke","white")
+                    .style("stroke-width","0.25")
+                    break;
+              }
             });
+
+          // fonction permettant à la tooltip de suivre le mouvement de la souris
+          function mousemove() {
+            tooltip.style("left", (d3.event.pageX - 50) + "px")
+               .style("top", (d3.event.pageY - 40) + "px");
+          }
 
           // LEGENDE DYNAMIQUE
           legend.append("rect")
@@ -336,15 +361,18 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .attr('y', 15+y)
                 .attr("id",layer.concat("-legend"));
 
-          mymap.on("moveend", update); // au zoom, remet les couches à la bonne échelle
+          // au zoom, remet les couches à la bonne échelle
+          mymap.on("moveend", update);
           update();
 
-          y += 30
-          l+=25
-          function update() { // mettre à jour l'emprise du calque en meme temps que leaflet
+           // mettre à jour l'emprise du calque en meme temps que leaflet
+          function update() {
             return layerChecked.attr("d", path);
           }
 
+          // attributs de hauteur et de position pour les postes de légende
+          y += 30
+          l+=25
         })
 
     } else { // au décochage de la checkbox correspondante ...
