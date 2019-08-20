@@ -13,6 +13,7 @@ searchButton.addEventListener('click', function(event){
 
 // supprimer la géométrie de la commune à chaque nouvelle recherche
 let comFound = L.vectorGrid.slicer().addTo(mymap);
+let codgeo;
 
 // requête ajax sur les communes
 fetch(communesPath)
@@ -31,7 +32,7 @@ fetch(communesPath)
     }
 
     new Awesomplete(searchField,{ //
-      minChars: 2,
+      minChars: 1,
       list: listCom});
 
     searchField.addEventListener('awesomplete-selectcomplete', e => {
@@ -44,6 +45,7 @@ fetch(communesPath)
           let libCom = com.toString();
           console.log('trouvé'); // vérifier que la commune se trouve dans la liste
           let geomCom = features[i];
+          codgeo = geomCom.properties.codgeo;
           let lat = geomCom.properties.lat;
           let lng = geomCom.properties.long;
           // ajout de la géométrie de la commune à la carte
@@ -74,12 +76,12 @@ fetch(communesPath)
           // nom COMMUNE
           comFound.on("load", function() {
             tooltip = L.tooltip()
-                       .setContent(com)
+                       .setContent(com+" - "+codgeo)
                        .setLatLng([lat,lng])
                        .addTo(mymap)
           })
           // mouvement de la carte sur la commune trouvée
-          mymap.flyTo([lat,lng+0.15], 11.12, { animate:true, duration:1.5});
+          mymap.flyTo([lat,lng+0.15], 11.12, {animate:true, duration:1.5});
 
           // enlever le contour de la commune recherchée au click n'importe où
           mymap.on("click", function() {

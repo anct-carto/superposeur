@@ -235,7 +235,7 @@ function showLayer(layer,style,lib) { // dans la fonction
             .enter()
             .append("path")
             .style("fill",style.url()) // ... applique le style du zonage
-            .style("fill-opacity","0.45")
+            .style("fill-opacity","0.4")
             .style("stroke-width","0.25")
             .style("stroke","white")
             .on("mouseover", function(d) {
@@ -329,7 +329,7 @@ function showLayer(layer,style,lib) { // dans la fonction
                     .duration(100)
                     .attr("transform", "scale(1)")
                     .style("fill",style.url())
-                    .style("fill-opacity","0.45")
+                    .style("fill-opacity","0.4")
                     .style("stroke","white")
                     .style("stroke-width","0.25")
                     break;
@@ -347,7 +347,7 @@ function showLayer(layer,style,lib) { // dans la fonction
             .style("opacity",0)
             .transition()
             .ease(d3.easeLinear)
-            .duration(1000)
+            .duration(250)
             .style("opacity",1)
 
           // LEGENDE DYNAMIQUE
