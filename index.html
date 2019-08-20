@@ -29,18 +29,20 @@
     <div id="content">
       <div id="homeContainer">
         <button type="button" name="close" id = "closeContent">
-          <img src="css/img/back.svg" height = "40px" width = "40px">
+          <img src="css/img/arrow.svg">
         </button>
         <div id="intro">
-          <h2>ViZonage</h2>
-          <p id ="appName">Contractualisation et zonages</p>
+          <img src = "css/img/vizonage.svg" id = "ViZonage"></img><br>
+          <hr>
+          <span id ="appName">Contractualisation et zonages</span>
           <p>Carte interactive des contrats et zonages de politiques publiques suivis au CGET</p>
+          <hr>
         </div>
         <!-- catégories de zonage -->
         <div id="cat-zonages">
           <!-- checkbox périmètres -->
           <ul>
-            <p style='font-size:13px'>Sélectionnez des contrats ou des zonages à afficher sur la carte</p>
+            <span style='font-size:15px'>Sélectionnez des contrats ou des zonages à afficher sur la carte</span>
               <li class = 'zonage'>
                 <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale">
                 <label for="afr" class = "libZonage">
@@ -265,7 +267,9 @@
   <div id = "aPropos" class="aPropos-Popup">
     <div id = "aProposmsg">
       <span id = 'closePopup'>&times;</span>
-      <h2>ViZonage</h2>
+      <p>
+        <img src="css/img/ViZonage_black.svg" width="150px" id = "ViZonage_black">
+      </p>
       <span>Réalisation : Hassen CHOUGAR, Service Cartographie du CGET</span><br>
       <p>Sources externes : MTES</p>
       <img src="css/img/cget.png" alt="auto">

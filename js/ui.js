@@ -50,6 +50,7 @@ function contentDisplay() {
   }
 };
 
+
 /////////////////// menu déroulant checkbox ////////////////////
 var expandBtn = document.querySelectorAll('.expandBtn');
 var showDes = 1;

@@ -234,7 +234,6 @@ function showLayer(layer,style,lib) { // dans la fonction
             .attr("class",layer)
             .enter()
             .append("path")
-            .attr("transform", "scale(1)")
             .style("fill",style.url()) // ... applique le style du zonage
             .style("fill-opacity","0.45")
             .style("stroke-width","0.25")
@@ -278,14 +277,14 @@ function showLayer(layer,style,lib) { // dans la fonction
               };
               // Fiche territoire
               d3.select("#layerInfo")
-                .html("<span id = 'featureName'>" + libgeo + "</span>" +
+                .html("<p id = 'featureName'>" + libgeo + "</p>" +
                       "<table><tr><td>Type de contrat/zonage</td><td>" + lib + "</td></tr>"+
                       "<tr><td>Périmètre d'application</td><td>" + perimetre.toUpperCase() + "</td></tr>"+
                       "<tr><td>Nombre de communes couvertes</td><td>" + nbcom + "</td></tr></table>" +
                       "<p>"+info1()+"</p>")
                 .append("button")
                 .attr("id","backBtn")
-                .html("<img src='css/img/back.svg' height = '30px' width = '30px'>Retour")
+                .html("<span><img src='css/img/arrow.svg' height = '15px' width = '15px'>Retour à l'accueil</span>")
                 .on("click", function() {
                     hideFeatureInfo()
                 });
@@ -293,7 +292,7 @@ function showLayer(layer,style,lib) { // dans la fonction
               showFeatureInfo();
 
               clickCnt = true;
-              if (clickCnt === true) {
+              if (clickCnt) {
                 d3.select(this)
                   .style("stroke","red")
                   .style("stroke-width","2");
@@ -342,6 +341,14 @@ function showLayer(layer,style,lib) { // dans la fonction
             tooltip.style("left", (d3.event.pageX - 50) + "px")
                .style("top", (d3.event.pageY - 40) + "px");
           }
+
+          // animation à l'affichage des couches
+          d3.selectAll("."+layer)
+            .style("opacity",0)
+            .transition()
+            .ease(d3.easeLinear)
+            .duration(1000)
+            .style("opacity",1)
 
           // LEGENDE DYNAMIQUE
           legend.append("rect")
