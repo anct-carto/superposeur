@@ -22,8 +22,8 @@ body {
 html, body, #mapid {
 	height: 100%;
 	display: block;
-  font-size: 20px;
 	font-family: 'Abel-Regular';
+  overflow-y: hidden;
 }
 
 .leaflet-interactive {
@@ -34,8 +34,11 @@ html, body, #mapid {
   pointer-events: auto;
 }
 
+.leaflet-control {
+
+}
+
 svg path {
-  /* transition-duration: 0.15s; */
 }
 
 /*/////////////////////////// bar et contenu ////////////////////////////////*/
@@ -292,27 +295,32 @@ input[type="checkbox"]::after {
 	cursor: help;
 }
 
+#downloadImg {
+  height: 10px;
+}
+
 /* bouton en savoir plus */
 .expandBtn {
-  justify-content: center;
-  /* display: block;
-  right: 30px; */
-  /* margin-top: 5px;
-  margin-right: 15px; */
+  /* display: block; */
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
 	border: none;
   padding: 0px;
   background-color: rgba(0,0,0,0);
 }
 
-/* signe "+" */
+/* signe "+" (menu non déroulé)*/
 .expandBtn:after {
   content:"\02795";
-  font-size: 10px;
+  font-size: 0.9em;
   font-weight:normal;
   color: rgb(255,255,255);
+  box-shadow: 1px 0 5px rgba(0,0,0,0.2);
+  border-radius: 5px;
 }
 
-/* signe "-" */
+/* signe "-" (menu déroulé)*/
 .collapsed:after {
   content:"\02796";
   font-size: 10px;
@@ -344,7 +352,7 @@ input[type="checkbox"]::after {
   display:inline-block;
 	position:absolute;
 	width: 0%;
-	border-radius: 2.5px;
+	border-radius: 3.5px;
 	background: white;
 	opacity: 0.90;
 	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
@@ -393,16 +401,15 @@ rect {
 }
 
 div.d3-tooltip {
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
 		z-index: 1000;
-    font-weight: bold;
     position: absolute;
     text-align: center;
 		padding: 5px;
     color: black;
     max-width: 180px;
     height: auto;
-		font-size: 0.65em;
+		font-size: 0.9em;
     background: #004494;
     border: 0px;
     border-radius: 3px;
@@ -447,6 +454,7 @@ g {
 	height: 100%; /* Full height */
 }
 
+/* logo app popup */
 #ViZonage_black {
   position: relative;
 }
@@ -455,6 +463,7 @@ g {
 #aProposmsg {
 	background-color: rgba(255,255,255,1);
 	opacity: 0.8;
+  font-size: 0.9em;
 	margin: 20% auto; /* 15% from the top and centered */
 	padding: 20px;
 	width: 30%; /* Could be more or less, depending on screen size */
@@ -492,8 +501,10 @@ g {
 
 /* fiche */
 table {
+  background-color: rgba(255,255,255,0.05);
   font-size: 17px;
   font-weight: 300;
+  color:black;
   position: relative;
   border-collapse: collapse;
 }
@@ -528,4 +539,8 @@ td {
 	background-color: rgb(180, 90, 30);
 	transition-duration: 0.4s;
 	cursor: pointer;
+}
+
+#backBtn img {
+  float: left;
 }

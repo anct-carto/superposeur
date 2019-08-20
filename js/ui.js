@@ -3,7 +3,7 @@
 /******************************************************************************/
 // sidebar buttons
 var homeBtn = document.getElementById('homeBtn');
-var closeBtn = document.getElementById('closeContent')
+var closeBtn = document.getElementById('closeContent');
 var donwload = document.getElementById('download');
 // windows to toggle
 var content =  document.getElementById('content');
@@ -21,20 +21,25 @@ var interval = setInterval(function() {
 // sur chaque bouton, appliquer la fonction pour fermer le panneau latéral
 [homeBtn,closeBtn].forEach(function (btn) {
   btn.addEventListener('click', function() {
-    showContent(content);
+    showContent();
     hideFeatureInfo();
   });
 })
 
+
 function showContent() {
   if (content.style.width === '0px') {
-    contentDisplay()
+    contentDisplay();
   } else {
     content.style.width = '0px';
     content.style.paddingLeft = '0px';
     content.style.paddingRight = '0px';
     zonageLayers.style.display = 'none';
-    intro.style.display = 'none'
+    intro.style.display = 'none';
+    let t = setInterval(function() {
+      mymap.setView([46.5, 3])
+      clearInterval(t)
+    },300);
   }
 };
 
@@ -43,6 +48,11 @@ function contentDisplay() {
   content.style.marginLeft = '50px';
   content.style.paddingLeft = '40px';
   content.style.paddingRight = '20px';
+  // déplacement du centre de la carte
+  let t = setInterval(function() {
+    mymap.setView([46.5, 6.8])
+    clearInterval(t)
+  },300);
   if (content.style.width === '500px') {
     var x = setInterval(function () {
       intro.style.display = 'block';
@@ -73,7 +83,7 @@ expandBtn.forEach(btn => {
       description.style.maxHeight = '0px'
     }
   })
-})
+});
 
 // rendu des balises <li> cliquables
 let lb = document.querySelectorAll('.zonage');
@@ -94,7 +104,7 @@ lb.forEach(label => {
   })
 });
 
-// Ajout des informations au menu déroulant depuis le ficher data/descriptions.csv
+// Ajout des informations au menu déroulant depuis le fichier data/descriptions.csv
 getCheckBoxInfo();
 
 function getCheckBoxInfo() {
@@ -102,8 +112,9 @@ function getCheckBoxInfo() {
   .then(data => {
     data.forEach(d => {
       div = document.getElementById(d.ACRONYME.toLowerCase().concat("-desc"))
-      div.innerHTML = "<p><a href='" + d.TELECHARGER +
-                      "' target='_blank'>Télécharger la carte</a></p>" +
+      div.innerHTML = "<p><b><a href='" + d.TELECHARGER +
+                      "' target='_blank'>Télécharger la carte  </b>" +
+                      "<img src= 'css/img/download.svg' id ='downloadImg'</img></a></p>"+
                       "<p><b>Niveau(x) géographique(s) : </b>" + d.ECHELON + "</p>" +
                       "<p><b>A propos</b></p>"+
                       "<p>"+ d.DESCRIPTION_COURTE + "</p>" +
@@ -111,7 +122,7 @@ function getCheckBoxInfo() {
                       "' target='_blank'>Cliquez ici pour en savoir plus</a></p>"
     })
   });
-}
+};
 
 /******************************************************************************/
 /****************************** FICHE TERRITOIRE ******************************/
@@ -124,14 +135,13 @@ function showFeatureInfo() {
     featureInfo.style.display = "block";
     clearInterval(x)
   }, 250);
-    zonageLayers.style.left = "-500px";
-}
+    zonageLayers.style.left = "-550px";
+};
 
 function hideFeatureInfo() {
   featureInfo.style.display = "none";
   zonageLayers.style.left = "0px";
-}
-
+};
 
 
 /******************************************************************************/

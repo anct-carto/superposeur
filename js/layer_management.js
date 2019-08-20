@@ -278,9 +278,9 @@ function showLayer(layer,style,lib) { // dans la fonction
               // Fiche territoire
               d3.select("#layerInfo")
                 .html("<p id = 'featureName'>" + libgeo + "</p>" +
-                      "<table><tr><td>Type de contrat/zonage</td><td>" + lib + "</td></tr>"+
-                      "<tr><td>Périmètre d'application</td><td>" + perimetre.toUpperCase() + "</td></tr>"+
-                      "<tr><td>Nombre de communes couvertes</td><td>" + nbcom + "</td></tr></table>" +
+                      "<table><tr><td>Type de contrat/zonage</td><td><b>" + lib + "</td></b></tr>"+
+                      "<tr><td>Périmètre d'application</td><td><b>" + perimetre.toUpperCase() + "</b></td></tr>"+
+                      "<tr><td>Nombre de communes couvertes</td><td><b>" + nbcom + "</b></td></tr></table>" +
                       "<p>"+info1()+"</p>")
                 .append("button")
                 .attr("id","backBtn")
@@ -290,7 +290,7 @@ function showLayer(layer,style,lib) { // dans la fonction
                 });
 
               showFeatureInfo();
-
+              
               clickCnt = true;
               if (clickCnt) {
                 d3.select(this)

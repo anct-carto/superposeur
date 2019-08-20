@@ -1,19 +1,19 @@
 let mymap;
 
 function initMap() {
-  var basemap_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+  let basemap_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 19});
   // FOND
-  var labels_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+  let labels_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
   });
   // bloquer le défilement infini de la carte
-  let soutWest = L.latLng(53, -20);
-  let northEast =L.latLng(40, 20);
+  let soutWest = L.latLng(55, -23);
+  let northEast = L.latLng(37, 26);
   let bounds = L.latLngBounds(soutWest, northEast);
   mymap = L.map('mapid', {
     maxBounds: bounds,
@@ -38,11 +38,10 @@ function initMap() {
   // cget logo
   L.Control.Watermark = L.Control.extend({
     onAdd: function(mymap) {
-        var img = L.DomUtil.create('img');
+        let img = L.DomUtil.create('img');
 
         img.src = 'css/img/cget_logo.svg';
         img.style.width = '100px';
-        img.style.opacity = '0.70';
 
         return img;
     },
@@ -53,7 +52,7 @@ function initMap() {
   L.control.watermark = function(opts) {
       return new L.Control.Watermark(opts);
   };
-  L.control.watermark({ position: 'bottomright' }).addTo(mymap);
+  L.control.watermark({ position: 'bottomright'}).addTo(mymap);
 
   // cercles DROM
   let gridCercles;
