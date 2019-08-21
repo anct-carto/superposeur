@@ -92,8 +92,3 @@ fetch(communesPath)
       }
     })
   });
-  let zoomMin = document.getElementsByClassName('leaflet-control-zoom-min');
-  console.log(zoomMin);
-  for (btn in zoomMin) {
-    console.log(btn[0]);
-  }

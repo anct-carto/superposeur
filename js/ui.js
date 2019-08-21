@@ -78,7 +78,7 @@ expandBtn.forEach(btn => {
     // récupère l'élément situé après le bouton dans le html
     var description = this.nextElementSibling;
     if (showDes % 2 == 0) {
-      description.style.maxHeight = '200px';
+      description.style.maxHeight = '300px';
     } else {
       description.style.maxHeight = '0px'
     }
@@ -135,11 +135,11 @@ function showFeatureInfo() {
   var x = setInterval(function () {
     clearInterval(x)
   }, 250);
-  zonageLayers.style.left = "-550px";
+  zonageLayers.style.left = "-2000px";
 };
 
 function hideFeatureInfo() {
-  featureInfo.style.left = "1050px";
+  featureInfo.style.left = "2000px";
   zonageLayers.style.left = "0px";
 };
 

@@ -4,10 +4,11 @@
 
 // affichage des différents calques
 for (var i in textureArray) { // pour chaque élément du tableau ...
-  var layer = textureArray[i].layer; // ... récupère le nom du zonage
-  var style = textureArray[i].style; // ...  le style associé ...
-  var lib = textureArray[i].lib; // ... et le libellé du zonage  ...
-  showLayer(layer,style,lib) // ... auquel tu appliques la fonction (ci-dessous)
+  let layer = textureArray[i].layer; // ... récupère le nom du zonage
+  let style = textureArray[i].style; // ...  le style associé ...
+  let stroke = textureArray[i].stroke;
+  let lib = textureArray[i].lib; // ... et le libellé du zonage  ...
+  showLayer(layer,style,stroke,lib) // ... auquel tu appliques la fonction (ci-dessous)
 };
 // /!\ toutes les variables LAYER fait référence aux ZONAGE /!\
 
@@ -26,7 +27,7 @@ var l = 25;
 var coords;
 legendWindow = document.getElementById('legend');
 var clickCnt = false;
-function showLayer(layer,style,lib) { // dans la fonction
+function showLayer(layer,style,stroke,lib) { // dans la fonction
 
   var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
 
@@ -86,9 +87,9 @@ function showLayer(layer,style,lib) { // dans la fonction
             .enter()
             .append("path")
             .style("fill",style.url()) // ... applique le style du zonage
-            .style("fill-opacity","0.4")
-            .style("stroke-width","0.25")
-            .style("stroke","white")
+            .style("fill-opacity","0.5")
+            .style("stroke-width","1")
+            .style("stroke",stroke)
             .on("mouseover", function(d) {
               tooltip.transition()
                 .duration(400)
@@ -97,8 +98,11 @@ function showLayer(layer,style,lib) { // dans la fonction
                 .style("left", (d3.event.pageX - 50) + "px")
                 .style("top", (d3.event.pageY - 40) + "px");
               d3.select(this)
+                .transition()
+                .ease(d3.easeBack)
+                .duration(100)
                 .style("stroke","rgb(214, 116, 30)")
-                .style("stroke-width","1.5")
+                .style("stroke-width","2.5")
                 .style("fill-opacity","1")
 
             })
@@ -153,11 +157,11 @@ function showLayer(layer,style,lib) { // dans la fonction
               if (clickCnt) {
                 d3.select(this)
                   .style("stroke","red")
-                  .style("stroke-width","2");
+                  .style("stroke-width","3");
               } else {
                 d3.select(this)
-                .style("stroke","white")
-                .style("stroke-width","0.25")
+                .style("stroke",stroke)
+                .style("stroke-width","1")
               }
             })
             .on("mouseout", function(d) {
@@ -187,9 +191,9 @@ function showLayer(layer,style,lib) { // dans la fonction
                     .duration(100)
                     .attr("transform", "scale(1)")
                     .style("fill",style.url())
-                    .style("fill-opacity","0.4")
-                    .style("stroke","white")
-                    .style("stroke-width","0.25")
+                    .style("fill-opacity","0.5")
+                    .style("stroke",stroke)
+                    .style("stroke-width","1")
                     break;
               }
             });
@@ -212,7 +216,7 @@ function showLayer(layer,style,lib) { // dans la fonction
           legend.append("rect")
                 .attr("class","rect-".concat(layer))
                 .attr("width", 40)
-                .attr("height", 22.5)
+                .attr("height", 20.5)
                 .style("fill",style.url())
                 .style("stroke-width","0.3")
                 .style("stroke","grey")

@@ -9,13 +9,14 @@ var communes, id = 0
 // calque des communes, vide pour l'instant
 var gridCom;
 var comStyle = {
-        weight: 0.25,
+        weight: 0.2,
+        color: "#004494",
         color: "white",
-        // color: "#004494",
         opacity: 1,
         fill:true,
         fillOpacity: 1,
-        fillColor:"#b5b5b5",
+        fillColor:"#b7b1a8",
+        // fillColor:"#b5b5b5",
       };
 
 ///////////////////////// REQUETES SUR LES COMMUNES ////////////////////////
@@ -175,13 +176,14 @@ function fetchLabel() {
             pointToLayer: function (feature, latlng) {
               return L.marker(latlng,{
                 icon:createLabelIcon("labelClassReg", feature.properties.libgeom),
-                interactive: false
+                interactive: false,
+                className:"regLabels"
               })
             },
             filter : function (feature, layer) {
               return feature.properties.STATUT == "région";
             },
-            className:"labels",
+            className:"regLabels",
             rendererFactory: L.canvas()
           }).addTo(mymap);
 
@@ -195,7 +197,8 @@ function fetchLabel() {
             filter : function (feature, layer) {
               return feature.properties.STATUT == "département";
             },
-            className:"labels"
+            className:"depLabels",
+            rendererFactory: L.canvas()
           });
 
         labelCan = new L.geoJSON(res, {
@@ -208,7 +211,8 @@ function fetchLabel() {
             filter : function (feature, layer) {
               return feature.properties.STATUT == "sous-prefecture";
             },
-            className:"labels"
+            className:"spLabels",
+            rendererFactory: L.canvas()
           });
 
           mymap.on('zoomend', function() {

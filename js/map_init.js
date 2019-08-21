@@ -16,7 +16,7 @@ function initMap() {
   mymap = L.map('mapid', {
     maxBounds: bounds,
     maxZoom: 11,
-    minZoom: 6,
+    minZoom: 6.458,
     zoomSnap: 0.25,
     layers:[basemap_layer],
     zoomControl: false
