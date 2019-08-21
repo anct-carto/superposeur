@@ -28,10 +28,10 @@ var interval = setInterval(function() {
 
 
 function showContent() {
-  if (content.style.width === '0px') {
+  if (content.style.width === '0%') {
     contentDisplay();
   } else {
-    content.style.width = '0px';
+    content.style.width = '0%';
     content.style.paddingLeft = '0px';
     content.style.paddingRight = '0px';
     zonageLayers.style.display = 'none';
@@ -44,21 +44,21 @@ function showContent() {
 };
 
 function contentDisplay() {
-  content.style.width = '500px';
+  content.style.width = '30%';
   content.style.marginLeft = '50px';
-  content.style.paddingLeft = '40px';
+  content.style.paddingLeft = '25px';
   content.style.paddingRight = '20px';
   // déplacement du centre de la carte
   let t = setInterval(function() {
     mymap.setView([46.5, 6.8])
     clearInterval(t)
   },300);
-  if (content.style.width === '500px') {
+  if (content.style.width === '30%') {
     var x = setInterval(function () {
       intro.style.display = 'block';
       zonageLayers.style.display = 'block';
       clearInterval(x)
-    }, 175);
+    },200);
   }
 };
 
@@ -88,21 +88,21 @@ expandBtn.forEach(btn => {
 // rendu des balises <li> cliquables
 let lb = document.querySelectorAll('.zonage');
 let count = 1;
-lb.forEach(label => {
-  label.addEventListener('click', function() {
-    count++;
-    console.log(count);
-    console.log(count % 2);
-    if (count % 2 == 0) {
-      label.style.background = "rgba(0,0,0,0.5)";
-      label.style.borderRadius = "5px";
-    } else {
-      label.style.background = "";
-      label.style.padding = "";
-      label.style.borderRadius = "";
-    }
-  })
-});
+// lb.forEach(label => {
+//   label.addEventListener('click', function() {
+//     count++;
+//     console.log(count);
+//     console.log(count % 2);
+//     if (count % 2 == 0) {
+//       label.style.background = "rgba(0,0,0,0.35)";
+//       label.style.borderRadius = "5px";
+//     } else {
+//       label.style.background = "";
+//       label.style.padding = "";
+//       label.style.borderRadius = "";
+//     }
+//   })
+// });
 
 // Ajout des informations au menu déroulant depuis le fichier data/descriptions.csv
 getCheckBoxInfo();
@@ -112,12 +112,12 @@ function getCheckBoxInfo() {
   .then(data => {
     data.forEach(d => {
       div = document.getElementById(d.ACRONYME.toLowerCase().concat("-desc"))
-      div.innerHTML = "<p><b><a href='" + d.TELECHARGER +
-                      "' target='_blank'>Télécharger la carte  </b>" +
-                      "<img src= 'css/img/download.svg' id ='downloadImg'</img></a></p>"+
+      div.innerHTML = "<p><a href='" + d.TELECHARGER +
+                      "' target='_blank'><img src= 'css/img/download.svg' id ='downloadImg'</img>"+
+                      "      Télécharger la carte</a></p>"+
                       "<p><b>Niveau(x) géographique(s) : </b>" + d.ECHELON + "</p>" +
-                      "<p><b>A propos</b></p>"+
-                      "<p>"+ d.DESCRIPTION_COURTE + "</p>" +
+                      "<p><b>À propos : </b>"+
+                      ""+ d.DESCRIPTION_COURTE + "</p>" +
                       "<p><a href='"+ d.RESSOURCES +
                       "' target='_blank'>Cliquez ici pour en savoir plus</a></p>"
     })
@@ -128,18 +128,18 @@ function getCheckBoxInfo() {
 /****************************** FICHE TERRITOIRE ******************************/
 /******************************************************************************/
 
-let featureInfo = document.getElementById("layerInfo");
+let featureInfo = document.getElementById("ficheTerritoire");
 
 function showFeatureInfo() {
+  featureInfo.style.left = "25px";
   var x = setInterval(function () {
-    featureInfo.style.display = "block";
     clearInterval(x)
   }, 250);
-    zonageLayers.style.left = "-550px";
+  zonageLayers.style.left = "-550px";
 };
 
 function hideFeatureInfo() {
-  featureInfo.style.display = "none";
+  featureInfo.style.left = "1050px";
   zonageLayers.style.left = "0px";
 };
 

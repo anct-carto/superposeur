@@ -1,0 +1,52 @@
+/* ********************* Typographie PANNEAU ******************************* */
+
+@font-face {
+  font-family: 'lato-light';
+  src:url('font/lato-light-webfont.woff2')
+}
+
+@font-face {
+  font-family: 'lato-light-italic';
+  src:url('font/lato-light-italic-webfont.woff2')
+}
+
+@font-face {
+  font-family: 'lato-italic';
+  src:url('font/lato-italic-webfont.woff2')
+}
+
+@font-face {
+  font-family: 'lato-regular';
+  src:url('font/lato-regular-webfont.woff2')
+}
+
+@font-face {
+  font-family: 'lato-medium';
+  src:url('font/lato-medium-webfont.woff2')
+}
+
+@font-face {
+  font-family: 'lato-semibold';
+  src:url('font/lato-semibold-webfont.woff2')
+}
+
+@font-face {
+  font-family: 'lato-bold';
+  src:url('font/lato-bold-webfont.woff2')
+}
+
+/* ********************** Typographie CARTE ********************************* */
+
+/* abel-regular - latin */
+@font-face {
+  font-family: 'Abel-Regular';
+  font-style: lighter;
+  font-weight: 200;
+  src: url('font/abel-v10-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Abel Regular'), local('Abel-Regular'),
+       url('font/abel-v10-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('font/abel-v10-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('font/abel-v10-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('font/abel-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/abel-v10-latin-regular.svg#Abel') format('svg'); /* Legacy iOS */
+}

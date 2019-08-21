@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>ViZonage</title>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/leaflet.css">
-    <link rel="stylesheet" href="css/awesomplete.css">
+    <link rel="stylesheet" href="css/src/font-awesome.min.css">
+    <link rel="stylesheet" href="css/src/L.Control.ZoomMin.css">
+    <link rel="stylesheet" href="css/src/awesomplete.css">
+    <link rel="stylesheet" href="css/src/leaflet.css">
+    <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="lib/turf.min.js"></script>
     <script type="text/javascript" src="lib/textures.js"></script>
@@ -13,6 +15,7 @@
     <script type="text/javascript" src="lib/topojson.min.js"></script>
     <script type="text/javascript" src="lib/leaflet.js"></script>
     <script type="text/javascript" src="lib/Leaflet.VectorGrid.min.js"></script>
+    <script type="text/javascript" src="lib/L.Control.ZoomMin.js"></script>
     <script type="text/javascript" src="lib/awesomplete.min.js"></script>
   </head>
   <body>
@@ -31,17 +34,19 @@
         <button type="button" name="close" id = "closeContent">
           <img src="css/img/arrow.svg">
         </button>
+        <img src = "css/img/vizonage.svg" id = "ViZonage"></img><br>
         <div id="intro">
-          <img src = "css/img/vizonage.svg" id = "ViZonage"></img><br>
-          <hr>
+          <!-- <hr> -->
           <span id ="appName">Contractualisation et zonages</span>
           <p>Carte interactive des contrats et zonages de politiques publiques suivis au CGET</p>
           <hr>
         </div>
         <!-- catégories de zonage -->
         <div id="cat-zonages">
-          <span>Sélectionnez des contrats ou des zonages à afficher sur la carte</span>
-          <hr>
+          <p id = "selectPhrase">
+            Sélectionnez des contrats/zonages à afficher sur la carte.<br>
+            Pour avoir plus d'informations sur un territoire précis, sélectionnez-le sur la carte.
+          </p>
           <!-- checkbox périmètres -->
           <ul>
               <li class = 'zonage'>
@@ -49,7 +54,7 @@
                 <label for="afr" class = "libZonage">
                   Zone d'Aide à Finalité Régionale (AFR)
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "afr-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -59,7 +64,7 @@
                 <label for="acv" class = "libZonage">
                   Action Cœur de Ville
                 </label>
-                <button type="button" class="expandBtn" name = ""></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler" name = ""></button>
                 <div class="description" id = "acv-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -69,7 +74,7 @@
                 <label for="amicb" class = "libZonage">
                   Appel à manifestation d'intérêt - Centres-bourgs
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "amicb-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -80,7 +85,7 @@
                 <label for="ber" class = "libZonage">
                   Bassin d'emploi à redynamiser (BER)
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "ber-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -92,7 +97,7 @@
                 <label for="bud" class = "libZonage">
                   Bassin urbain à dynamiser (BUD)
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "bud-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -103,7 +108,7 @@
                 <label for="cdt"  class = "libZonage">
                   Contrat de Développement Territorial
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "cdt-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -114,7 +119,7 @@
                 <label for="cpier"  class = "libZonage">
                   Contrat de Plan Interrégional État-Région
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "cpier-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -125,7 +130,7 @@
                 <label for="cr"  class = "libZonage">
                   Contrat de Ruralité
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "cr-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -136,7 +141,7 @@
                 <label for="cte"  class = "libZonage">
                   Contrat de Transition Écologique
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "cte-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -147,7 +152,7 @@
                 <label for="cv" class = "libZonage">
                   Contrat de Ville
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "cv-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -159,7 +164,7 @@
                 <label for="zfu" class = "libZonage">
                   Zone Franche Urbaine (ZFU)
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "zfu-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -170,7 +175,7 @@
                 <label for="zrd" class = "libZonage">
                   Zone de restructuration de la Défense (ZRD)
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "zrd-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -181,7 +186,7 @@
                 <label for="zrr" class = "libZonage">
                   Zone de Revitalisation rurale (ZRR)
                 </label>
-                <button type="button" class="expandBtn"></button>
+                <button type="button" class="expandBtn" title = "Cliquez pour dérouler"></button>
                 <div class="description" id = "zrr-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
@@ -189,9 +194,10 @@
             </ul>
           </div>
       </div>
-      <div id="layerInfo">
+      <div id="ficheTerritoire">
         <!-- fiche territoire -->
       </div>
+      <img src="css/img/cget_logo.svg" alt="" id = "cget_logo">
     </div>
     <!-- barre latérale -->
     <div id="sideBar">
@@ -250,6 +256,7 @@
   <script type="text/javascript" src= "js/ui.js"></script>
   <script type="text/javascript" src= "js/map_init.js"></script>
   <script type="text/javascript" src= "js/app.js"></script>
+  <script type="text/javascript" src= "js/layer_styles.js"></script>
   <script type="text/javascript" src= "js/layer_management.js"></script>
   <script type="text/javascript" src= "js/recherche.js"></script>
   </body>

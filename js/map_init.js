@@ -1,16 +1,14 @@
 let mymap;
+initMap();
 
 function initMap() {
+
+  // FOND
   let basemap_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 19});
-  // FOND
-  let labels_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-  });
+
   // bloquer le défilement infini de la carte
   let soutWest = L.latLng(55, -23);
   let northEast = L.latLng(37, 26);
@@ -20,22 +18,17 @@ function initMap() {
     maxZoom: 11,
     minZoom: 6,
     zoomSnap: 0.25,
-    layers:[basemap_layer]
+    layers:[basemap_layer],
+    zoomControl: false
   }).setView([46.5, 6.8], 6.458,{ animation: true });
-  mymap.zoomControl.setPosition('topright');
-
-  // mymap.createPane('parcelPane');
+  // mymap.zoomControl.setPosition('topright');
+  // contrôle zoom avec bouton de réinitialisation de vue
+  mymap.addControl(new L.Control.ZoomMin({position:'topright'}))
 
   // ECHELLE
   L.control.scale({position: 'bottomright'}).addTo(mymap);
-  // setInterval(function(){
-  //     mymap.setView([0, 0]);
-  //     setTimeout(function(){
-  //         mymap.setView([46.5, -1.8]);
-  //     }, 2000);
-  // }, 4000);
 
-  // cget logo
+  // CGET LOGO
   L.Control.Watermark = L.Control.extend({
     onAdd: function(mymap) {
         let img = L.DomUtil.create('img');
@@ -75,5 +68,3 @@ function initMap() {
     }).addTo(mymap)
   })
 }
-
-initMap();

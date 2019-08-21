@@ -1,154 +1,4 @@
 /****************************************************************************************************************/
-/******************************************* SYMBOLOGIE DES FICHIERS ********************************************/
-/****************************************************************************************************************/
-
-let acvTexture = textures.lines()
-                  .orientation("vertical")
-                  .stroke("rgb(255, 80, 0)")
-                  .size(10)
-                  .strokeWidth(10);
-
-let afrTexture = textures.circles()
-                  .lighter()
-                  .size(3)
-                  .fill("black")
-                  .background("pink");
-
-let amicbTexture = textures.circles()
-                  .lighter()
-                  .fill("white")
-                  .background("darkred");
-
-let berTexture = textures.circles()
-                  .size(7.5)
-                  .radius(2)
-                  .fill("white")
-                  .background("darkblue");
-
-let budTexture = textures.circles()
-                  .lighter()
-                  .size(3)
-                  .fill("grey")
-                  .background("purple");
-
-let cdtTexture = textures.lines()
-                  .shapeRendering("crispEdges")
-                  .stroke("rgb(3, 173, 252)")
-                  .size(5)
-                  .strokeWidth(2.5)
-
-let cpierTexture = textures.circles()
-                  .thicker()
-                  .size(4.5)
-                  .fill("yellow");
-
-let crTexture = textures.paths()
-                  .d("woven")
-                  .lighter()
-                  .stroke("rgb(99, 121, 57)")
-                  .background("rgb(188, 189, 34)")
-                  .thicker();
-
-let cteTexture = textures.lines()
-                  .shapeRendering("crispEdges")
-                  .stroke("rgb(3, 252, 152)")
-                  .size(5)
-                  .strokeWidth(2.5);
-
-let cvTexture = textures.circles()
-                  .lighter()
-                  .fill("white")
-                  .background("rgb(153, 0, 153)");
-
-let zfuTexture = textures.lines()
-                  .orientation("vertical")
-                  .stroke("yellow")
-                  .size(10)
-                  .strokeWidth(10);
-
-let zrdTexture = textures.lines()
-                  .size(8)
-                  .strokeWidth(10)
-                  .stroke('rgb(140, 86, 75)');
-
-let zrrTexture = textures.lines()
-                  .size(8)
-                  .strokeWidth(2)
-                  .stroke('green');
-
-/****************************************************************************************************************/
-/****************************************** TABLEAU .json DES STYLES ********************************************/
-/****************************************************************************************************************/
-
-let textureArray = [
-                    {
-                      layer:'afr',
-                      lib:"Zone d'Aide à Finalité Régionale",
-                      style:afrTexture,
-                    },
-                    {
-                      layer:'acv',
-                      lib:"Action Coeur de ville",
-                      style:acvTexture
-                    },
-                    {
-                      layer:'amicb',
-                      lib:"Appel à Manifestation d'Intérêt Centre-bourg",
-                      style:amicbTexture,
-                    },
-                    {
-                      layer:'ber',
-                      lib:"Bassin d'Emploi à Redynamiser",
-                      style:berTexture,
-                    },
-                    {
-                      layer:'bud',
-                      lib:"Bassin Urbain à Dynamiser",
-                      style:budTexture,
-                    },
-                    {
-                      layer:'cdt',
-                      lib:"Contrat de Développement Territorial",
-                      style:cdtTexture,
-                    },
-                    {
-                      layer:'cpier',
-                      lib:"Contrat de Plan Interrégional État-Région",
-                      style:cpierTexture,
-                    },
-                    {
-                      layer:'cr',
-                      lib:"Contrat de ruralité",
-                      style:crTexture,
-                    },
-                    {
-                      layer:'cte',
-                      lib:"Contrat de Transition Écologique",
-                      style:cteTexture,
-                    },
-                    {
-                      layer:'cv',
-                      lib:"Contrat de ville",
-                      style:cvTexture,
-                    },
-                    {
-                      layer:'zfu',
-                      lib:"Zone Franche urbaine",
-                      style:zfuTexture
-                    },
-                    {
-                      layer:'zrd',
-                      lib:"Zone de Restructuration de la Défense",
-                      style:zrdTexture
-                    },
-                    {
-                      layer:'zrr',
-                      lib:"Zone de Revitalisation Rurale",
-                      style:zrrTexture
-                    }
-                  ];
-
-/****************************************************************************************************************/
 /******************************************* AFFICHAGE des COUCHES **********************************************/
 /****************************************************************************************************************/
 
@@ -201,7 +51,8 @@ function showLayer(layer,style,lib) { // dans la fonction
                      .attr("class",layer)
       if (legendWindow.style.width = "0px") {
         d3.select("#legendTitle").style("display","block");
-        // minLegendBtn.style.display = 'block' // bouton pour fermer la fenêtre de légende
+        // bouton pour fermer la fenêtre de légende
+        // minLegendBtn.style.display = 'block'
         legendWindow.style.padding = "10px"; // fenetre de légende
         legendWindow.style.width = "250px"; // fenetre de légende
       }
@@ -254,7 +105,7 @@ function showLayer(layer,style,lib) { // dans la fonction
             .on("mousemove",mousemove)
             .on("click", function(d) {
               // ouvre le panneau latéral avec la fiche
-              if (content.style.width === "0px") {
+              if (content.style.width === "0%") {
                 showContent();
               };
 
@@ -275,13 +126,19 @@ function showLayer(layer,style,lib) { // dans la fonction
                   return ''
                 }
               };
+
               // Fiche territoire
-              d3.select("#layerInfo")
+              d3.select("#ficheTerritoire")
+                // contenu html fiche
                 .html("<p id = 'featureName'>" + libgeo + "</p>" +
-                      "<table><tr><td>Type de contrat/zonage</td><td><b>" + lib + "</td></b></tr>"+
-                      "<tr><td>Périmètre d'application</td><td><b>" + perimetre.toUpperCase() + "</b></td></tr>"+
-                      "<tr><td>Nombre de communes couvertes</td><td><b>" + nbcom + "</b></td></tr></table>" +
+                      "<table><tr><td>Type de contrat/zonage</td><td><b>"
+                      + lib + "</td></b></tr>"+
+                      "<tr><td>Périmètre d'application</td><td><b>"
+                      + perimetre.toUpperCase() + "</b></td></tr>"+
+                      "<tr><td>Nombre de communes couvertes</td><td><b>"
+                      + nbcom + "</b></td></tr></table>" +
                       "<p>"+info1()+"</p>")
+                 // bouton retour
                 .append("button")
                 .attr("id","backBtn")
                 .html("<span><img src='css/img/arrow.svg' height = '15px' width = '15px'>Retour à l'accueil</span>")
@@ -290,7 +147,8 @@ function showLayer(layer,style,lib) { // dans la fonction
                 });
 
               showFeatureInfo();
-              
+
+              // clic sur un contrat/zonage dans la carte
               clickCnt = true;
               if (clickCnt) {
                 d3.select(this)
@@ -308,11 +166,11 @@ function showLayer(layer,style,lib) { // dans la fonction
               tooltip.html("")
                      .style("left", "-500px")
                      .style("top", "-500px");
-
+              // clic sur un contrat/zonage dans la carte
               switch (clickCnt) {
+                // si l'utilisateur a cliqué ...
                 case true:
                   clickCnt = false
-                  console.log("OUI");
                   d3.select(this)
                     .style("stroke","red")
                     .style("stroke-width","2");
@@ -322,8 +180,8 @@ function showLayer(layer,style,lib) { // dans la fonction
                     .style("stroke-width","0.25")
                   }
                     break;
+                // sinon ... remet le style initial par défaut
                 case false:
-                  console.log("NON");
                   d3.select(this)
                     .transition()
                     .duration(100)
@@ -397,6 +255,8 @@ function showLayer(layer,style,lib) { // dans la fonction
       d3.selectAll(".".concat(layer)).remove()
       d3.select(".rect-".concat(layer)).remove()
       d3.select("#".concat(layer+"-legend")).remove()
+
+      // efface la fiche TERRITOIRE
     }
 
     // masquer la fenetre de légende si aucun zonage n'est sélectionné

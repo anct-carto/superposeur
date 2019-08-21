@@ -1,17 +1,3 @@
-/* abel-regular - latin */
-@font-face {
-  font-family: 'Abel-Regular';
-  font-style: lighter;
-  font-weight: 200;
-  src: url('font/abel-v10-latin-regular.eot'); /* IE9 Compat Modes */
-  src: local('Abel Regular'), local('Abel-Regular'),
-       url('font/abel-v10-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('font/abel-v10-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('font/abel-v10-latin-regular.woff') format('woff'), /* Modern Browsers */
-       url('font/abel-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('font/abel-v10-latin-regular.svg#Abel') format('svg'); /* Legacy iOS */
-}
-
 body {
 	padding: 0;
 	margin:0;
@@ -22,7 +8,7 @@ body {
 html, body, #mapid {
 	height: 100%;
 	display: block;
-	font-family: 'Abel-Regular';
+	font-family: 'lato-regular';
   overflow-y: hidden;
 }
 
@@ -41,56 +27,7 @@ html, body, #mapid {
 svg path {
 }
 
-/*/////////////////////////// bar et contenu ////////////////////////////////*/
-a {
-  font-weight: 500;
-  text-decoration: none;
-  color:white;
-}
-
-
-#sideBar,#content {
-	overflow: auto;
-	display: block;
-	position: absolute;
-	background: linear-gradient(#004494, #096d7f);
-	height: 100%;
-	z-index: 500;
-  box-shadow: 0.05px 0 4px rgba(0,0,0,0.4);
-  opacity:.9
-}
-
-/* contenu bar latérale */
-#content {
-  overflow-x: auto;
-  background-repeat: repeat;
-  position:relative;
-  float:left;
-	width: 0px;
-	transition: width 0.25s ease-in-out ;
-	opacity: 0.9;
-	color: white;
-	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
-}
-
-/* "Contractualisation et zonages" */
-#appName {
-  font-size: 38px;
-}
-
-/* séparation logo app et intro */
-hr {
-  opacity: .5;
-  height: 1px;
-  margin: 0.5em 0;
-  padding: 0;
-  background-color: white;
-  background-color: rgba(214, 116, 30);
-  border: 0;
-}
-
-
-/* /////////////////////////////// CONTENU //////////////////////////////// */
+/* /////////////////////////////// SIDEBAR //////////////////////////////// */
 button {
 	background: #004494;
 	padding: 15px;
@@ -119,6 +56,455 @@ button:hover {
 .sideBar-bottom {
 	bottom: 0;
 	position: absolute;
+}
+
+a {
+  text-decoration: none;
+  color:white;
+}
+
+/*/////////////////////////// PANNEAU  ////////////////////////////////*/
+#sideBar,#content {
+	display: block;
+	position: absolute;
+	background: linear-gradient(#004494, #096d7f);
+	height: 100%;
+	z-index: 500;
+  box-shadow: 0.05px 0 4px rgba(0,0,0,0.4);
+  opacity:.9
+}
+
+/* contenu bar latérale */
+#content {
+  float:left;
+  position:relative;
+  width: 0%;
+  padding-left: 25px;
+  color: white;
+  background-repeat: repeat;
+  opacity: 0.9;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: width 0.25s ease-in-out ;
+  border-radius: 0 5px 5px 0px;
+	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
+}
+
+/* logo application */
+#ViZonage {
+  padding-top:20px;
+  padding-bottom:10px;
+  height: 25px;
+}
+
+/* "Contractualisation et zonages" */
+#appName {
+  font-family: 'abel-regular';
+  font-size: 2.67em;
+}
+
+/* introduction */
+#intro {
+  text-align: left;
+  font-family: 'abel-regular';
+  display: none;
+  font-size: 1em;
+}
+
+/* séparation logo app et intro */
+hr {
+  opacity: .75;
+  border-top: dotted 4px;
+  margin: 0.5em 0;
+  padding: 0;
+  /* background-color: white; */
+  border-color: rgba(214, 116, 30);
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+}
+
+
+/* /////////////////////////////// Filtres ////////////////////////////////// */
+
+/* bouton fermer le panneau latéral */
+#closeContent {
+  width: 55px;
+  position: absolute;
+  right: 1px;
+  color: white;
+  padding-top: 20px;
+  border-bottom: none;
+}
+
+#cat-zonages {
+  /* padding-left: -20px; */
+  transition: all .5s cubic-bezier(.47,1.64,.41,.8);
+  position: relative;
+  display: block;
+	font-size:0.8em;
+  z-index: 10000;
+	color: white;
+}
+
+/* animation fiche territoire + menu des zonages */
+@keyframes bounce {
+  from {
+    transform: translateX(-10%);
+    } to {
+      transform: translateX(0);
+    }
+}
+
+/* Phrase "sélectionnez des contrats ou zonages à afficher sur la carte" */
+#selectPhrase {
+  padding-top: 20px;
+  font-family: 'lato-light-italic';
+  /* letter-spacing: 0.02em; */
+  font-size: 1.15em;
+  line-height: 1.4em;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+/* checkbox aspect */
+.zonage {
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  list-style-type: none;
+}
+
+.zonage:hover {
+  /* background: rgba(0,0,0,0.5); */
+  background: rgba(0,0,0,.35);
+  transition: 0.2s;
+  border-radius: 5px;
+}
+
+/* efface par défaut le style des checkbox actuelles */
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+}
+
+/* checkbox style */
+input[type=checkbox] {
+  /* left: -4px; */
+  cursor:pointer;
+  border-radius: 4px;
+  height: 5px;
+  width: 5px;
+  background: #fff;
+  outline: none
+}
+
+input[type="checkbox"]:checked {
+  background:rgba(214, 116, 30);
+  position: relative;
+  outline: none
+}
+
+/* Nom checkbox */
+.libZonage {
+  font-family: 'lato-light';
+  font-weight: 500;
+  font-size: 1.12em;
+  position: relative;
+  top:-7.5px;
+  margin: 10px;
+  padding: 15px 0px;
+  cursor: pointer;
+}
+
+input[type="checkbox"],.libZonage:hover {
+  padding: 10px;
+  font-family: 'lato-bold';
+  transition: all 0.2s;
+  border-radius: 5px;
+  /* letter-spacing: 0.5px; */
+
+}
+
+input[type="checkbox"]:hover {
+  background:rgba(214, 116, 30,1);
+}
+
+input[type="checkbox"]::after {
+  background:rgba(214, 116, 30,1);
+}
+
+/* ///////////////////////// Plus d'infos ////////////////////////////////// */
+/* picto info zonage */
+.info {
+	font-family: georgia;
+	font-style: italic;
+	width: 15px;
+  height: 15px;
+	display: inline-block;
+	margin-left: 5px;
+  background:rgb(214, 116, 30);
+  color: #fff;
+  text-align: center;
+	border-radius: 50%;
+	cursor: help;
+}
+
+#downloadImg {
+  height: 10px;
+}
+
+/* bouton en savoir plus */
+.expandBtn {
+  /* display: block; */
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 0px;
+	border: none;
+  padding: 0px;
+  background-color: rgba(0,0,0,0);
+}
+
+/* signe "+" (menu non déroulé)*/
+.expandBtn:after {
+  content:"\02795";
+  font-size: 0.9em;
+  font-weight:normal;
+  color: rgb(255,255,255);
+  box-shadow: 1px 0 5px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+/* signe "-" (menu déroulé)*/
+.collapsed:after {
+  content:"\02796";
+  font-size: 10px;
+  font-weight:normal;
+  color: rgb(255,255,255);
+  color:rgb(214,113,34);
+  transition: 0.2s;
+
+}
+
+.expandBtn, .collapsed:hover {
+  background-color: rgba(0,0,0,0);
+  color:rgba(0, 0, 0, 0.5);
+  font-weight: bold
+}
+
+.description {
+  background-color: rgba(255,255,255,0.9);
+  max-height: 0px;
+  padding: 0px 7px;
+  color:black;
+  font-family: 'lato-regular';
+  font-size: 1.1em;
+	overflow-y: auto;
+  border-radius: 5px;
+  transition:max-height 0.3s ease-out;
+  /* border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: solid 1px white;
+  border-top: none; */
+  /* letter-spacing: 0.04em; */
+  /* line-height: 20px */
+}
+
+/* Lien 'Télécharger la carte' */
+.description a {
+  font-weight: bold;
+  color:rgb(214,113,34);
+  border-bottom: solid 1px rgb(214,113,34)
+  /* background-color:rgb(214,113,34);
+  border-radius: 4px; */
+}
+
+.description a:hover {
+  color: black;
+  transition: 0.2s;
+  border-bottom: solid 1px black;
+}
+
+.description img {
+  height: 40px;
+}
+
+/* *********************** FICHE TERRITOIRE ******************************** */
+/* Nom de l'entité sélectionnée */
+
+#ficheTerritoire {
+  display: block;
+  position:absolute;
+  top: 200px;
+  max-width: 450px;
+  line-height: 30px;
+  transition: all .5s cubic-bezier(.47,1.64,.41,.8);
+}
+
+#featureName {
+  font-family: 'lato-light';
+  font-weight: 100;
+  font-size: 1.8em;
+  /* border-top: 5px dotted; */
+}
+
+/* fiche */
+table {
+  background-color: rgba(255,255,255,0.9);
+  font-size: .95em;
+  font-weight: 300;
+  color:rgb(50,50,50);
+  position: relative;
+  border-collapse: collapse;
+}
+
+tr {
+  text-align: left;
+}
+
+td {
+  border: 2px dotted rgba(216,113,30,.5);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* info1() (en javascript dans layer_management.js) */
+#ficheTerritoire:last-child {
+  font-size: 1em;
+}
+
+/* back to selecting layers */
+#backBtn {
+  font-family: 'abel-regular';
+  width: 200px;
+  text-align: center;
+  border-radius: 5px;
+  color:white;
+  font-weight:100;
+  background:rgb(214, 116, 30);
+  border-bottom: none;
+  padding: 13px;
+  font-size: 1em;
+}
+
+#backBtn:hover {
+  font-weight: 1000;
+  color:rgb(50,50,50);
+	background-color: rgb(180, 90, 30);
+	transition-duration: 0.4s;
+	cursor: pointer;
+}
+
+#backBtn img {
+  height:20px;
+  float: left;
+}
+
+/* ////////////////////////// Carte, étiquette, légende ///////////////////// */
+#legend {
+  font-family: 'Abel-Regular';
+  margin-left: 20px;
+  float:right;
+  display:inline-block;
+	position:absolute;
+	width: 0%;
+	border-radius: 3.5px;
+	background: white;
+	opacity: 0.90;
+	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
+	top: 10px;
+	z-index: 1000;
+	transition: width 0.25s;
+}
+
+#legendTitle {
+  font-family: 'Abel-Regular';
+  color:rgb(100,100,100);
+  font-weight: 1000;
+  padding-bottom: 10px;
+  font-size: 16px;
+  display: none
+}
+
+/* bouton fermer la légende (désactivé)*/
+#minLegend {
+  display: none;
+  position:absolute;
+  border-radius: 5px;
+  top: 5px;
+  right: 10px;
+  padding: 2px;
+  margin: 0px;
+	font-size: 20px;
+	background-color: rgba(255,255,255,0);
+	font-weight:600;
+	color:rgb(200, 200, 200);
+	border: none;
+	transform: rotate(0deg);
+}
+
+#minLegend:hover {
+	background-color: rgba(0,0,0,0);
+  color:grey
+}
+
+rect {
+	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
+  cursor: default;
+}
+
+.text-legend {
+  font-size: 12px;
+  font-weight: 500;
+  cursor:text;
+}
+
+div.d3-tooltip {
+  font-family: 'Abel-Regular';
+  /* letter-spacing: 0.025em; */
+	z-index: 1000;
+  position: absolute;
+  text-align: center;
+	padding: 5px;
+  color: black;
+  max-width: 180px;
+  height: auto;
+	font-size: 0.9em;
+  background: #004494;
+  border: 0px;
+  border-radius: 3px;
+  pointer-events: none;
+  color: rgb(30,30,30);
+  color: white;
+	box-shadow: 1px 0 5px rgba(0,0,0,0.2);
+	}
+
+.d3-tooltip::after {
+	content: "";
+  position: sticky;
+}
+
+g {
+	cursor: pointer;
+	transition: width 0.55s ease-in-out ;
+}
+
+/* labels chef lieu */
+.leaflet-marker-pane {
+  left:-10px;
+  opacity: 0.75;
+  font-family: 'Abel-Regular';
+  font-size: 1.1em;
+  font-weight: 600;
+  border-color:white;
+  justify-content: center;
+  text-align: center;
+  text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
 }
 
 /*//////////////////// ensemble champ recherche + bouton /////////////////////*/
@@ -169,278 +555,6 @@ button:hover {
 	cursor: pointer;
 }
 
-/* /////////////////////////////// Filtres ////////////////////////////////// */
-/* introduction */
-#intro {
-  left:-60px;
-  display: none;
-  font-size: 17.5px;
-}
-
-/* logo application */
-#ViZonage {
-  justify-content: flex-start;
-  padding-top:20px;
-  padding-bottom:10px;
-  height: 25px;
-}
-
-/* bouton fermer le panneau latéral */
-#closeContent {
-  width: 55px;
-  position: absolute;
-  right: 1px;
-  color: white;
-  padding-top: 20px;
-  border-bottom: none;
-}
-
-#cat-zonages {
-  padding-top: 20px;
-  transition: ease 0.2s;
-  position: relative;
-  display: block;
-	font-size:15px;
-  z-index: 10000;
-	color: white;
-  font-weight: 200;
-}
-
-#cat-zonages span {
-  letter-spacing: 0.02em;
-  font-size: 1.1em;
-}
-
-ul {
-	margin: 0;
-	padding: 0;
-}
-
-/* checkbox aspect */
-.zonage {
-  padding-top: 5px;
-  padding-right: 5px;
-  padding-bottom: 5px;
-  list-style-type: none;
-}
-
-.zonage:hover {
-  background: rgba(0,0,0,0.5);
-  transition: 0.2s;
-  border-radius: 5px;
-}
-
-/* efface par défaut le style des checkbox actuelles */
-input[type=checkbox] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-}
-
-/* checkbox style */
-input[type=checkbox] {
-  /* left: -4px; */
-  cursor:pointer;
-  border-radius: 4px;
-  height: 5px;
-  width: 5px;
-  background: #fff;
-  outline: none
-  /* border: 1px solid #ccc; */
-}
-
-input[type="checkbox"]:checked {
-  background:rgba(214, 116, 30);
-  position: relative;
-  outline: none
-}
-
-label {
-  position: relative;
-  top:-7.5px;
-  margin: 10px;
-  padding: 15px 0px;
-  cursor: pointer;
-}
-
-input[type="checkbox"],label:hover {
-  font-weight: 1000;
-  padding: 10px;
-  transition: 0.2s;
-  border-radius: 5px;
-  letter-spacing: 0.5px;
-}
-
-input[type="checkbox"]:hover {
-  background:rgba(214, 116, 30,0.25);
-}
-
-input[type="checkbox"]::after {
-  background:rgba(214, 116, 30,1);
-}
-
-/* ///////////////////////// Plus d'infos ////////////////////////////////// */
-/* picto info zonage */
-.info {
-	font-family: georgia;
-	font-style: italic;
-	width: 15px;
-  height: 15px;
-	display: inline-block;
-	margin-left: 5px;
-  background:rgb(214, 116, 30);
-  color: #fff;
-  text-align: center;
-	border-radius: 50%;
-	cursor: help;
-}
-
-#downloadImg {
-  height: 10px;
-}
-
-/* bouton en savoir plus */
-.expandBtn {
-  /* display: block; */
-  float: right;
-  margin-top: 5px;
-  margin-right: 5px;
-	border: none;
-  padding: 0px;
-  background-color: rgba(0,0,0,0);
-}
-
-/* signe "+" (menu non déroulé)*/
-.expandBtn:after {
-  content:"\02795";
-  font-size: 0.9em;
-  font-weight:normal;
-  color: rgb(255,255,255);
-  box-shadow: 1px 0 5px rgba(0,0,0,0.2);
-  border-radius: 5px;
-}
-
-/* signe "-" (menu déroulé)*/
-.collapsed:after {
-  content:"\02796";
-  font-size: 10px;
-  font-weight:normal;
-  color: rgb(255,255,255);
-}
-
-.expandBtn, .collapsed:hover {
-  background-color: rgba(0,0,0,0);
-  color:rgba(0, 0, 0, 0.5);
-  font-weight: bold
-}
-
-.description {
-  max-height: 0px;
-  padding: 0px 7px;
-	border-radius: 2.5px;
-	transition:max-height 0.3s ease-out;
-	overflow-y: auto;
-  font-size: 0.95em;
-  letter-spacing: 0.04em;
-  /* line-height: 20px */
-}
-
-/* ////////////////////////// Carte, étiquette, légende ///////////////////// */
-#legend {
-  margin-left: 20px;
-  float:right;
-  display:inline-block;
-	position:absolute;
-	width: 0%;
-	border-radius: 3.5px;
-	background: white;
-	opacity: 0.90;
-	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
-	top: 10px;
-	z-index: 1000;
-	transition: width 0.25s;
-}
-
-#legendTitle {
-  color:rgb(100,100,100);
-  font-weight: 1000;
-  padding-bottom: 10px;
-  font-size: 16px;
-  display: none
-}
-
-#minLegend {
-  display: none;
-  position:absolute;
-  border-radius: 5px;
-  top: 5px;
-  right: 10px;
-  padding: 2px;
-  margin: 0px;
-	font-size: 20px;
-	background-color: rgba(255,255,255,0);
-	font-weight:600;
-	color:rgb(200, 200, 200);
-	border: none;
-	transform: rotate(0deg);
-}
-
-#minLegend:hover {
-	background-color: rgba(0,0,0,0);
-  color:grey
-}
-
-rect {
-	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
-}
-
-.text-legend {
-  font-size: 12px;
-  font-weight: 500;
-  cursor: default;
-}
-
-div.d3-tooltip {
-    letter-spacing: 0.03em;
-		z-index: 1000;
-    position: absolute;
-    text-align: center;
-		padding: 5px;
-    color: black;
-    max-width: 180px;
-    height: auto;
-		font-size: 0.9em;
-    background: #004494;
-    border: 0px;
-    border-radius: 3px;
-    pointer-events: none;
-    color: rgb(30,30,30);
-    color: white;
-		box-shadow: 1px 0 5px rgba(0,0,0,0.2);
-	}
-
-.d3-tooltip::after {
-	content: "";
-  position: sticky;
-}
-
-g {
-	cursor: pointer;
-	transition: width 0.55s ease-in-out ;
-}
-
-/* labels chef lieu */
-.leaflet-marker-pane {
-  left:-10px;
-  opacity: 0.75;
-  font-size: 12.5px;
-  font-weight: 600;
-  border-color:white;
-  justify-content: center;
-  text-align: center;
-  text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
-}
-
 /* ///////////////////////// Popup A propos ///////////////////////////////// */
 
 #aPropos {
@@ -482,65 +596,31 @@ g {
   padding-top: : -5px
 }
 
-
-/* *********** Fiche Territoire **************** */
-/* Nom de l'entité sélectionnée */
-#featureName {
-  position:sticky;
-  font-weight: 500;
-  font-size: 30px;
+#cget_logo {
+  float: right;
+  bottom:10px;
+  width: 100px;
 }
 
-#layerInfo {
-  position:absolute;
-  color:white;
-  max-width: 450px;
-  line-height: 30px;
-  top: 200px;
+/* scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-/* fiche */
-table {
-  background-color: rgba(255,255,255,0.05);
-  font-size: 17px;
-  font-weight: 300;
-  color:black;
-  position: relative;
-  border-collapse: collapse;
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgb(50,50,50,.1);
 }
 
-tr {
-  text-align: left;
-}
-
-td {
-  border: 1px solid rgba(216,113,30,.5);
-  padding: 10px;
-}
-
-#layerInfo:last-child {
-  font-size: 0.8em;
-}
-
-/* back to selecting layers */
-#backBtn {
-  width: 200px;
-  text-align: center;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(0,0,0,.3);
   border-radius: 5px;
-  color:white;
-  font-weight:100;
-  background:rgb(214, 116, 30);
-  border-bottom: none;
-  padding: 13px;
-  font-size: 1em;
 }
 
-#backBtn:hover {
-	background-color: rgb(180, 90, 30);
-	transition-duration: 0.4s;
-	cursor: pointer;
-}
-
-#backBtn img {
-  float: left;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0,0,0,.2);
 }
