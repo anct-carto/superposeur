@@ -22,7 +22,7 @@ var interval = setInterval(function() {
 [homeBtn,closeBtn].forEach(function (btn) {
   btn.addEventListener('click', function() {
     showContent();
-    hideFeatureInfo();
+    hideFicheInfo();
   });
 })
 
@@ -139,7 +139,7 @@ function getExpanded() {
 
 let featureInfo = document.getElementById("ficheTerritoire");
 
-function showFeatureInfo() {
+function showFiche() {
   featureInfo.style.left = "25px";
   var x = setInterval(function () {
     clearInterval(x)
@@ -147,7 +147,7 @@ function showFeatureInfo() {
   zonageLayers.style.left = "-2000px";
 };
 
-function hideFeatureInfo() {
+function hideFiche() {
   featureInfo.style.left = "2000px";
   zonageLayers.style.left = "0px";
 };

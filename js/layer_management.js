@@ -26,7 +26,7 @@ let y = 0;
 let l = 25;
 let coords;
 legendWindow = document.getElementById('legend');
-let clickCnt = false;
+
 function showLayer(layer,style,stroke,lib) { // dans la fonction
 
   var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
@@ -49,7 +49,8 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                         return l;
                       })
                      .append("g")
-                     .attr("class",layer)
+                     .attr("class",layer);
+
       if (legendWindow.style.width = "0px") {
         d3.select("#legendTitle").style("display","block");
         // bouton pour fermer la fenêtre de légende
@@ -59,7 +60,9 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
       }
 
       // objet svg qui va accueillir les topojson des zonages
-      g = svg.append("g").attr("class", "leaflet-zoom-hide").attr("class",layer);
+      g = svg.append("g")
+             .attr("class", "leaflet-zoom-hide")
+             .attr("class",layer);
 
       console.log(layer+" checked");
 
@@ -104,64 +107,88 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                 .style("stroke","rgb(214, 116, 30)")
                 .style("stroke-width","2.5")
                 .style("fill-opacity","1")
-
             })
             .on("mousemove",mousemove)
             .on("click", function(d) {
-              // ouvre le panneau latéral avec la fiche
+
+              // 1. au clic sur une entité, ouvre le panneau latéral ...
               if (content.style.width === "0%") {
                 showContent();
               };
 
-              d3.selectAll("."+layer)
-                .transition()
-                .duration(200);
-              // d3.select(".selected").classed("selected", false);
-              // d3.select(this).classed("selected", true);
-              // récupération des informations composant la fiche
-              libgeo = d.properties.lib;
-              perimetre = d.properties.perimetre;
-              nbcom = d.properties.nbcom;
-              // affichage du champ "info1" si présence de donnée
-              function info1() {
-                if (d.properties.info1 != null) {
-                  return d.properties.info1
-                } else {
-                  return ''
-                }
-              };
+              // 2. au clic, surligne l'entité sélectionnée
 
-              // Fiche territoire
-              d3.select("#ficheTerritoire")
-                // contenu html fiche
-                .html("<p id = 'featureName'>" + libgeo + "</p>" +
-                      "<table><tr><td>Type de contrat/zonage</td><td><b>"
-                      + lib + "</td></b></tr>"+
-                      "<tr><td>Périmètre d'application</td><td><b>"
-                      + perimetre.toUpperCase() + "</b></td></tr>"+
-                      "<tr><td>Nombre de communes couvertes</td><td><b>"
-                      + nbcom + "</b></td></tr></table>" +
-                      "<p>"+info1()+"</p>")
-                 // bouton retour
-                .append("button")
-                .attr("id","backBtn")
-                .html("<span><img src='css/img/arrow.svg' height = '15px' width = '15px'>Retour à l'accueil</span>")
-                .on("click", function() {
-                    hideFeatureInfo()
-                });
-
-              showFeatureInfo();
-
-              // clic sur un contrat/zonage dans la carte
-              clickCnt = true;
-              if (clickCnt) {
+              if (!d3.select(this).classed("selected")) {
+                // change le style du précédent élément
+                d3.selectAll("#previous")
+                  .classed("selected",false)
+                  .style("fill-opacity","0.5")
+                  .style("stroke",stroke)
+                  .style("stroke-width","1");
+                // assigne un id à l'élément sélectionné pour le supprimer après
                 d3.select(this)
+                  .classed("selected",true)
+                  .attr("id","previous");
+                // change le style de l'élément cliqué
+                d3.select(this)
+                  .style("fill-opacity","1")
                   .style("stroke","red")
-                  .style("stroke-width","3");
+                  .style("stroke-width","2.5");
               } else {
                 d3.select(this)
-                .style("stroke",stroke)
-                .style("stroke-width","1")
+                  .classed("selected", false);
+                // remet le style initial
+                d3.select(this)
+                  .transition()
+                  .style("fill-opacity","0.5")
+                  .style("stroke",stroke)
+                  .style("stroke-width","1")
+              };
+
+              // 3. au clic, dessine la fiche territoire
+
+              ficheTerritoire();
+
+              function ficheTerritoire() {
+                // récupération des informations composant la fiche
+                libgeo = d.properties.lib;
+                perimetre = d.properties.perimetre;
+                nbcom = d.properties.nbcom;
+                d3.select("#ficheTerritoire")
+                  // contenu html fiche
+                  .html("<p id = 'featureName'>" + libgeo + "</p>" +
+                        "<table><tr><td>Type de contrat/zonage</td><td><b>"
+                        + lib + "</td></b></tr>"+
+                        "<tr><td>Périmètre d'application</td><td><b>"
+                        + perimetre.toUpperCase() + "</b></td></tr>"+
+                        "<tr><td>Nombre de communes couvertes</td><td><b>"
+                        + nbcom + "</b></td></tr></table>" +
+                        "<p>"+info1()+"</p>")
+                   // bouton retour
+                  .append("button")
+                  .attr("id","backBtn")
+                  .html("<span><img src='css/img/arrow.svg' height = '15px' width = '15px'>"+
+                        "Retour à l'accueil</span>")
+                  .on("click", function() {
+                    // enlève la fiche territoire
+                      hideFiche(); // la fonction se trouve dans ui.js
+                      // déselectionne l'entité
+                      d3.selectAll("#previous")
+                        .classed("selected",false)
+                        .style("stroke",stroke)
+                        .style("stroke-width","1");
+                  });
+                  // montre la fiche territoire
+                  showFiche(); // la fonction se trouve dans ui.js
+
+                  // affichage du champ "info1" si présence de donnée
+                  function info1() {
+                    if (d.properties.info1 != null) {
+                      return d.properties.info1
+                    } else {
+                      return ''
+                    }
+                  };
               }
             })
             .on("mouseout", function(d) {
@@ -171,39 +198,30 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                      .style("left", "-500px")
                      .style("top", "-500px");
               // clic sur un contrat/zonage dans la carte
-              switch (clickCnt) {
-                // si l'utilisateur a cliqué ...
-                case true:
-                  clickCnt = false
-                  d3.select(this)
-                    .style("stroke","red")
-                    .style("stroke-width","2");
-                  if (clickCnt == true) {
-                    d3.selectAll(d)
-                    .style("stroke","white")
-                    .style("stroke-width","0.25")
-                  }
-                    break;
-                // sinon ... remet le style initial par défaut
-                case false:
-                  d3.select(this)
-                    .transition()
-                    .duration(100)
-                    .attr("transform", "scale(1)")
-                    .style("fill",style.url())
-                    .style("fill-opacity","0.5")
-                    .style("stroke",stroke)
-                    .style("stroke-width","1")
-                  break;
-                  clickCnt = true;
-              }
+              if (!d3.select(this).classed("selected")) {
+                d3.select(this).classed("selected", false);
+                d3.select(this)
+                  .transition()
+                  .duration(100)
+                  .attr("transform", "scale(1)")
+                  .style("fill",style.url())
+                  .style("fill-opacity","0.5")
+                  .style("stroke",stroke)
+                  .style("stroke-width","1");
+              } else {
+                console.log("OUI");
+                d3.select(this)
+                  .style("stroke","red")
+             };
             });
 
-          // fonction permettant à la tooltip de suivre le mouvement de la souris
+          // fonction permettant à la tooltip de suivre le curseur
           function mousemove() {
             tooltip.style("left", (d3.event.pageX - 50) + "px")
                .style("top", (d3.event.pageY - 40) + "px");
-          }
+          };
+
+
 
           // animation à l'affichage des couches
           d3.selectAll("."+layer)
@@ -227,8 +245,8 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
           legend.append("text")
                 .text(lib)
                 .attr("class","text-legend")
-                .attr('x', 50)
-                .attr('y', 15+y)
+                // .attr('x', 50)
+                // .attr('y', 15+y)
                 .attr("id",layer.concat("-legend"));
 
           // au zoom, remet les couches à la bonne échelle
