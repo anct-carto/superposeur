@@ -21,18 +21,18 @@ for (var i in textureArray) { // pour chaque élément du tableau ...
 // voir ==> https://groups.google.com/forum/#!topic/leaflet-js/bzM9ssegitU
 
 L.svg({interactive: true,animate:true}).addTo(mymap); // au préalable, création d'un conteneur svg auquel on fait appel ...
-var g, svg;
-var y = 0;
-var l = 25;
-var coords;
+let g, svg;
+let y = 0;
+let l = 25;
+let coords;
 legendWindow = document.getElementById('legend');
-var clickCnt = false;
+let clickCnt = false;
 function showLayer(layer,style,stroke,lib) { // dans la fonction
 
   var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
 
   zonageBox.addEventListener("change", function() { // au click ...
-    var layerChecked
+    var layerChecked;
     svg = d3.select(mymap.getPanes().overlayPane)
             .select("svg") // sélectionne le conteneur svg créé par L.svg()
             .attr("pointer-events", "auto");
@@ -194,7 +194,8 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                     .style("fill-opacity","0.5")
                     .style("stroke",stroke)
                     .style("stroke-width","1")
-                    break;
+                  break;
+                  clickCnt = true;
               }
             });
 

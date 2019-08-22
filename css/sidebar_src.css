@@ -1,0 +1,26 @@
+/*/////////////////////////// PANNEAU  ////////////////////////////////*/
+#sideBar,#content {
+	display: block;
+	position: absolute;
+	background: linear-gradient(#004494, #096d7f);
+	height: 100%;
+	z-index: 500;
+  box-shadow: 0.05px 0 4px rgba(0,0,0,0.4);
+  opacity:.9
+}
+
+/* contenu bar latérale */
+#content {
+  float:left;
+  position:relative;
+  width: 0%;
+  color: white;
+  background-repeat: repeat;
+  opacity: 0.9;
+  overflow-x: hidden;
+  /* overflow-y: auto; */
+  overflow-y: scroll;
+  transition: width 0.25s ease-in-out ;
+  border-radius: 0 5px 5px 0px;
+	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5)
+}

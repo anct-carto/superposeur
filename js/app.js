@@ -165,7 +165,7 @@ var createLabelIcon = function(labelClass,labelText){
 
 let labelReg, labelDep, labelCan;
 
-fetchLabel();
+// fetchLabel();
 
 // affichage des labels selon le zoom
 function fetchLabel() {

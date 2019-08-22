@@ -13,8 +13,8 @@ var zonageLayers = document.getElementById('cat-zonages');
 // ouvrir la fenetre latérale au chargement
 var interval = setInterval(function() {
     if(document.readyState === 'complete') {
-        clearInterval(interval);
         contentDisplay();
+        clearInterval(interval);
       }
     }, 500);
 
@@ -35,30 +35,32 @@ function showContent() {
     content.style.paddingLeft = '0px';
     content.style.paddingRight = '0px';
     zonageLayers.style.display = 'none';
+    document.getElementById('legend').style.marginLeft = '70px'
     intro.style.display = 'none';
     let t = setInterval(function() {
       mymap.setView([46.5, 3])
       clearInterval(t)
-    },300);
+    },0);
   }
 };
 
 function contentDisplay() {
   content.style.width = '30%';
-  content.style.marginLeft = '50px';
+  content.style.marginLeft = '55px';
   content.style.paddingLeft = '25px';
   content.style.paddingRight = '20px';
+  document.getElementById('legend').style.marginLeft = '620px'
   // déplacement du centre de la carte
   let t = setInterval(function() {
-    mymap.setView([46.5, 6.8])
+    mymap.setView([46.5, -2])
     clearInterval(t)
-  },300);
+  },0);
   if (content.style.width === '30%') {
     var x = setInterval(function () {
       intro.style.display = 'block';
       zonageLayers.style.display = 'block';
       clearInterval(x)
-    },200);
+    },400);
   }
 };
 
@@ -68,8 +70,10 @@ function contentDisplay() {
 /************************** MENUS CONTRATS/ZONAGES ****************************/
 /******************************************************************************/
 
-var expandBtn = document.querySelectorAll('.expandBtn');
-var showDes = 1;
+let expandBtn = document.querySelectorAll('.expandBtn');
+let showDes = 1;
+// style description
+let descriptionStyle = 'rgba(0,0,0,0.5)';
 
 expandBtn.forEach(btn => {
   btn.addEventListener('click', function() {
@@ -78,47 +82,52 @@ expandBtn.forEach(btn => {
     // récupère l'élément situé après le bouton dans le html
     var description = this.nextElementSibling;
     if (showDes % 2 == 0) {
-      description.style.maxHeight = '300px';
+      description.style.maxHeight = '400px';
+      this.parentNode.style.background = descriptionStyle;
     } else {
       description.style.maxHeight = '0px'
+      this.parentNode.style.background = ''
     }
   })
 });
 
 // rendu des balises <li> cliquables
-let lb = document.querySelectorAll('.zonage');
-let count = 1;
-// lb.forEach(label => {
-//   label.addEventListener('click', function() {
-//     count++;
-//     console.log(count);
-//     console.log(count % 2);
-//     if (count % 2 == 0) {
-//       label.style.background = "rgba(0,0,0,0.35)";
-//       label.style.borderRadius = "5px";
-//     } else {
-//       label.style.background = "";
-//       label.style.padding = "";
-//       label.style.borderRadius = "";
-//     }
-//   })
-// });
+let libZonage = document.querySelectorAll('.libZonage');
+libZonage.forEach(label => {
+    label.addEventListener('click', function() {
+      // récupère le précédent élément du label, soit l'input/checkbox
+      input = label.previousElementSibling;
+      // récupère l'élément parent, soit la balise li
+      li = label.parentNode;
+      if (input.checked) {
+        li.style.background = "";
+        label.style.borderRadius = "";
+      } else {
+        li.style.background = descriptionStyle;
+        label.style.borderRadius = "5px";
+      }
+    });
+});
+
 
 // Ajout des informations au menu déroulant depuis le fichier data/descriptions.csv
-getCheckBoxInfo();
+getExpanded();
 
-function getCheckBoxInfo() {
+function getExpanded() {
   d3.csv("data/descriptions.csv")
   .then(data => {
     data.forEach(d => {
       div = document.getElementById(d.ACRONYME.toLowerCase().concat("-desc"))
-      div.innerHTML = "<p><a href='" + d.TELECHARGER +
-                      "' target='_blank'><img src= 'css/img/download.svg' id ='downloadImg'</img>"+
-                      "      Télécharger la carte</a></p>"+
+      div.innerHTML = "<hr><p><img src= 'css/img/download.svg' id ='pictoDescr'</img>" +
+                      "<a href='" + d.TELECHARGER +"' target='_blank'>"+
+                      "Télécharger la carte</a></p>"+
                       "<p><b>Niveau(x) géographique(s) : </b>" + d.ECHELON + "</p>" +
                       "<p><b>À propos : </b>"+
                       ""+ d.DESCRIPTION_COURTE + "</p>" +
-                      "<p><a href='"+ d.RESSOURCES +
+                      "<p>"+ d.DESCRIPTION_LONGUE + "</p>" +
+                      "<p><b>Dernière mise à jour</b> : " + d.LAST_MAJ + "</p>" +
+                      "<p><img src= 'css/img/link.svg' id ='pictoDescr'</img>" +
+                      "<a href='"+ d.RESSOURCES +
                       "' target='_blank'>Cliquez ici pour en savoir plus</a></p>"
     })
   });

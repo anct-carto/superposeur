@@ -82,7 +82,7 @@ fetch(communesPath)
                        .addTo(mymap)
           })
           // mouvement de la carte sur la commune trouvée
-          mymap.setView([lat,lng+0.15], 11.12, {animate:true, duration:1.5});
+          mymap.setView([lat,lng-0.25], 11.12, {animate:true, duration:1.5});
 
           // enlever le contour de la commune recherchée au click n'importe où
           mymap.on("click", function() {
