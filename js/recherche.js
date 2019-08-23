@@ -1,6 +1,18 @@
-/* Ce fichier fait partie du code source du superposeur de zonages
-Auteur : Hassen Chougar, Service Cartographie du CGET
-Données : Observatoire du Territoire, Service Cartographie */
+/*
+
+	@ File : recherche.js
+	@ Author : Hassen Chougar, Service Cartographie du CGET
+	@ Date : 08/2019
+
+	@ For : ViZonage - Carte interactive des contrats et zonages de politiques publiques
+	@ Main file : index.html
+
+	@ Description : script gérant la recherche de communes.
+                  Il fait appel à la variable "communesPath", créée dans le script
+                  map_init.js.
+                  Attention : selon le type de fichier en entrée (geojson ou topojson),
+                              le code n'est pas le même ....
+*/
 
 
 let searchField = document.getElementById('searchField');
@@ -81,7 +93,8 @@ fetch(communesPath)
                        .setLatLng([lat,lng])
                        .addTo(mymap)
           })
-          // mouvement de la carte sur la commune trouvée
+
+          // flyTp de la carte sur la commune trouvée
           mymap.setView([lat,lng-0.25], 11.12, {animate:true, duration:1.5});
 
           // enlever le contour de la commune recherchée au click n'importe où

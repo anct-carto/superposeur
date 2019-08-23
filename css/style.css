@@ -76,6 +76,8 @@ html, body, #mapid {
 
 /* 5 SCROLLBAR --------------- **************************** */
 
+/* ########################################################################## */
+
 /* ***************************** ------ 1 ------ **************************** */
 /* ***************************** PANNEAU LATERAL ******************************/
 /* ***************************** --------------- **************************** */
@@ -197,6 +199,7 @@ ul {
   font-family: 'lato-light';
   font-weight: 500;
   font-size: 1.16em;
+	margin-top: 5px;
   margin-left: 40px;
   padding: 5px 0px;
   cursor: pointer;
@@ -204,6 +207,7 @@ ul {
 }
 
 .libZonage:hover {
+	margin-top: 5px;
 	padding-left:5px;
   font-family: 'lato-bold';
   transition: 0.2s;
@@ -221,10 +225,11 @@ input[type=checkbox] {
 }
 
 input[type=checkbox] {
-	background-color: rgba(0, 0, 0, 0.5);
 	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
 	padding:10px;
   margin-left: 5px;
+  margin-top: 7px;
   cursor:pointer;
   border-radius: 4px;
   outline: none
@@ -391,30 +396,42 @@ td {
   font-size: .9em;
 }
 
+#ficheTerritoire a {
+	font-size: 1em;
+	color:rgb(214,113,34);
+	border-bottom: solid 1px rgb(214,113,34);
+  font-family: 'lato-bold';
+  font-size: 1em;
+}
+
+#ficheTerritoire a:hover {
+	transition: 0.2s;
+	color:black;
+}
+
 /* ------ 1.4.5 Bouton retour aux zonages ------- */
 #backBtn {
-  font-family: 'abel-regular';
+  font-family: 'lato-regular';
   width: 200px;
   text-align: center;
   border-radius: 5px;
   color:white;
-  font-weight:100;
   background:rgb(214, 116, 30);
   border-bottom: none;
   padding: 13px;
-  font-size: 1em;
+  font-size: .95em;
 }
 
 #backBtn:hover {
-  font-weight: 1000;
-  color:rgb(50,50,50);
+  font-family: 'lato-bold';
 	background-color: rgb(180, 90, 30);
 	transition-duration: 0.4s;
 	cursor: pointer;
 }
 
 #backBtn img {
-  height:20px;
+  height:15px;
+  height:15px;
   float: left;
 }
 

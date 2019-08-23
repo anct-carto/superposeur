@@ -59,7 +59,8 @@ function showContent() {
     document.getElementById('legend').style.marginLeft = '70px'
     intro.style.display = 'none';
     let t = setInterval(function() {
-      mymap.setView([46.5, 3])
+      mymap.setZoom(6.458);
+      mymap.setView([46.5, 3]);
       clearInterval(t)
     },0);
   }

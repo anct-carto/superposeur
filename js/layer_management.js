@@ -45,7 +45,8 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
       function showLegend() {
         if (legendWindow.style.width = "0px") {
           d3.select("#legendTitle").style("display","block");
-          // minLegendBtn.style.display = 'block' // bouton pour fermer la fenêtre de légende
+          // bouton (désactivé)pour fermer la fenêtre de légende
+          // minLegendBtn.style.display = 'block'
           legendWindow.style.padding = "10px"; // fenetre de légende
           legendWindow.style.width = "250px"; // fenetre de légende
         };
@@ -95,6 +96,9 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
           // appel au style correspondant au zonage ...
           g.call(style);
 
+          // nombre d'entités (à afficher ultérieurement dans le poste de légende correspondant)
+          console.log(zonages.length);
+
           // affichage du zonage sélectionné
           layerChecked = g.selectAll("path")
             .data(zonages)
@@ -125,6 +129,8 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
               // 1. au clic sur une entité, ouvre le panneau latéral ...
               if (panel.style.width === "0px") {
                 showContent();
+                mymap.setZoom(6.458);
+                mymap.setView([46.5, 3]);
               };
 
               // 2. au clic, surligne l'entité sélectionnée
@@ -177,19 +183,23 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                    // bouton retour
                   .append("button")
                   .attr("id","backBtn")
-                  .html("<span><img src='css/img/arrow.svg' height = '15px' width = '15px'>"+
+                  .html("<span>" +
+                        "<img src='css/img/arrow.svg'>" +
                         "Retour à l'accueil</span>")
                   .on("click", function() {
                     // enlève la fiche territoire
-                      hideFiche(); // la fonction se trouve dans ui.js
-                      // déselectionne l'entité
-                      d3.selectAll("#previous")
-                        .classed("selected",false)
-                        .style("stroke",stroke)
-                        .style("stroke-width","1");
+                    hideFiche();
+                    // cette fonction se trouve dans ui.js
+
+                    // déselectionne l'entité
+                    d3.selectAll("#previous")
+                      .classed("selected",false)
+                      .style("stroke",stroke)
+                      .style("stroke-width","1");
                   });
                   // montre la fiche territoire
-                  showFiche(); // la fonction se trouve dans ui.js
+                  showFiche();
+                  // la fonction se trouve dans ui.js
 
                   // affichage du champ "info1" si présence de donnée
                   function info1() {
@@ -251,6 +261,7 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
         })
 
     } else { // au décochage de la checkbox correspondante ...
+
       // enlève le contrat/zonage coché
       d3.selectAll(".".concat(layer))
         .transition()
@@ -262,7 +273,6 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
 
       // enlève le poste de légende correspondant
       d3.select("#legendItem-"+layer).remove();
-      // d3.select("#".concat(layer+"-legend")).remove();
     }
 
     // masquer la fenetre de légende si aucun zonage n'est sélectionné
