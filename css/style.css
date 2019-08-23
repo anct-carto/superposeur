@@ -1,7 +1,22 @@
+/*
+
+	@ File : style.css
+	@ Author : Hassen Chougar, Service Cartographie
+	@ Date : 08/2019
+
+	@ For : ViZonage - Carte interactive des contrats et zonages de politiques publiques
+	@ Main file : index.html
+
+	@ Description : fichier de style du fichier index.html
+									(style de la sidebar dans sidebar.css)
+
+	@ Pour naviguer entre les éléments, copier-coller un nom de section dans un CTRL+F
+
+*/
+
 body {
 	padding: 0;
 	margin:0;
-  /* background-image: url(img/cartographer.png); */
 }
 
 html, body, #mapid {
@@ -23,79 +38,61 @@ html, body, #mapid {
 
 }
 
-svg path {
-}
+/* 1  PANNEAU LATERAL ------ **************************** */
+/* -- 1.1 En-tête ----------------------------------- */
+/* -- 1.2 Phrase d'introduction --------------------- */
+/* -- 1.3 Liste des contrats/zonages ---------------- */
+/* ------ 1.3.1 Conteneur --------- --------------- */
+/* ------ 1.3.2 Balises li --------- -------------- */
+/* ------ 1.3.3 Labels des contrats/zonages ------- */
+/* ------ 1.3.4 Cases à cocher/Checkboxes --------- */
+/* ------ 1.3.5 Description déroulante ------------ */
+/* ----------- 1.3.5.1 Bouton dérouler -----------*/
+/* ----------- 1.3.5.2 Contenu -------------------*/
+/* -- 1.4 Fiche Territoire -------------------------- */
+/* ------ 1.4.1 Conteneur ------ ---------------- */
+/* ------ 1.4.2 Nom Territoire ------------------ */
+/* ------ 1.4.3 Tableau ------------------------- */
+/* ------ 1.4.4 info supplémentaire-------------- */
+/* ------ 1.4.5 Bouton retour aux zonages ------- */
 
-/* /////////////////////////////// SIDEBAR //////////////////////////////// */
-button {
-	border-top-left-radius:5px;
-	border-top-right-radius:5px;
-	background: #004494;
-	padding: 15px;
-	border: none;
-	border-bottom: 0.5px solid rgba(255,255,255,0.5);
-	-moz-border-bottom: 0.5px solid rgba(255,255,255,0.5);
-	outline: 0px;
-	text-align: center;
-	cursor: pointer;
-}
 
-button:hover {
-	background-color: rgba(0,0,0,0.2);
-	transition-duration: 0.4s;
-}
+/* 2  CARTE  ------------- **************************** */
+/* -- 2.1 Elements svg------------------------------- */
+/* -- 2.2 Légende et éléments légende --------------- */
+/* ------ 2.2.1 Conteneur ------ ---------------- */
+/* ------ 2.2.2 Poste de légende ---------------- */
+/* -- 2.3 Labels chefs lieux ------------------------ */
 
-.aPropos-btn {
-	border-top: 0.5px solid rgba(255,255,255,0.5);
-	-moz-border-top: 0.5px solid rgba(255,255,255,0.5);
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-	background: #096d7f
-}
 
-.github-btn {
-	background: #096d7f;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;:
-}
+/* 3 BARRE DE RECHERCHE ------ **************************** */
+/* -- 3.1 Conteneur --------------------------------- */
+/* -- 3.2 Champ de recherche ------------------------ */
+/* -- 3.3 Bouton de recherche ----------------------- */
 
-/* bouton du bas "a propos" et "github" */
-.sideBar-bottom {
-	bottom: 0;
-	position: absolute;
-}
 
-a {
-  text-decoration: none;
-  color:white;
-}
+/* 4 POPUP A PROPOS---- ------ **************************** */
+/* -- 4.1 Conteneur --------------------------------- */
 
-/*/////////////////////////// PANNEAU  ////////////////////////////////*/
-#sideBar,#content {
-	margin:0.50%;
-	border-radius:5px;
-	/* display: block; */
-	position: absolute;
-	background: linear-gradient(#004494, #096d7f);
-	height: 98.2%;
-	z-index: 500;
-  box-shadow: 0.05px 0 5px rgba(0,0,0,.5);
-}
+/* 5 SCROLLBAR --------------- **************************** */
 
-/* contenu bar latérale */
-#content {
-	opacity:.8;
-  position:absolute;
-  width: 0%;
+/* ***************************** ------ 1 ------ **************************** */
+/* ***************************** PANNEAU LATERAL ******************************/
+/* ***************************** --------------- **************************** */
+
+/* -- 1.1 En-tête ----------------------------------- */
+/* bouton fermer le panneau latéral */
+#closeContent {
+  width: 55px;
+  position: absolute;
+  right: 1px;
   color: white;
-  background-repeat: repeat;
-  opacity: 0.9;
-  overflow-x: hidden;
-  /* overflow-y: auto; */
-  overflow-y: scroll;
-  transition: width 0.3s ease ;
-  border-radius: 0 5px 5px 0px;
-	box-shadow: 0.05px 0 4px rgba(0,0,0,0.5);
+  padding-top: 20px;
+  border-bottom: none;
+}
+
+#closeContent:hover {
+	background: rgba(0,0,0,0)
 }
 
 /* logo application */
@@ -111,7 +108,21 @@ a {
   font-size: 2.67em;
 }
 
-/* introduction */
+/* séparation logo app et intro */
+hr {
+	opacity: .75;
+	border-top: dotted 4px;
+	margin: 0.5em 0;
+	padding: 0;
+	/* background-color: white; */
+	border-color: rgba(214, 116, 30);
+	border-bottom: 0;
+	border-right: 0;
+	border-left: 0;
+}
+
+/* -- 1.2 Phrase d'introduction --------------------- */
+
 #intro {
   text-align: left;
   font-family: 'abel-regular';
@@ -120,44 +131,16 @@ a {
 	margin:auto;
 }
 
-/* séparation logo app et intro */
-hr {
-  opacity: .75;
-  border-top: dotted 4px;
-  margin: 0.5em 0;
-  padding: 0;
-  /* background-color: white; */
-  border-color: rgba(214, 116, 30);
-  border-bottom: 0;
-  border-right: 0;
-  border-left: 0;
-}
-
-
-/* /////////////////////////////// Filtres ////////////////////////////////// */
-
-/* bouton fermer le panneau latéral */
-#closeContent {
-  width: 55px;
-  position: absolute;
-  right: 1px;
-  color: white;
-  padding-top: 20px;
-  border-bottom: none;
-}
-
-#closeContent:hover {
-	background: rgba(0,0,0,0)
-}
+/* -- 1.3 Liste des contrats/zonages ---------------- */
+/* ------ 1.3.1 Conteneur --------- ---------------- */
 
 #cat-zonages {
-  /* padding-left: -20px; */
-  transition: all .5s cubic-bezier(.47,1.64,.41,.8);
+	display: block;
   position: relative;
-  display: block;
 	font-size:0.8em;
   z-index: 10000;
 	color: white;
+	transition: all .5s cubic-bezier(.47,1.64,.41,.8);
 }
 
 /* animation fiche territoire + menu des zonages */
@@ -186,6 +169,7 @@ hr {
   line-height: 1.4em;
 }
 
+/* ------ 1.3.2 Balises li --------- ---------------- */
 ul {
 	margin: 0;
 	padding: 0;
@@ -207,7 +191,7 @@ ul {
 	background: rgb(0,0,0,0.35);
 }
 
-/* Libellé checkbox */
+/* ------ 1.3.3 Labels des contrats/zonages ------- */
 .libZonage {
 	display: block;
   font-family: 'lato-light';
@@ -227,7 +211,8 @@ ul {
   letter-spacing: 0.5px;
 }
 
-/* checkbox style */
+/* ------ 1.3.4 Cases à cocher/Checkboxes --------- */
+
 /* efface par défaut le style des checkbox actuelles */
 input[type=checkbox] {
   -webkit-appearance: none;
@@ -255,9 +240,8 @@ input[type="checkbox"]::after {
   background:rgba(214, 116, 30,1);
 }
 
-/* ///////////////////////// Plus d'infos ////////////////////////////////// */
 /* picto info zonage */
-.info {
+/* .info {
 	font-family: georgia;
 	font-style: italic;
 	width: 15px;
@@ -269,9 +253,10 @@ input[type="checkbox"]::after {
   text-align: center;
 	border-radius: 50%;
 	cursor: help;
-}
+} */
 
-/* bouton en savoir plus */
+/* ------ 1.3.5 Description déroulante ------------ */
+/* ----------- 1.3.5.1Bouton dérouler -----------*/
 .expandBtn {
   display: inline-block;
 	position:relative;
@@ -317,6 +302,8 @@ input[type="checkbox"]::after {
   font-weight: bold
 }
 
+/* ----------- 1.3.5.2 Contenu -------------------*/
+
 .description {
 	max-height: 0px;
 	width: fit-content;
@@ -357,9 +344,8 @@ input[type="checkbox"]::after {
 	margin-bottom: -4px;
 }
 
-/* *********************** FICHE TERRITOIRE ******************************** */
-/* Nom de l'entité sélectionnée */
-
+/* -- 1.4 Fiche Territoire -------------------------- */
+/* ------ 1.4.1 Conteneur ------ ---------------- */
 #ficheTerritoire {
   display: block;
   position:absolute;
@@ -370,6 +356,7 @@ input[type="checkbox"]::after {
   transition: all .5s cubic-bezier(.47,1.64,.41,.8);
 }
 
+/* ------ 1.4.2 Nom Territoire ------------------ */
 #featureName {
   font-family: 'lato-light';
   font-weight: 100;
@@ -377,7 +364,7 @@ input[type="checkbox"]::after {
   display:inline-block;
 }
 
-/* tableau */
+/* ------ 1.4.3 Tableau ------------------------- */
 table {
   background-color: rgba(255,255,255,0.9);
   font-size: 1.1em;
@@ -398,13 +385,13 @@ td {
   padding: 10px;
 }
 
-/* info1() (en javascript dans layer_management.js) */
+/* ------ 1.4.4 info supplémentaire-------------- */
 #ficheTerritoire:last-child {
   font-family: 'lato-light';
   font-size: .9em;
 }
 
-/* back to selecting layers */
+/* ------ 1.4.5 Bouton retour aux zonages ------- */
 #backBtn {
   font-family: 'abel-regular';
   width: 200px;
@@ -431,14 +418,25 @@ td {
   float: left;
 }
 
-/* ////////////////////////// Carte, étiquette, légende ///////////////////// */
+/* ***************************** ------ 2 ------ **************************** */
+/* ************************ CARTE, COUCHES ET LEGENDE *************************/
+/* ***************************** --------------- **************************** */
+
+/* -- 2.1 Elements svg------------------------------- */
+g {
+	cursor: pointer;
+	transition: width 0.55s ease-in-out ;
+}
+
+/* -- 2.2 Légende et éléments légende --------------- */
+/* ------ 2.2.1 Conteneur ------ ---------------- */
+
 #legend {
-  font-family: 'Abel-Regular';
-  /* left: 620px; */
-  /* float:right; */
-  display:inline-block;
+	font-family: 'abel-regular';
+	display:block;
 	position:absolute;
-	width: 0%;
+	width: 0px;
+	float:left;
 	border-radius: 3.5px;
 	background: white;
 	opacity: 0.90;
@@ -446,19 +444,18 @@ td {
 	top: 10px;
 	z-index: 1000;
 	transition: all .5s cubic-bezier(.40,1.64,.20,.8);
-	/* transition: all 0.2s; */
 }
 
+/* Titre 'Catégorie de zonage' */
 #legendTitle {
-  font-family: 'Abel-Regular';
-  color:rgb(100,100,100);
+  display: none;
+  color: rgb(100,100,100);
   font-weight: 1000;
   padding-bottom: 10px;
   font-size: 16px;
-  display: none
 }
 
-/* bouton fermer la légende (désactivé)*/
+/* Bouton pour fermer (désactivé) */
 #minLegend {
   display: none;
   position:absolute;
@@ -480,17 +477,39 @@ td {
   color:grey
 }
 
-rect {
-	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
-  cursor: default;
-}
-
-.text-legend {
+/* ------ 2.2.2 Poste de légende ---------------- */
+.legendItem {
   font-size: 12px;
   font-weight: 500;
-  cursor:text;
+  cursor: text;
+  height: 25px;
+  transition: height 0.23s;
 }
 
+.legendItem text {
+	cursor: text;
+}
+
+/* rectangle de légende */
+rect {
+	cursor:default;
+	box-shadow: 0.05px 0 2px rgba(0,0,0,0.5);
+}
+
+/* -- 2.3 Labels chefs lieux ------------------------ */
+.leaflet-marker-pane {
+  left:-10px;
+  opacity: 0.75;
+  font-family: 'Abel-Regular';
+  font-size: 1.1em;
+  font-weight: 600;
+  border-color:white;
+  justify-content: center;
+  text-align: center;
+  text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
+}
+
+/* -- 2.4 Tooltip ----------------------------------- */
 div.d3-tooltip {
   font-family: 'Abel-Regular';
   /* letter-spacing: 0.025em; */
@@ -516,25 +535,11 @@ div.d3-tooltip {
   position: sticky;
 }
 
-g {
-	cursor: pointer;
-	transition: width 0.55s ease-in-out ;
-}
+/* ***************************** ------ 3 ------ **************************** */
+/* **************************** BARRE DE RECHERHE *****************************/
+/* ***************************** --------------- **************************** */
 
-/* labels chef lieu */
-.leaflet-marker-pane {
-  left:-10px;
-  opacity: 0.75;
-  font-family: 'Abel-Regular';
-  font-size: 1.1em;
-  font-weight: 600;
-  border-color:white;
-  justify-content: center;
-  text-align: center;
-  text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
-}
-
-/*//////////////////// ensemble champ recherche + bouton /////////////////////*/
+/* -- 3.1 Conteneur --------------------------------- */
 #searchBar {
 	border: none;
 	display: flex;
@@ -544,7 +549,7 @@ g {
 	z-index: 1000;
 }
 
-/* champ de recherclefthe*/
+/* -- 3.2 Champ de recherche ------------------------ */
 #searchField {
 	border: none;
 	width: 170px;
@@ -552,6 +557,7 @@ g {
 	border-color: transparent;
 	padding: 5px;
 	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
   box-shadow: -0.02px 0 5px rgba(0,0,0,0.2);
 	border-bottom-left-radius: 5px;
 	transition: width 0.4s ease-in-out;
@@ -563,11 +569,13 @@ g {
 	outline: none
 }
 
-/* bouton de recherche*/
+/* -- 3.3 Bouton de recherche ----------------------- */
 #searchButton {
 	width: 40px;
 	height: 35px;
 	padding: 7px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	background-color: rgb(214, 116, 30);
@@ -582,7 +590,9 @@ g {
 	cursor: pointer;
 }
 
-/* ///////////////////////// Popup A propos ///////////////////////////////// */
+/* ***************************** ------ 4 ------ **************************** */
+/* **************************** POPUP A PROPOS ****************************** */
+/* ***************************** --------------- **************************** */
 
 #aPropos {
 	display: none;
@@ -630,6 +640,10 @@ g {
   bottom:10px;
   width: 100px;
 }
+
+/* ***************************** ------ 5 ------ **************************** */
+/* ******************************* SCROLLBAR ******************************** */
+/* ***************************** --------------- **************************** */
 
 /* scrollbar */
 /* width */

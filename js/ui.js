@@ -1,19 +1,40 @@
+/*
+
+	@ File : ui.js
+	@ Author : Hassen Chougar, Service Cartographie du CGET
+	@ Date : 08/2019
+
+	@ For : ViZonage - Carte interactive des contrats et zonages de politiques publiques
+	@ Main file : index.html
+
+	@ Description : script nécessaire à la gestion dynamique de certains éléments
+                  d'interface : sidebar, sidepanel, boutons sidebar, fiche
+                  territoire, checkboxes, popup "à propos".
+                  Certaines des fonctions présentes dans ce fichier sont
+                  également appelées au sein du ficher layer_management.js :
+                   -> showContent();
+                   -> showFiche() et hideFiche();
+                   -> showFiche() et hideFiche();
+
+                 A manipuler avec précaution.
+*/
+
 /******************************************************************************/
 /************************ INTERACTION PANNEAU LATERAL *************************/
 /******************************************************************************/
 // sidebar buttons
 var homeBtn = document.getElementById('homeBtn');
 var closeBtn = document.getElementById('closeContent');
-var donwload = document.getElementById('download');
-// windows to toggle
-var content =  document.getElementById('content');
+// var donwload = document.getElementById('download');
+// elements to toggle
+var panel =  document.getElementById('sidebar-panel');
 var intro = document.getElementById("intro");
-var zonageLayers = document.getElementById('cat-zonages');
+var listeZonages = document.getElementById('cat-zonages');
 
 // ouvrir la fenetre latérale au chargement
 var interval = setInterval(function() {
     if(document.readyState === 'complete') {
-        contentDisplay();
+        panelSlide();
         clearInterval(interval);
       }
     }, 500);
@@ -22,19 +43,19 @@ var interval = setInterval(function() {
 [homeBtn,closeBtn].forEach(function (btn) {
   btn.addEventListener('click', function() {
     showContent();
-    hideFicheInfo();
+    hideFiche();
   });
 })
 
 
 function showContent() {
-  if (content.style.width === '0%') {
-    contentDisplay();
+  if (panel.style.width === '0px') {
+    panelSlide();
   } else {
-    content.style.width = '0%';
-    content.style.paddingLeft = '0px';
-    content.style.paddingRight = '0px';
-    zonageLayers.style.display = 'none';
+    panel.style.width = '0px';
+    panel.style.paddingLeft = '0px';
+    panel.style.paddingRight = '0px';
+    listeZonages.style.display = 'none';
     document.getElementById('legend').style.marginLeft = '70px'
     intro.style.display = 'none';
     let t = setInterval(function() {
@@ -44,21 +65,21 @@ function showContent() {
   }
 };
 
-function contentDisplay() {
-  content.style.width = '30%';
-  content.style.marginLeft = '55px';
-  content.style.paddingLeft = '25px';
-  content.style.paddingRight = '20px';
+function panelSlide() {
+  panel.style.width = '500px';
+  panel.style.marginLeft = '55px';
+  panel.style.paddingLeft = '25px';
+  panel.style.paddingRight = '20px';
   document.getElementById('legend').style.marginLeft = '620px'
   // déplacement du centre de la carte
   let t = setInterval(function() {
     mymap.setView([46.5, -2])
     clearInterval(t)
   },0);
-  if (content.style.width === '30%') {
+  if (panel.style.width === '500px') {
     var x = setInterval(function () {
       intro.style.display = 'block';
-      zonageLayers.style.display = 'block';
+      listeZonages.style.display = 'block';
       clearInterval(x)
     },400);
   }
@@ -72,6 +93,7 @@ function contentDisplay() {
 
 let expandBtn = document.querySelectorAll('.expandBtn');
 let showDes = 1;
+
 // style description
 let descriptionStyle = 'rgba(0,0,0,0.5)';
 
@@ -144,12 +166,12 @@ function showFiche() {
   var x = setInterval(function () {
     clearInterval(x)
   }, 250);
-  zonageLayers.style.left = "-2000px";
+  listeZonages.style.left = "-2000px";
 };
 
 function hideFiche() {
   featureInfo.style.left = "2000px";
-  zonageLayers.style.left = "0px";
+  listeZonages.style.left = "0px";
 };
 
 

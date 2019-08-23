@@ -73,9 +73,11 @@ let cteTexture = textures.circles()
                   .stroke("#35b8f7")
                   .complement();
 
-let cvTexture = textures.circles()
-                  .size(1)
-                  .fill(cvColor);
+let cvTexture = textures.lines()
+                  .orientation("vertical")
+                  .size(5)
+                  .stroke(cvColor)
+                  .strokeWidth(1.5);
 
 let zfuTexture = textures.lines()
                   .orientation("vertical")

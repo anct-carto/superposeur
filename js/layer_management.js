@@ -20,16 +20,14 @@ for (var i in textureArray) { // pour chaque élément du tableau ...
 // initialisation : ajout d'un moteur de rendu svg comportant déjà les éléments svg et g
 // voir ==> https://groups.google.com/forum/#!topic/leaflet-js/bzM9ssegitU
 
-L.svg({interactive: true,animate:true}).addTo(mymap); // au préalable, création d'un conteneur svg auquel on fait appel ...
+L.svg({interactive: false,animate:false}).addTo(mymap); // au préalable, création d'un conteneur svg auquel on fait appel ...
+// initialisation du conteneur svg
 let g, svg;
-let y = 0;
-let l = 25;
-let coords;
 legendWindow = document.getElementById('legend');
 
 function showLayer(layer,style,stroke,lib) { // dans la fonction
 
-  var zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
+  let zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
 
   zonageBox.addEventListener("change", function() { // au click ...
     var layerChecked;
@@ -43,21 +41,35 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                 .style("opacity", 0);
 
     if (zonageBox.checked) {
+      showLegend();
+      function showLegend() {
+        if (legendWindow.style.width = "0px") {
+          d3.select("#legendTitle").style("display","block");
+          // minLegendBtn.style.display = 'block' // bouton pour fermer la fenêtre de légende
+          legendWindow.style.padding = "10px"; // fenetre de légende
+          legendWindow.style.width = "250px"; // fenetre de légende
+        };
       // légende dynamique
-      var legend = d3.select("#legend-svg")
-                      .attr("height",function() {
-                        return l;
-                      })
-                     .append("g")
-                     .attr("class",layer);
+        var legend = d3.select("#legend")
+                      .append("svg")
+                      .attr("class","legendItem")
+                      .attr("id","legendItem-"+layer)
+                      .append("g");
 
-      if (legendWindow.style.width = "0px") {
-        d3.select("#legendTitle").style("display","block");
-        // bouton pour fermer la fenêtre de légende
-        // minLegendBtn.style.display = 'block'
-        legendWindow.style.padding = "10px"; // fenetre de légende
-        legendWindow.style.width = "250px"; // fenetre de légende
-      }
+        // texture dans rectangle
+        legend.append("rect")
+              .attr("width", 40)
+              .attr("height", 22.5)
+              .style("fill",style.url())
+              .style("stroke-width","0.3")
+              .style("stroke","grey")
+
+        // libellé de légende
+        legend.append("text")
+              .text(lib)
+              .attr('x', 50)
+              .attr('y', 15)
+      };
 
       // objet svg qui va accueillir les topojson des zonages
       g = svg.append("g")
@@ -110,14 +122,12 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
             })
             .on("mousemove",mousemove)
             .on("click", function(d) {
-
               // 1. au clic sur une entité, ouvre le panneau latéral ...
-              if (content.style.width === "0%") {
+              if (panel.style.width === "0px") {
                 showContent();
               };
 
               // 2. au clic, surligne l'entité sélectionnée
-
               if (!d3.select(this).classed("selected")) {
                 // change le style du précédent élément
                 d3.selectAll("#previous")
@@ -190,8 +200,7 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                     }
                   };
               }
-            })
-            .on("mouseout", function(d) {
+            }).on("mouseout", function(d) {
               // disparition du tooltip
               tooltip.style("opacity", 0);
               tooltip.html("")
@@ -231,24 +240,6 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
             .duration(250)
             .style("opacity",1)
 
-          // LEGENDE DYNAMIQUE
-          legend.append("rect")
-                .attr("class","rect-".concat(layer))
-                .attr("width", 40)
-                .attr("height", 20.5)
-                .style("fill",style.url())
-                .style("stroke-width","0.3")
-                .style("stroke","grey")
-                .attr("y",y);
-
-          // libellé de légende
-          legend.append("text")
-                .text(lib)
-                .attr("class","text-legend")
-                // .attr('x', 50)
-                // .attr('y', 15+y)
-                .attr("id",layer.concat("-legend"));
-
           // au zoom, remet les couches à la bonne échelle
           mymap.on("moveend", update);
           update();
@@ -257,29 +248,21 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
           function update() {
             return layerChecked.attr("d", path);
           }
-
-          // attributs de hauteur et de position pour les postes de légende
-          y += 30
-          l+=25
         })
 
     } else { // au décochage de la checkbox correspondante ...
+      // enlève le contrat/zonage coché
+      d3.selectAll(".".concat(layer))
+        .transition()
+        .duration(500)
+        .style("opacity",0)
+        .transition()
+        .duration(500)
+        .remove();
 
-      y-=30
-      l-=25
-
-      d3.select("#legend-svg")
-                      .attr("height",function() {
-                        return l;
-                      });
-      console.log(layer.concat("box unchecked"));
-
-      // enlève le zonage coché
-      d3.selectAll(".".concat(layer)).remove()
-      d3.select(".rect-".concat(layer)).remove()
-      d3.select("#".concat(layer+"-legend")).remove()
-
-      // efface la fiche TERRITOIRE
+      // enlève le poste de légende correspondant
+      d3.select("#legendItem-"+layer).remove();
+      // d3.select("#".concat(layer+"-legend")).remove();
     }
 
     // masquer la fenetre de légende si aucun zonage n'est sélectionné

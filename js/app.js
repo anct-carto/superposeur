@@ -1,7 +1,22 @@
-/* Ce fichier fait partie du code source du superposeur de zonages
-Auteur : Hassen Chougar, Service Cartographie du CGET
-Données : Observatoire des Territoires, Service Cartographie */
+/*
 
+	@ File : app.js
+	@ Author : Hassen Chougar, Service Cartographie du CGET
+	@ Date : 08/2019
+
+	@ For : ViZonage - Carte interactive des contrats et zonages de politiques publiques
+	@ Main file : index.html
+
+	@ Description : script nécessaire au rendu du fond communal, des limites
+                 administratives et de la toponymie des chefs-lieux.
+                 Certaines fonctionnalités ont été ici désactivées :
+                  -> interactivité des communes
+                     -- en raison d'un conflit avec les topojson de zonage
+                       générées en D3;
+                  -> toponymes chefs-lieux
+                     -- afin de diminuer les lags et temps de latence.
+
+*/
 
 // url communes
 var communesPath = 'data/communes.topojson';

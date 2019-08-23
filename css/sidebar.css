@@ -1,0 +1,85 @@
+/*
+
+	@ File : sidebar.css
+	@ Author : Hassen Chougar, Service Cartographie
+	@ Date : 08/2019
+
+	@ For : ViZonage - Carte interactive des contrats et zonages de politiques publiques
+	@ Main file : index.html
+
+	@ Description : fichier de style de la sidebar du fichier index.html
+									(le reste des styles se trouvent dans sidebar.css)
+
+	@ Pour naviguer entre les éléments, copier-coller un nom de section dans un CTRL+F
+
+*/
+
+/* /////////////////////////////// boutons //////////////////////////////// */
+button {
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	background: #004494;
+	padding: 15px;
+	border: none;
+	border-bottom: 0.5px solid rgba(255,255,255,0.5);
+	-moz-border-bottom: 0.5px solid rgba(255,255,255,0.5);
+	outline: 0px;
+	text-align: center;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: rgba(0,0,0,0.2);
+	transition-duration: 0.4s;
+}
+
+.aPropos-btn {
+	border-top: 0.5px solid rgba(255,255,255,0.5);
+	-moz-border-top: 0.5px solid rgba(255,255,255,0.5);
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	background: #096d7f
+}
+
+.github-btn {
+	background: #096d7f;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;:
+}
+
+/* bouton du bas "a propos" et "github" */
+.sidebar-bottom {
+	bottom: 0;
+	position: absolute;
+}
+
+a {
+  text-decoration: none;
+  color:white;
+}
+
+/*/////////////////////////// barre latérale  ////////////////////////////////*/
+#sidebar,#sidebar-panel {
+	margin:0.50%;
+	border-radius:5px;
+	position: absolute;
+	background: linear-gradient(#004494, #096d7f);
+	height: 98.2%;
+	z-index: 500;
+  box-shadow: 0.05px 0 5px rgba(0,0,0,.5);
+  -webkit-box-shadow: 0.05px 0 5px rgba(0,0,0,.5); /* chromium based browsers */
+  -moz-box-shadow: 0.05px 0 5px rgba(0,0,0,.5); /* firefox */
+}
+
+/*/////////////////////////// panneau latéral  ////////////////////////////////*/
+#sidebar-panel {
+	opacity:.8;
+  position:absolute;
+  width: 0%;
+  color: white;
+  opacity: 0.9;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: width 0.3s ease ;
+  border-radius: 0 5px 5px 0px;
+}

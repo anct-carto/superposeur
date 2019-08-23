@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/src/awesomplete.css">
     <link rel="stylesheet" href="css/src/leaflet.css">
     <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="lib/turf.min.js"></script>
     <script type="text/javascript" src="lib/textures.js"></script>
@@ -29,8 +30,7 @@
       </form>
     </div>
     <!-- Panneau latéral -->
-    <div id="content">
-      <div id="homeContainer">
+    <div id="sidebar-panel">
         <button type="button" name="close" id = "closeContent">
           <img src="css/img/arrow.svg">
         </button>
@@ -50,7 +50,7 @@
           <!-- checkbox périmètres -->
           <ul>
               <li class = 'zonage'>
-                <input id = 'afr' type="checkbox" text = "Zone d'Aide à Finalité Régionale">
+                <input id = 'afr' type="checkbox">
                 <label for="afr" class = "libZonage">
                   Zone d'Aide à Finalité Régionale (AFR)
                 </label>
@@ -58,7 +58,7 @@
                 <div class="description" id = "afr-desc">
                   <!-- appel au tableau "descriptions.csv" en javascript -->
                 </div>
-                </li>
+              </li>
               <li class = 'zonage'>
                 <input id = 'acv' type="checkbox" text = "Action Cœur de Ville">
                 <label for="acv" class = "libZonage">
@@ -193,18 +193,17 @@
               </li>
             </ul>
           </div>
-      </div>
       <div id="ficheTerritoire">
         <!-- fiche territoire -->
       </div>
       <!-- <img src="css/img/cget_logo.svg" alt="" id = "cget_logo"> -->
     </div>
     <!-- barre latérale -->
-    <div id="sideBar">
-      <ul class="sideBar-top">
+    <div id="sidebar">
+      <ul class="sidebar-top">
         <!-- bouton principal -->
         <li>
-          <button class = "sidebarBtn" type="button" name="recherche" id = "homeBtn">
+          <button class = "sidebar" type="button" name="recherche" id = "homeBtn">
             <img src="css/img/layers.svg" height = "20px" width = "20px">
           </button>
         </li>
@@ -215,7 +214,7 @@
           </button>
         </li> -->
       </ul>
-      <ul class="sideBar-bottom">
+      <ul class="sidebar-bottom">
         <!-- bouton à propos -->
         <li>
           <button type="button" name="a propos" id ="aPropos-btn" class = "aPropos-btn">
@@ -236,9 +235,9 @@
   <div id="legend">
     <span id = 'legendTitle'>Catégorie de zonage</span>
     <button type="button" id="minLegend">x</button>
-    <svg id = "legend-svg">
-      <!-- poste de légende -->
-    </svg>
+    <!-- poste de légende -->
+    <!-- <svg id = "legend-svg">
+    </svg> -->
   </div>
   <div id="mapid"></div>
   <!-- texte à propos -->
@@ -266,7 +265,7 @@
     <!-- scripts -->
   <script type="text/javascript" src= "js/ui.js"></script>
   <script type="text/javascript" src= "js/map_init.js"></script>
-  <script type="text/javascript" src= "js/app.js"></script>
+  <!-- <script type="text/javascript" src= "js/app.js"></script> -->
   <script type="text/javascript" src= "js/layer_styles.js"></script>
   <script type="text/javascript" src= "js/layer_management.js"></script>
   <script type="text/javascript" src= "js/recherche.js"></script>
