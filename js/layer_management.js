@@ -48,7 +48,7 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
           // bouton (désactivé)pour fermer la fenêtre de légende
           // minLegendBtn.style.display = 'block'
           legendWindow.style.padding = "10px"; // fenetre de légende
-          legendWindow.style.width = "250px"; // fenetre de légende
+          legendWindow.style.width = "260px"; // fenetre de légende
         };
       // légende dynamique
         var legend = d3.select("#legend")

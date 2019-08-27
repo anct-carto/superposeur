@@ -34,7 +34,8 @@ function initMap() {
     minZoom: 6.458,
     zoomSnap: 0.25,
     layers:[basemap_layer],
-    zoomControl: false
+    zoomControl: false,
+    renderer: L.canvas()
   }).setView([46.5, 6.8], 6.458,{ animation: true });
   // mymap.zoomControl.setPosition('topright');
   // contrôle zoom avec bouton de réinitialisation de vue

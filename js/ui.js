@@ -142,7 +142,7 @@ function getExpanded() {
     data.forEach(d => {
       div = document.getElementById(d.ACRONYME.toLowerCase().concat("-desc"))
       div.innerHTML = "<hr><p><img src= 'css/img/download.svg' id ='pictoDescr'</img>" +
-                      "<a href='" + d.TELECHARGER +"' target='_blank'>"+
+                      "<a href='cartes/" + d.ACRONYME.toLowerCase().concat("-01.jpg") +"' target='_blank'>"+
                       "Télécharger la carte</a></p>"+
                       "<p><b>Niveau(x) géographique(s) : </b>" + d.ECHELON + "</p>" +
                       "<p><b>À propos : </b>"+

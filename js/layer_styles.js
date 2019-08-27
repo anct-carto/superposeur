@@ -162,7 +162,7 @@ let textureArray = [
                     },
                     {
                       layer:'zfu',
-                      lib:"Zone Franche urbaine",
+                      lib:"Zone Franche urbaine - Territoire Entrepreneur",
                       style:zfuTexture,
                       stroke:zfuColor
                     },
