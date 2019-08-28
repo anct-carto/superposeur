@@ -625,6 +625,7 @@ div.d3-tooltip {
 /* logo app popup */
 #ViZonage_black {
   position: relative;
+	width:150px;
 }
 
 /* texte à propos */

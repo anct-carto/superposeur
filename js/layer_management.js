@@ -37,7 +37,7 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
 
     // tooltip
     var tooltip = d3.select("body").append("div")
-                .attr("class", "d3-tooltip")
+                .attr("class", "d3-tooltip") // modifier l'apparence dans style.css
                 .style("opacity", 0);
 
     if (zonageBox.checked) {
