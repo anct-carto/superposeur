@@ -38,6 +38,10 @@ html, body, #mapid {
 
 }
 
+.leaflet-control-zoom-min {
+	background-image: url('img/little_fr.svg');
+}
+
 /* 1  PANNEAU LATERAL ------ **************************** */
 /* -- 1.1 En-tête ----------------------------------- */
 /* -- 1.2 Phrase d'introduction --------------------- */

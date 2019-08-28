@@ -65,29 +65,54 @@ function initMap() {
   };
   L.control.watermark({ position: 'bottomright'}).addTo(mymap);
 
+
   // cercles DROM
   let gridCercles;
   const cercles_drom = 'data/cercles_drom.geojson';
   fetch(cercles_drom)
-  .then(response => response.json())
-  .then(data => {
-    gridCercles = L.vectorGrid.slicer(data, {
-      rendererFactory: L.canvas.tile,
-      vectorTileLayerStyles: {
-        sliced: {
-          color: "#ffffff",
-          weight: 2,
-          opacity: 1,
-          fillOpacity: 0.5,
-          fillColor: 'white'
-        }
-      },
-      interactive:false
-    }).addTo(mymap)
-  })
+    .then(response => response.json())
+    .then(data => {
+      gridCercles = L.vectorGrid.slicer(data, {
+        rendererFactory: L.canvas.tile,
+        vectorTileLayerStyles: {
+          sliced: {
+            fill:true,
+            fillColor: '#d4dadc',
+            // fillColor: 'white',
+            fillOpacity: 1,
+            color: "#b7b1a8",
+            weight: 2,
+            opacity: 1,
+          }
+        },
+        interactive:false
+      }).addTo(mymap);
+    })
+    // guyane
+    fetch('data/guyane.geojson')
+      .then(res => res.json())
+      .then(guyane => {
+        gridGuyane = L.vectorGrid.slicer(guyane, {
+          rendererFactory: L.canvas.tile,
+          vectorTileLayerStyles: {
+            sliced: {
+              fill:true,
+              fillColor: '#fafaf8',
+              fillOpacity: 1,
+              color:'white',
+              weight:2,
+              opacity:1
+            }
+          },
+          interactive:false
+        }).addTo(mymap);
+      });
 };
 
-// url communes
+/******************************************************************************/
+/************************** COMMUNES + LIMITES ADMIN **************************/
+/******************************************************************************/
+
 var communesPath = 'data/communes.topojson';
 var communes, id = 0
 // calque des communes, vide pour l'instant
