@@ -89,24 +89,24 @@ function initMap() {
       }).addTo(mymap);
     })
     // guyane
-    fetch('data/guyane.geojson')
-      .then(res => res.json())
-      .then(guyane => {
-        gridGuyane = L.vectorGrid.slicer(guyane, {
-          rendererFactory: L.canvas.tile,
-          vectorTileLayerStyles: {
-            sliced: {
-              fill:true,
-              fillColor: '#fafaf8',
-              fillOpacity: 1,
-              color:'white',
-              weight:2,
-              opacity:1
-            }
-          },
-          interactive:false
-        }).addTo(mymap);
-      });
+    // fetch('data/guyane.geojson')
+    //   .then(res => res.json())
+    //   .then(guyane => {
+    //     gridGuyane = L.vectorGrid.slicer(guyane, {
+    //       rendererFactory: L.canvas.tile,
+    //       vectorTileLayerStyles: {
+    //         sliced: {
+    //           fill:true,
+    //           fillColor: '#fafaf8',
+    //           fillOpacity: 1,
+    //           color:'white',
+    //           weight:2,
+    //           opacity:1
+    //         }
+    //       },
+    //       interactive:false
+    //     }).addTo(mymap);
+    //   });
 };
 
 /******************************************************************************/

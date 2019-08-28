@@ -30,6 +30,7 @@ var closeBtn = document.getElementById('closeContent');
 var panel =  document.getElementById('sidebar-panel');
 var intro = document.getElementById("intro");
 var listeZonages = document.getElementById('cat-zonages');
+let featureInfo = document.getElementById("ficheTerritoire");
 
 // ouvrir la fenetre latérale au chargement
 var interval = setInterval(function() {
@@ -37,7 +38,7 @@ var interval = setInterval(function() {
         panelSlide();
         clearInterval(interval);
       }
-    }, 500);
+    }, 2500);
 
 // sur chaque bouton, appliquer la fonction pour fermer le panneau latéral
 [homeBtn,closeBtn].forEach(function (btn) {
@@ -52,12 +53,9 @@ function showContent() {
   if (panel.style.width === '0px') {
     panelSlide();
   } else {
+    closeBtn.style.transform = 'rotate(-180deg)';
     panel.style.width = '0px';
-    panel.style.paddingLeft = '0px';
-    panel.style.paddingRight = '0px';
-    listeZonages.style.display = 'none';
     document.getElementById('legend').style.marginLeft = '70px'
-    intro.style.display = 'none';
     let t = setInterval(function() {
       mymap.setZoom(6.458);
       mymap.setView([46.5, 3]);
@@ -67,22 +65,23 @@ function showContent() {
 };
 
 function panelSlide() {
-  panel.style.width = '500px';
-  panel.style.marginLeft = '55px';
-  panel.style.paddingLeft = '25px';
-  panel.style.paddingRight = '20px';
+  closeBtn.style.transform = 'rotate(0deg)';
+  panel.style.width = '600px';
   document.getElementById('legend').style.marginLeft = '620px'
   // déplacement du centre de la carte
   let t = setInterval(function() {
     mymap.setView([46.5, -2])
     clearInterval(t)
   },0);
-  if (panel.style.width === '500px') {
+  if (panel.style.width === '620px') {
     var x = setInterval(function () {
-      intro.style.display = 'block';
-      listeZonages.style.display = 'block';
+      if (featureInfo.style.display == "block") {
+        listeZonages.style.display = 'none';
+      } else {
+        listeZonages.style.display = 'block'
+      }
       clearInterval(x)
-    },400);
+    },50);
   }
 };
 
@@ -92,19 +91,19 @@ function panelSlide() {
 /************************** MENUS CONTRATS/ZONAGES ****************************/
 /******************************************************************************/
 
-let expandBtn = document.querySelectorAll('.expandBtn');
-let showDes = 1;
-
+let expandBtn = document.querySelectorAll('button.expandBtn');
 // style description
 let descriptionStyle = 'rgba(0,0,0,0.5)';
 
 expandBtn.forEach(btn => {
-  btn.addEventListener('click', function() {
-    showDes++;
+  btn.addEventListener('click', function(e) {
+    // récupère l'élément situé après le bouton dans le html [div description]
+    let description = this.nextElementSibling;
+    // contrôle le css du bouton : en déroulant, le bouton devient un "-"
     this.classList.toggle('collapsed');
-    // récupère l'élément situé après le bouton dans le html
-    var description = this.nextElementSibling;
-    if (showDes % 2 == 0) {
+    // le nom de classe devient 'expandBtn collapsed'
+    if (this.className == 'expandBtn collapsed') {
+      console.log("OUI");
       description.style.maxHeight = '400px';
       this.parentNode.style.background = descriptionStyle;
     } else {
@@ -160,15 +159,13 @@ function getExpanded() {
 /****************************** FICHE TERRITOIRE ******************************/
 /******************************************************************************/
 
-let featureInfo = document.getElementById("ficheTerritoire");
-
 function showFiche() {
   // featureInfo.style.left = "25px";
-  featureInfo.style.display = "block";
-  var x = setInterval(function () {
-    clearInterval(x)
-  }, 250);
+  // var x = setInterval(function () {
+  //   clearInterval(x)
+  // }, 250);
   // listeZonages.style.left = "-2000px";
+  featureInfo.style.display = "block";
   listeZonages.style.display = "none";
 };
 

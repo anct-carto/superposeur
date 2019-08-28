@@ -89,6 +89,7 @@ html, body, #mapid {
 /* -- 1.1 En-tête ----------------------------------- */
 /* bouton fermer le panneau latéral */
 #closeContent {
+	transition: 0.1s all;
   width: 55px;
   position: absolute;
   right: 1px;
@@ -132,9 +133,10 @@ hr {
 #intro {
   text-align: left;
   font-family: 'abel-regular';
-  display: none;
+  /* display: none; */
   font-size: 1em;
 	margin:auto;
+	white-space: nowrap;
 }
 
 /* -- 1.3 Liste des contrats/zonages ---------------- */
@@ -147,6 +149,12 @@ hr {
   z-index: 10000;
 	color: white;
 	transition: all .5s cubic-bezier(.47,1.64,.41,.8);
+	white-space: nowrap;
+}
+
+#ViZonage, #intro, #cat-zonages, #ficheTerritoire {
+	margin-left: 75px;
+	margin-right: 25px;
 }
 
 /* animation fiche territoire + menu des zonages */
@@ -184,9 +192,10 @@ ul {
 
 /* <li> */
 .zonage {
-	background: rgb(0,0,0,0.15);
-	border: solid 1px rgba(0,0,0,.25);
-	border-radius: 5px;
+	background: rgb(0,0,0,0.05);
+	border-top: solid 1px rgba(0,0,0,.25);
+	border-bottom: solid 1px rgba(0,0,0,.25);
+	border-radius: 4px;
 	width:100%;
   margin-bottom: 7.5px;
   list-style-type: none;
@@ -270,7 +279,7 @@ input[type="checkbox"]::after {
   display: inline-block;
 	position:relative;
 	float: right;
-  margin-top: -34px;
+  margin-top: -35px;
   padding: 10px;
 	border: none;
   background-color: rgba(0,0,0,0);
@@ -315,7 +324,8 @@ input[type="checkbox"]::after {
 
 .description {
 	max-height: 0px;
-	width: fit-content;
+	/* width: fit-content; */
+	white-space:normal;
 	padding: 0px 10px;
   color:white;
   font-family: 'lato-light';
@@ -323,7 +333,7 @@ input[type="checkbox"]::after {
 	overflow-y: auto;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  transition: max-height 0.4s ease;
+  transition: max-height 0.2s ease;
 }
 
 .description:hover {
@@ -392,6 +402,10 @@ td {
   border: 2px dotted rgba(216,113,30,.5);
   border-radius: 5px;
   padding: 10px;
+}
+
+strong, b {
+    font-weight: bold;
 }
 
 /* ------ 1.4.4 info supplémentaire-------------- */
@@ -637,7 +651,6 @@ div.d3-tooltip {
 	font-family: "lato-regular";
 	font-size: 1.5em;
 	background-color: rgba(255,255,255,1);
-	opacity: 0.8;
   font-size: 0.9em;
 	margin: 150px auto; /* 15% from the top and centered */
 	padding: 20px;

@@ -173,12 +173,12 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                 d3.select("#ficheTerritoire")
                   // contenu html fiche
                   .html("<p id = 'featureName'>" + libgeo + "</p>" +
-                        "<table><tr><td>Type de contrat/zonage</td><td><b>"
-                        + lib + "</td></b></tr>"+
-                        "<tr><td>Périmètre d'application</td><td><b>"
-                        + perimetre.toUpperCase() + "</b></td></tr>"+
-                        "<tr><td>Nombre de communes couvertes</td><td><b>"
-                        + nbcom + "</b></td></tr></table>" +
+                        "<table><tr><td>Type de contrat/zonage</td><td><strong>"
+                        + lib + "</td></strong></tr>"+
+                        "<tr><td>Périmètre d'application</td><td><strong>"
+                        + perimetre.toUpperCase() + "</strong></td></tr>"+
+                        "<tr><td>Nombre de communes couvertes</td><td><strong>"
+                        + nbcom + "</strong></td></tr></table>" +
                         "<p>"+info1()+"</p>")
                    // bouton retour
                   .append("button")
