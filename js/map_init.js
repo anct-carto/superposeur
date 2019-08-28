@@ -20,7 +20,7 @@ function initMap() {
 
   // FOND
   let basemap_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>&copy; <a href="https://carto.com/attributions">Fond cartographique CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 19});
 
@@ -49,7 +49,9 @@ function initMap() {
     onAdd: function(mymap) {
         let img = L.DomUtil.create('img');
 
-        img.src = 'css/img/cget_logo.svg';
+        img.src = 'css/img/CGET-logotype.png';
+        img.href = 'https://cartotheque.cget.gouv.fr/';
+        // img.src = 'css/img/cget_logo.svg';
         img.style.width = '100px';
 
         return img;

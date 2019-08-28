@@ -143,7 +143,7 @@ function getExpanded() {
       div = document.getElementById(d.ACRONYME.toLowerCase().concat("-desc"))
       div.innerHTML = "<hr><p><img src= 'css/img/download.svg' id ='pictoDescr'</img>" +
                       "<a href='cartes/" + d.ACRONYME.toLowerCase().concat("-01.jpg") +"' target='_blank'>"+
-                      "Télécharger la carte</a></p>"+
+                      "Télécharger la carte papier</a></p>"+
                       "<p><b>Niveau(x) géographique(s) : </b>" + d.ECHELON + "</p>" +
                       "<p><b>À propos : </b>"+
                       ""+ d.DESCRIPTION_COURTE + "</p>" +
@@ -151,7 +151,7 @@ function getExpanded() {
                       "<p><b>Dernière mise à jour</b> : " + d.LAST_MAJ + "</p>" +
                       "<p><img src= 'css/img/link.svg' id ='pictoDescr'</img>" +
                       "<a href='"+ d.RESSOURCES +
-                      "' target='_blank'>Cliquez ici pour en savoir plus</a></p>"
+                      "' target='_blank'>En savoir plus</a></p>"
     })
   });
 };
@@ -163,16 +163,20 @@ function getExpanded() {
 let featureInfo = document.getElementById("ficheTerritoire");
 
 function showFiche() {
-  featureInfo.style.left = "25px";
+  // featureInfo.style.left = "25px";
+  featureInfo.style.display = "block";
   var x = setInterval(function () {
     clearInterval(x)
   }, 250);
-  listeZonages.style.left = "-2000px";
+  // listeZonages.style.left = "-2000px";
+  listeZonages.style.display = "none";
 };
 
 function hideFiche() {
-  featureInfo.style.left = "2000px";
-  listeZonages.style.left = "0px";
+  // featureInfo.style.left = "2000px";
+  // listeZonages.style.left = "0px";
+  featureInfo.style.display = "none";
+  listeZonages.style.display = "block";
 };
 
 

@@ -352,11 +352,11 @@ input[type="checkbox"]::after {
 /* -- 1.4 Fiche Territoire -------------------------- */
 /* ------ 1.4.1 Conteneur ------ ---------------- */
 #ficheTerritoire {
-  display: block;
+  /* display: block;
   position:absolute;
-	top:200px;
+	top:200px; */
   max-width: 450px;
-	margin: auto;
+	/* margin: auto; */
   line-height: 30px;
   transition: all .5s cubic-bezier(.47,1.64,.41,.8);
 }
@@ -635,13 +635,19 @@ div.d3-tooltip {
 	background-color: rgba(255,255,255,1);
 	opacity: 0.8;
   font-size: 0.9em;
-	margin: 15% auto; /* 15% from the top and centered */
+	margin: 150px auto; /* 15% from the top and centered */
 	padding: 20px;
 	width: 40%; /* Could be more or less, depending on screen size */
 	height: auto;
 	text-align: center;
 	border-radius:5px;
 	z-index: 20000
+}
+
+#aPropos a {
+	/* font-weight: bold; */
+	color:#004494;
+	/* border-bottom: solid 0.5px; */
 }
 
 #closePopup {
