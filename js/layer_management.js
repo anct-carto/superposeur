@@ -1,3 +1,18 @@
+/*
+
+	@ File : layer_management.js
+	@ Author : Hassen Chougar, Service Cartographie du CGET
+	@ Date : 08/2019
+
+	@ For : ViZonage - Carte interactive des contrats et zonages de politiques publiques
+	@ Main file : index.html
+
+	@ Description : script d'affichage et de gestion des fichers de contrat/zonage.
+                  C'est ici qu'est paramétré l'affichage des couches et les interactions
+                  de l'utilisateur avec ces dernières.
+                  
+*/
+
 /****************************************************************************************************************/
 /******************************************* AFFICHAGE des COUCHES **********************************************/
 /****************************************************************************************************************/

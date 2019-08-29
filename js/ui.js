@@ -38,7 +38,7 @@ var interval = setInterval(function() {
         panelSlide();
         clearInterval(interval);
       }
-    }, 2500);
+    }, 2000);
 
 // sur chaque bouton, appliquer la fonction pour fermer le panneau latéral
 [homeBtn,closeBtn].forEach(function (btn) {
@@ -158,6 +158,8 @@ function getExpanded() {
 /******************************************************************************/
 /****************************** FICHE TERRITOIRE ******************************/
 /******************************************************************************/
+
+// attribut left pour faire l'animation désactivé au profit de display
 
 function showFiche() {
   // featureInfo.style.left = "25px";

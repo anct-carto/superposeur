@@ -1,3 +1,17 @@
+/*
+
+	@ File : layer_styles.js
+	@ Author : Hassen Chougar, Service Cartographie du CGET
+	@ Date : 08/2019
+
+	@ For : ViZonage - Carte interactive des contrats et zonages de politiques publiques
+	@ Main file : layer_management.js
+
+	@ Description : script d'attribution des styles graphiques aux fichers de contrat/zonage.
+
+*/
+
+
 /****************************************************************************************************************/
 /******************************************* COULEUR DOMINANTE CONTRATS/ZONAGES ********************************************/
 /****************************************************************************************************************/
@@ -8,9 +22,9 @@ let berColor = "#00235c";
 let budColor;
 let cdtColor = "#bb4454";
 let cpierColor = '#bf782b';
-let cteColor = "#42dcfa";
+let cteColor = "#17d9ff";
 let crColor = "#5b8626";
-let cvColor = "#ff7676";
+let cvColor = "#f24444";
 let zfuColor = "#be5fbe";
 let zrrColor = "#83b732";
 
@@ -68,7 +82,8 @@ let crTexture = textures.paths()
 
 let cteTexture = textures.circles()
                   .radius(2)
-                  .fill(cteColor)
+                  .fill(cteColor) // intérieur des cercles
+                  .background("rgba(23, 217, 255,0.2)") // arrière plan
                   .strokeWidth(2)
                   .stroke("#35b8f7")
                   .complement();
