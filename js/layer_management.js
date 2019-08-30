@@ -10,7 +10,7 @@
 	@ Description : script d'affichage et de gestion des fichers de contrat/zonage.
                   C'est ici qu'est paramétré l'affichage des couches et les interactions
                   de l'utilisateur avec ces dernières.
-                  
+
 */
 
 /****************************************************************************************************************/
@@ -45,13 +45,13 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
   let zonageBox = document.getElementById(layer); // récupère la checkbox correspondante
 
   zonageBox.addEventListener("change", function() { // au click ...
-    var layerChecked;
+    let layerChecked;
     svg = d3.select(mymap.getPanes().overlayPane)
             .select("svg") // sélectionne le conteneur svg créé par L.svg()
             .attr("pointer-events", "auto");
 
     // tooltip
-    var tooltip = d3.select("body").append("div")
+    let tooltip = d3.select("body").append("div")
                 .attr("class", "d3-tooltip") // modifier l'apparence dans style.css
                 .style("opacity", 0);
 
@@ -112,7 +112,7 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
           g.call(style);
 
           // nombre d'entités (à afficher ultérieurement dans le poste de légende correspondant)
-          console.log(zonages.length);
+          // console.log(zonages.length);
 
           // affichage du zonage sélectionné
           layerChecked = g.selectAll("path")
@@ -209,6 +209,7 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
                     // déselectionne l'entité
                     d3.selectAll("#previous")
                       .classed("selected",false)
+                      .style("fill-opacity","0.5")
                       .style("stroke",stroke)
                       .style("stroke-width","1");
                   });
@@ -280,10 +281,10 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
       // enlève le contrat/zonage coché
       d3.selectAll(".".concat(layer))
         .transition()
-        .duration(500)
+        .duration(250)
         .style("opacity",0)
         .transition()
-        .duration(500)
+        .duration(250)
         .remove();
 
       // enlève le poste de légende correspondant

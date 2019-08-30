@@ -119,6 +119,7 @@ libZonage.forEach(label => {
     label.addEventListener('click', function() {
       // récupère le précédent élément du label, soit l'input/checkbox
       input = label.previousElementSibling;
+      console.log(input);
       // récupère l'élément parent, soit la balise li
       li = label.parentNode;
       if (input.checked) {
@@ -141,8 +142,8 @@ function getExpanded() {
     data.forEach(d => {
       div = document.getElementById(d.ACRONYME.toLowerCase().concat("-desc"))
       div.innerHTML = "<hr><p><img src= 'css/img/download.svg' id ='pictoDescr'</img>" +
-                      "<a href='cartes/" + d.ACRONYME.toLowerCase().concat("-01.jpg") +"' target='_blank'>"+
-                      "Télécharger la carte papier</a></p>"+
+                      "<a href='cartes/" + d.ACRONYME.toLowerCase().concat("-01.jpg") +
+                      "' target='_blank'>"+ "Télécharger la carte papier</a></p>"+
                       "<p><b>Niveau(x) géographique(s) : </b>" + d.ECHELON + "</p>" +
                       "<p><b>À propos : </b>"+
                       ""+ d.DESCRIPTION_COURTE + "</p>" +
@@ -180,12 +181,12 @@ function hideFiche() {
 
 
 /******************************************************************************/
-/************************** FENETRE A PROPOS **********************************/
+/************************** FENETRE A PROPOS et iePopup **********************************/
 /******************************************************************************/
-
-var aProposBtn = document.getElementById('aPropos-btn');
-var aPropos = document.getElementById('aPropos')
-var closePopup = document.getElementById('closePopup');
+let iePopup = document.getElementById('iePopup');
+let aProposBtn = document.getElementById('aPropos-btn');
+let aPropos = document.getElementById('aPropos')
+let closePopup = document.getElementById('closePopup');
 
 // ouvre la popup
 aProposBtn.onclick = function() {
@@ -195,11 +196,27 @@ aProposBtn.onclick = function() {
 // ferme la Popup
 closePopup.onclick = function() {
   aPropos.style.display = 'none';
+  iePopup.style.display = "none";
 }
 
 // au click n'importe où dans le navigateur
 window.onclick = function(event) {
   if (event.target == aPropos) {
     aPropos.style.display = "none";
+    iePopup.style.display = "none";
+  }
+}
+
+/******************************************************************************/
+/**************************** POPUP onload ************************************/
+/******************************************************************************/
+
+window.onload = function() {
+  iePopup.style.display = "block";
+};
+
+window.onclick = function(event) {
+  if (event.target == iePopup) {
+    iePopup.style.display = "none";
   }
 }

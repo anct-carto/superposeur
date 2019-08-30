@@ -228,6 +228,17 @@ function drawCommunes() {
   })
 };
 
+
+// surligner les entités sur lesquelles passe la souris
+var highlight;
+var clearHighlight = function(layer) {
+    if (highlight) {
+      layer.resetFeatureStyle(highlight);
+    }
+    highlight = null;
+  };
+
+
 function drawBorders() {
   fetch('data/borders.topojson')
     .then(res => res.json())
@@ -343,15 +354,3 @@ function fetchLabel() {
           });
     });
 };
-
-
-
-
-// surligner les entités sur lesquelles passe la souris
-var highlight;
-var clearHighlight = function(layer) {
-    if (highlight) {
-      layer.resetFeatureStyle(highlight);
-    }
-    highlight = null;
-  };
