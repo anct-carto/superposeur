@@ -27,7 +27,6 @@ for (var i in textureArray) { // pour chaque élément du tableau ...
 };
 // /!\ toutes les variables LAYER fait référence aux ZONAGE /!\
 
-
 /****************************************************************************************************************/
 /******************************* FONCTION PRINCIPALE : GESTION DES COUCHES **************************************/
 /****************************************************************************************************************/
@@ -219,11 +218,18 @@ function showLayer(layer,style,stroke,lib) { // dans la fonction
 
                   // affichage du champ "info1" si présence de donnée
                   function info1() {
+                    console.log(d.properties.info1);
                     if (d.properties.info1 != null) {
-                      return d.properties.info1
+                      for (let lettre in d.properties.info1) {
+                        if (d.properties.info1[lettre] == '<') {
+                          return "<img src= 'css/img/link.svg' id ='pictoDescr'</img> " + d.properties.info1
+                        }
+                      }
+                      return d.properties.info1;
+
                     } else {
                       return ''
-                    }
+                    };
                   };
               }
             }).on("mouseout", function(d) {

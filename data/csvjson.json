@@ -1,0 +1,145 @@
+[
+  {
+    "ACRONYME": "ACV",
+    "NOM": "Action Coeur de Ville",
+    "LAST_MAJ": "05/2019",
+    "ECHELON": "Commune",
+    "DESCRIPTION_COURTE": "222 villes moyennes ont été retenues pour être accompagnées dans la redynamsation de leurs centres villes, depuis le conseil en amont jusqu'au suivi des de projet. Cinq milliards d'euros sont mobilisés sur 5 ans.",
+    "DESCRIPTION_LONGUE": "Lancé en décembre 2017, ce plan répond à une double ambition : améliorer les conditions de vie des habitants des villes moyennes et conforter le rôle de moteur de développement du territoire de ces dernières. Il est mis en œuvre avec les collectivités territoriales en fédérant les partenaires (Agence nationale de l’habitat, d’Action Logement, Caisse des dépôts…), au plan national comme au plan local.",
+    "DATE": 2017,
+    "RESSOURCES": "https://www.cget.gouv.fr/dossiers/action-coeur-de-ville",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "AFR",
+    "NOM": "Zonage d'Aide à Finalité Régionale",
+    "LAST_MAJ": "07/2019",
+    "ECHELON": "Commune",
+    "DESCRIPTION_COURTE": "Les zones d'aides à finalité régionales sont définies par la Commission européenne. Elles déterminent les conditions dans lesquelles l'État et les collectivités locales pourront allouer des aides à l’investissement et à la création d’emploi auprès des entreprises installées ou s'installant dans ces zones.",
+    "DESCRIPTION_LONGUE": "En France, la carte des AFR s’applique à plus de 5 000 communes, soit 24 % de la population française, et représente plus de 70 millions d’euros consacrés au développement économique des territoires en difficulté. A la suite d'une évaluation, la Commission européenne a décidé de prolonger cette réglementation jusqu’à la fin de l’année 2022.",
+    "DATE": 2014,
+    "RESSOURCES": "https://www.observatoire-des-territoires.gouv.fr/observatoire-des-territoires/fr/zones-daide-%C3%A0-finalit%C3%A9-r%C3%A9gionale",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "AMICB",
+    "NOM": "Appel à Manifestation d'Intérêt \"Centre Bourg",
+    "LAST_MAJ": "07/2019",
+    "ECHELON": "Commune",
+    "DESCRIPTION_COURTE": "Ce programme expérimental, lancé en 2014 pour la revitalisation des centres-bourgs, a retenu 54 lauréats pour une durée de 6 ans.\nL'objectif est de conforter un maillage équilibré du territoire, avec la présence de centres-bourgs vivants et animés.",
+    "DESCRIPTION_LONGUE": "Deux types de territoires sont visés : les bourgs des bassins de vie ruraux – qui ont un rôle de structuration du territoire et d’organisation de centralités de proximité, mais qui sont en perte de vitalité, et recouvrent des enjeux de requalification de l’habitat notamment – et les bourgs dans les troisièmes couronnes périurbaines – qui font face à une arrivée de nouvelles populations, à des demandes fortes en logements et services et à des besoins d’adaptation de l’habitat existant.",
+    "DATE": 2014,
+    "RESSOURCES": "http://www.centres-bourgs.logement.gouv.fr/",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "BER",
+    "NOM": "Bassins d'Emploi à Redynamiser",
+    "LAST_MAJ": "07/2019",
+    "ECHELON": "Commune",
+    "DESCRIPTION_COURTE": "La liste révisée des communes en bassin d'emploi à redynamiser a été fixée par le décret du 29 juin 2018. Elle regroupe les zones d'emploi fragilisées de la Vallée de la Meuse (Grand Est) et de Lavelanet (Occitanie). Les entreprises s'installant entre le 01/01/2007 et le 31/12/2020 dans cette zone bénéficient d'un dispositif d'exonération fiscale pour une durée de sept ans.",
+    "DESCRIPTION_LONGUE": "",
+    "DATE": "2019 par décret (dernier en date : 5 aout 2019) https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000465967",
+    "RESSOURCES": "https://www.urssaf.fr/portail/home/employeur/beneficier-dune-exoneration/exonerations-ou-aides-a-caracter/les-bassins-demplois-a-redynamis/les-entreprises-concernees.html",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "BUD",
+    "NOM": "Bassins Urbains à Dynamiser",
+    "LAST_MAJ": "07/2019",
+    "ECHELON": "Commune",
+    "DESCRIPTION_COURTE": "Les bassins urbains à dynamiser s’adressent aux créateurs de TPE et PME souhaitant démarrer une nouvelle activité dans le bassin minier du Nord-Pas-de-Calais et employant au moins 50 % de salariés résidant dans les 150 communes du bassin. En s’implantant entre le 1er janvier 2018 et le 31 décembre 2020, dans l’une des communes concernées, ils pourront bénéficier d’une exonération des impôts locaux et sur les bénéfices.",
+    "DESCRIPTION_LONGUE": "Cette mesure, déployée sur dix ans, s’inscrit dans l’Engagement pour le renouveau du bassin minier, dont le CGET assure la coordination interministérielle. Objectif : accélérer la création d’emplois dans les TPE et PME des 150 communes du bassin.",
+    "DATE": "2019 (dernière MAJ : ajout de 9 communes par modifications de critères suite à la loi de finances 2019",
+    "RESSOURCES": "https://www.cget.gouv.fr/actualites/exoneration-fiscale-pour-les-entreprises-qui-emploient-les-habitants-du-bassin-minier",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "CDT",
+    "NOM": "Contrat de Développement Territorial",
+    "LAST_MAJ": "04/2019",
+    "ECHELON": "EPCI,DEP,ARR",
+    "DESCRIPTION_COURTE": "A VENIR (MAIL ENVOYE A LA MCPT)",
+    "DESCRIPTION_LONGUE": "",
+    "DATE": "",
+    "RESSOURCES": "http://www.grand-paris.jll.fr/fr/projet-grand-paris/cdt/",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "CPIER",
+    "NOM": "Contrat de Plan Inter Régionaux",
+    "LAST_MAJ": "08/2019",
+    "ECHELON": "Bassins,massifs,vallées",
+    "DESCRIPTION_COURTE": "Le contrat de plan interrégional a pour objet d’intégrer les projets et démarches ayant une dimension interrégionale structurante à l’échelle d'un bassin fluvial (gestion de l’eau, prévention des risques à l’échelle du bassin versant) ou d'un massif montagneux (convention interrégionale de massifs destinée à valoriser les atouts des territoires de montagne). Il complète les actions des contrats de plan État-région (CPER) des régions concernées.",
+    "DESCRIPTION_LONGUE": "",
+    "DATE": 2015,
+    "RESSOURCES": "https://www.cget.gouv.fr/dossiers/contrats-de-plan-etat-region",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "CR",
+    "NOM": "Contrat de Ruralité",
+    "LAST_MAJ": "07/2019",
+    "ECHELON": "EPCI,PETR",
+    "DESCRIPTION_COURTE": "À l’instar des contrats de ville, le contrat de ruralité coordonne les moyens financiers et prévoit l’ensemble des actions et des projets à conduire en matière d’accessibilité aux services et aux soins, de développement de l’attractivité, de redynamisation des bourgs-centres, de mobilité, de transition écologique ou, encore, de cohésion sociale. Sur la période 2015-2020, six contrats ont été conclus sur les bassins hydrographiques de la Loire, de la Meuse, du Rhône de la seine de la Garonne et du Lot mobilisant au total 430 M€ de l’Etat et 242 M€ des régions. Au nombre de cinq, les conventions interrégionales de massif concernent les massifs des Alpes, du Jura, des Pyrénées, des Vosges et du Massif central. Elles mobilisent 155 M€ de l’Etat,  165M€ des régions et 50M€ des départements.",
+    "DESCRIPTION_LONGUE": "Les contrats de ruralités sont conclus entre l’État (représenté par le préfet de département) et les présidents de pôle d’équilibre territorial et rural (PETR) ou d’établissement public de coopération communale. Ils sont conclus pour une durée de six ans, avec une clause de révision à mi-parcours. En 2017, 216 millions du Fonds de soutien à l’investissement local (FSIL) sont dédiés aux contrats de ruralité. La priorité est donnée à l’investissement. L’appui à l’ingénierie est toutefois possible à hauteur de 15 % des crédits attribués.",
+    "DATE": 2016,
+    "RESSOURCES": "https://www.cget.gouv.fr/ruralites/contrat-de-ruralite",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "CTE",
+    "NOM": "Contrat de Transition Ecologique",
+    "LAST_MAJ": "08/2019",
+    "ECHELON": "EPCI",
+    "DESCRIPTION_COURTE": "Les territoires engagés dans les contrats de transition écologique sont des territoires volontaires qui parient sur l’écologie comme moteur de l’économie, et qui ont choisi de s’engager dans un changement de modèle à travers la transition écologique.",
+    "DESCRIPTION_LONGUE": "Après une première phase d’expérimentation en 2018 sur 19 territoires diversifiés en métropole et en outre-mer, il a été décidé d’étendre la démarche : 61 nouveaux territoires ont été annoncés le 09 juillet 2019. Les contrats de transition écologique sont élaborés sur la base des spécificités et des besoins de chaque territoire. Un programme d’actions opérationnelles est fixé sur 3 ou 4 ans avec des engagements précis et des objectifs de résultats, et mis en oeuvre par l'EPCI avec le soutien de l’État, de la région et du département.",
+    "DATE": 2018,
+    "RESSOURCES": "https://www.ecologique-solidaire.gouv.fr/contrat-transition-ecologique https://umap.openstreetmap.fr/fr/map/les-territoires-qui-sengagent-dans-un-contrat-de-t_215192#6/47.428/5.669",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "CV",
+    "NOM": "Contrat de ville",
+    "LAST_MAJ": "10/2018",
+    "ECHELON": "EPCI",
+    "DESCRIPTION_COURTE": "Le contrat de ville est le document unique qui permet à l'ensemble des partenaires de la politique de la ville de mettre en oeuvre localement les interventions au bénéfice d'un quartier prioritaire.",
+    "DESCRIPTION_LONGUE": "Les contrats de ville 2014-2020  fixent le cadre des futurs projets de renouvellement urbain et prévoient l'ensemble des actions à conduire pour favoriser la bonne articulation entre ces projets et le volet social de la politique de la ville. L'État et ses établissements publics, l'intercommunalité, les communes, le département et la région, ainsi que les autres acteurs institutionnels et l'ensemble de la société civile, sont parties prenantes de la démarche contractuelle à chacune de ses étapes.",
+    "DATE": 2014,
+    "RESSOURCES": "https://www.cget.gouv.fr/dossiers/contrats-de-ville",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "ZFU",
+    "NOM": "Zones Franches Urbaines",
+    "LAST_MAJ": "08/2019",
+    "ECHELON": "Infracommunal",
+    "DESCRIPTION_COURTE": "Les zones franches urbaines sont créées dans des quartiers de plus de 10 000 habitants particulièrement défavorisés au regard des critères pris en compte pour la détermination des zones de redynamisation urbaine. Leur délimitation (infracommunale) est opérée par décret en Conseil d’État. Les entreprises s’y créant ou s’y implantant d’ici le 31 décembre 2020 bénéficient d'une exonération d'impôt sur les bénéfices pendant une période de 8 ans suivant le début de l’activité, conditionnée à une clause locale d'embauche.",
+    "DESCRIPTION_LONGUE": "Dans les 100 Zones Franches Urbaines - Territoires Entrepreneurs, les entreprises s’y créant ou s’y implantant bénéficient d'une exonération d'impôt sur les bénéfices pendant une période de 8 ans suivant le début de l’activité, conditionnée à une clause locale d'embauche.",
+    "DATE": 1995,
+    "RESSOURCES": "https://sig.ville.gouv.fr/atlas/ZFU",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "ZRD",
+    "NOM": "Zones de Restructuration de la Défense",
+    "LAST_MAJ": "08/2019",
+    "ECHELON": "Commune",
+    "DESCRIPTION_COURTE": "Les zones de restructuration de la défense ont été créées afin de soutenir l'emploi dans les territoires concernés par la réorganisation des unités militaires. Les entreprises implantées ou créées pour exercer une nouvelle activité dans le périmètre d’une ZRD peuvent bénéficier d’une exonération de cotisations patronales d’assurances sociales et d’allocations familiales.",
+    "DESCRIPTION_LONGUE": "",
+    "DATE": 1995,
+    "RESSOURCES": "https://www.observatoire-des-territoires.gouv.fr/outils/cartographie-interactive/#bbox=-393277,6264819,1497103,1024411&c=indicator&i=zonage_zrd.zrd&view=map4",
+    "TELECHARGER": ""
+  },
+  {
+    "ACRONYME": "ZRR",
+    "NOM": "Zones de Revitalisation Rurale",
+    "LAST_MAJ": "08/2019",
+    "ECHELON": "EPCI",
+    "DESCRIPTION_COURTE": "Crées par la loi d’orientation pour l’aménagement et le développement du territoire du 4 février 1995, les zones de revitalisation rurale visent à aider le développement des territoires ruraux principalement à travers des mesures fiscales et sociales. Des mesures spécifiques en faveur du développement économique s'y appliquent. L'objectif est de concentrer les mesures d'aide de l'État au bénéfice des entreprises créatrices d'emplois dans les zones rurales les moins peuplées et les plus touchées par le déclin démographique et économique.",
+    "DESCRIPTION_LONGUE": "Le classement est désormais constaté à l’échelle intercommunale (toutes les communes de l’intercommunalité éligible seront classées) selon deux critères fixés par la loi : la densité de population et le revenu par habitant. Pour être classé en ZRR, depuis le 1er juillet 2017, l’EPCI doit avoir à la fois une densité de population inférieure ou égale à 63 hab/km2 et un revenu fiscal par unité de consommation médian inférieur ou égal à 19 111 €.",
+    "DATE": 1995,
+    "RESSOURCES": "https://www.observatoire-des-territoires.gouv.fr/observatoire-des-territoires/fr/zones-de-revitalisation-rurale-zrr",
+    "TELECHARGER": ""
+  }
+]

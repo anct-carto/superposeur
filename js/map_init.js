@@ -285,7 +285,7 @@ var createLabelIcon = function(labelClass,labelText){
 
 let labelReg, labelDep, labelCan;
 
-// fetchLabel();
+fetchLabel();
 
 // affichage des labels selon le zoom
 function fetchLabel() {
@@ -306,6 +306,14 @@ function fetchLabel() {
             className:"regLabels",
             rendererFactory: L.canvas()
           }).addTo(mymap);
+          pointReg = new L.geoJSON(res, {
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng)
+              },
+              filter:function(feature,layer) {
+                return feature.properties.statut == "région";
+              }
+            }).addTo(mymap);
 
         labelDep = new L.geoJSON(res, {
             pointToLayer: function (feature, latlng) {

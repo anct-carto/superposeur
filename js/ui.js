@@ -32,6 +32,9 @@ var intro = document.getElementById("intro");
 var listeZonages = document.getElementById('cat-zonages');
 let featureInfo = document.getElementById("ficheTerritoire");
 
+// attributs css
+// largeur du panneau latéral
+let panelLenght = '600px'
 // ouvrir la fenetre latérale au chargement
 var interval = setInterval(function() {
     if(document.readyState === 'complete') {
@@ -66,15 +69,15 @@ function showContent() {
 
 function panelSlide() {
   closeBtn.style.transform = 'rotate(0deg)';
-  panel.style.width = '600px';
+  panel.style.width = panelLenght;
   document.getElementById('legend').style.marginLeft = '620px'
   // déplacement du centre de la carte
   let t = setInterval(function() {
     mymap.setView([46.5, -2])
     clearInterval(t)
   },0);
-  if (panel.style.width === '620px') {
-    var x = setInterval(function () {
+  if (panel.style.width === panelLenght) {
+    let x = setInterval(function () {
       if (featureInfo.style.display == "block") {
         listeZonages.style.display = 'none';
       } else {
@@ -92,42 +95,69 @@ function panelSlide() {
 /******************************************************************************/
 
 let expandBtn = document.querySelectorAll('button.expandBtn');
+let descriptions = document.querySelectorAll('.description');
+// let expandBtn = document.querySelectorAll('button.expandBtn');
 // style description
-let descriptionStyle = 'rgba(0,0,0,0.5)';
+let descriptionStyle = 'rgba(0,0,0,0.35)';
 
 expandBtn.forEach(btn => {
   btn.addEventListener('click', function(e) {
-    // récupère l'élément situé après le bouton dans le html [div description]
-    let description = this.nextElementSibling;
-    // contrôle le css du bouton : en déroulant, le bouton devient un "-"
-    this.classList.toggle('collapsed');
     // le nom de classe devient 'expandBtn collapsed'
-    if (this.className == 'expandBtn collapsed') {
-      console.log("OUI");
-      description.style.maxHeight = '400px';
-      this.parentNode.style.background = descriptionStyle;
-    } else {
-      description.style.maxHeight = '0px'
-      this.parentNode.style.background = ''
+    let setClasses = !this.classList.contains('collapsed')
+    setClass(expandBtn,'collapsed','remove')
+    setClass(descriptions,'show','remove')
+    if (setClasses) {
+      this.classList.toggle('collapsed');
+      // récupère l'élément situé après le bouton dans le html [div description]
+      this.nextElementSibling.classList.toggle('show')
     }
   })
 });
 
+// expandBtn.forEach(btn => {
+//   btn.addEventListener('click', function(e) {
+//     // récupère l'élément situé après le bouton dans le html [div description]
+//     let description = this.nextElementSibling;
+//     // contrôle le css du bouton : en déroulant, le bouton devient un "-"
+//     this.classList.toggle('collapsed');
+//     // le nom de classe devient 'expandBtn collapsed'
+//     if (this.className == 'expandBtn collapsed') {
+//       description.style.maxHeight = '400px';
+//       this.parentNode.style.background = descriptionStyle;
+//     } else {
+//       description.style.maxHeight = '0px'
+//       this.parentNode.style.background = ''
+//     }
+//   })
+// });
+
+function setClass(els, className, fnName) {
+    for (var i = 0; i < els.length; i++) {
+        els[i].classList[fnName](className);
+    }
+}
+
 // rendu des balises <li> cliquables
 let libZonage = document.querySelectorAll('.libZonage');
+
 libZonage.forEach(label => {
     label.addEventListener('click', function() {
       // récupère le précédent élément du label, soit l'input/checkbox
       input = label.previousElementSibling;
-      console.log(input);
       // récupère l'élément parent, soit la balise li
       li = label.parentNode;
       if (input.checked) {
-        li.style.background = "";
-        label.style.borderRadius = "";
+        label.style = {
+          background:'',
+          borderRadius:''
+        }
+        label.style = ""
+        // label.style.background = "";
+        // label.style.borderRadius = "";
       } else {
-        li.style.background = descriptionStyle;
-        label.style.borderRadius = "5px";
+        label.style = "font-size: 1.1em;font-family: 'lato-bold';letter-spacing: 0.5px;"
+        label.style.background = descriptionStyle;
+        label.style.borderTopRadius = "5px";
       }
     });
 });
@@ -141,7 +171,7 @@ function getExpanded() {
   .then(data => {
     data.forEach(d => {
       div = document.getElementById(d.ACRONYME.toLowerCase().concat("-desc"))
-      div.innerHTML = "<hr><p><img src= 'css/img/download.svg' id ='pictoDescr'</img>" +
+      div.innerHTML = "<p><img src= 'css/img/download.svg' id ='pictoDescr'</img>" +
                       "<a href='cartes/" + d.ACRONYME.toLowerCase().concat("-01.jpg") +
                       "' target='_blank'>"+ "Télécharger la carte papier</a></p>"+
                       "<p><b>Niveau(x) géographique(s) : </b>" + d.ECHELON + "</p>" +
@@ -160,9 +190,9 @@ function getExpanded() {
 /****************************** FICHE TERRITOIRE ******************************/
 /******************************************************************************/
 
-// attribut left pour faire l'animation désactivé au profit de display
 
 function showFiche() {
+  // attribut "left" pour créer une animation; désactivée au profit de display
   // featureInfo.style.left = "25px";
   // var x = setInterval(function () {
   //   clearInterval(x)
@@ -208,7 +238,7 @@ window.onclick = function(event) {
 }
 
 /******************************************************************************/
-/**************************** POPUP onload ************************************/
+/************************* POPUP au chargement ********************************/
 /******************************************************************************/
 
 window.onload = function() {

@@ -14,59 +14,58 @@
 
 */
 
-/* /////////////////////////////// boutons //////////////////////////////// */
+/* reset design boutons */
 button {
-	border-top-left-radius:5px;
-	border-top-right-radius:5px;
-	background: #004494;
-	padding: 15px;
-	border: none;
-	border-bottom: 0.5px solid rgba(255,255,255,0.5);
-	-moz-border-bottom: 0.5px solid rgba(255,255,255,0.5);
+	padding: 0px;
 	outline: 0px;
+	border: none;
+	cursor: pointer;
+	transition: .2s;
+	background: rgba(0,0,0,0)
+}
+
+/* /////////////////////////////// boutons sidebar //////////////////////////////// */
+
+.sidebarBtns {
+	background: rgba(0,0,0,0);
+	padding: 10px;
 	text-align: center;
 	cursor: pointer;
 }
 
-button:hover {
+.sidebarBtns:hover {
 	background-color: rgba(0,0,0,0.2);
 	transition-duration: 0.4s;
 }
 
-.aPropos-btn {
-	border-top: 0.5px solid rgba(255,255,255,0.5);
-	-moz-border-top: 0.5px solid rgba(255,255,255,0.5);
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-	background: #096d7f
+#homeBtn {
+	border-bottom: 0.5px solid rgba(255,255,255,0.5);
 }
 
-.github-btn {
-	background: #096d7f;
+/* bouton du bas "a propos" et "github" */
+#aPropos-btn {
+	border-top: 0.5px solid rgba(255,255,255,0.5);
+	border-bottom: 0.5px solid rgba(255,255,255,0.5);
+}
+
+#github-btn {
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-bottom: none;
 }
 
-/* bouton du bas "a propos" et "github" */
-.sidebar-bottom {
+#github-btn,#aPropos-btn  {
 	bottom: 0;
-	position: absolute;
-}
-
-a {
-  text-decoration: none;
-  color:white;
 }
 
 /*/////////////////////////// barre latérale  ////////////////////////////////*/
 #sidebar,#sidebar-panel {
 	margin:0.50%;
 	border-radius:5px;
-	position: absolute;
-	background: linear-gradient(#004494, #096d7f);
-	height: 98.2%;
-	z-index: 500;
+	position:absolute;
+	background:linear-gradient(#004494, #096d7f);
+	height:98.2%;
+	z-index:500;
   box-shadow: 0.05px 0 5px rgba(0,0,0,.5);
   -webkit-box-shadow: 0.05px 0 5px rgba(0,0,0,.5); /* chromium based browsers */
   -moz-box-shadow: 0.05px 0 5px rgba(0,0,0,.5); /* firefox */
@@ -83,5 +82,4 @@ a {
   overflow-y: scroll;
   transition: width 0.35s ease-in-out ;
 	border-radius: 5px;
-  /* border-radius: 5px 5px 5px 5px; */
 }
